@@ -1,6 +1,8 @@
 #include "header.h"
 
 
+// ceci est un test
+
 int main()
 {
     // Déclaration des pointeurs sur BITMAP devant recevoir des images
