@@ -1,8 +1,12 @@
 # depslib dependency file v1.0
-1586341705 source:d:\ece\projet_infos2\infos2_octave_margaux_clément\main.c
+1586344955 source:d:\ece\projet_infos2\infos2_octave_margaux_clément\main.c
 	"header.h"
 
-1586341687 d:\ece\projet_infos2\infos2_octave_margaux_clément\header.h
+1586344955 d:\ece\projet_infos2\infos2_octave_margaux_clément\header.h
 	<stdio.h>
 	<stdlib.h>
+	<allegro.h>
+
+1586344955 source:d:\ece\projet_infos2\infos2_octave_margaux_clément\chargementbitmaps.c
+	"header.h"
 
