@@ -2,9 +2,9 @@
 
 void iniseqMech(t_sequence tab[3])
 {
-    tab[0].nomimage="pp1.bmp";
-    tab[1].nomimage="pp2.bmp";
-    tab[2].nomimage="pp3.bmp";
+    tab[0].nomimage="image/petitponey/pp1.bmp";
+    tab[1].nomimage="image/petitponey/pp2.bmp";
+    tab[2].nomimage="image/petitponey/pp3.bmp";
     int j;
     for(j=0;j<3;j++)
     {
