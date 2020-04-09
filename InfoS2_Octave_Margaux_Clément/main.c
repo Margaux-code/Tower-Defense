@@ -3,12 +3,13 @@
 
 int main()
 {
+    // Lancer allegro et le mode graphique
+    initalisation();
+
     // Déclaration des pointeurs sur BITMAP devant recevoir des images
     BITMAP *terrain1;
     BITMAP *TESTterrain1;
 
-    // Lancer allegro et le mode graphique
-    initalisation();
     // Chargement des images (l'allocation a lieu en même temps)
     terrain1 = load_bitmap_check ("image/terrain/terrainlvl1.bmp");
     TESTterrain1 = load_bitmap_check ("image/terrain/ligneterrainlvl1.bmp");
