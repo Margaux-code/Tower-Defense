@@ -10,3 +10,17 @@
 1586344955 source:d:\ece\projet_infos2\infos2_octave_margaux_clément\chargementbitmaps.c
 	"header.h"
 
+1586351631 source:c:\users\octav\onedrive\bureau\tower-defense\infos2_octave_margaux_clément\chargementbitmaps.c
+	"header.h"
+
+1586435876 c:\users\octav\onedrive\bureau\tower-defense\infos2_octave_margaux_clément\header.h
+	<stdio.h>
+	<stdlib.h>
+	<allegro.h>
+
+1586436363 source:c:\users\octav\onedrive\bureau\tower-defense\infos2_octave_margaux_clément\main.c
+	"header.h"
+
+1586436381 source:c:\users\octav\onedrive\bureau\tower-defense\infos2_octave_margaux_clément\initialisation.c
+	"header.h"
+

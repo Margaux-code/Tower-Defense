@@ -1,8 +1,6 @@
 #include "header.h"
 
 
-// ceci est un test
-
 int main()
 {
     // Déclaration des pointeurs sur BITMAP devant recevoir des images
@@ -10,17 +8,7 @@ int main()
     BITMAP *TESTterrain1;
 
     // Lancer allegro et le mode graphique
-    allegro_init();
-    install_keyboard();
-
-    set_color_depth(desktop_color_depth());
-    if (set_gfx_mode(GFX_AUTODETECT_WINDOWED,800,600,0,0)!=0)
-    {
-        allegro_message("prb gfx mode");
-        allegro_exit();
-        exit(EXIT_FAILURE);
-    }
-
+    initalisation();
     // Chargement des images (l'allocation a lieu en même temps)
     terrain1 = load_bitmap_check ("image/terrain/terrainlvl1.bmp");
     TESTterrain1 = load_bitmap_check ("image/terrain/ligneterrainlvl1.bmp");
