@@ -24,25 +24,6 @@ typedef struct sequence // structure pour recuperer image poney
 } t_sequence;
 
 
-void initalisation();
-
-/// affichage graphique ///
-BITMAP * load_bitmap_check(char *nomImage);  // Charger une bitmap
-
-/// affichage poney ///
-void inimagMech1(t_sequence tab[3]);
-void iniseqMech(t_sequence tab[3]);
-
-
-
-
-typedef enum e_forme e_forme;
-enum e_forme
-{
-    NUAGE=0,ARC_EN_CIEL=1,BONBON=2
-
-};
-
 typedef struct t_missile t_missile;
 struct t_missile
 {
@@ -67,5 +48,26 @@ struct t_tour
     t_missile missile;
 
 };
+
+void initalisation();
+
+/// affichage graphique ///
+BITMAP * load_bitmap_check(char *nomImage);  // Charger une bitmap
+
+/// affichage poney ///
+void inimagMech1(t_sequence tab[3]);
+void iniseqMech(t_sequence tab[3]);
+
+
+
+
+typedef enum e_forme e_forme;
+enum e_forme
+{
+    NUAGE=0,ARC_EN_CIEL=1,BONBON=2
+
+};
+
+
 
 #endif // HEADER_H_INCLUDED
