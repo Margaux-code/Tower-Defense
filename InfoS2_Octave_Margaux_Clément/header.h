@@ -23,6 +23,18 @@ typedef struct sequence // structure pour recuperer image poney
     BITMAP* img[80];    // tableau de pointeurs pour indiquer les images
 } t_sequence;
 
+typedef struct poney
+{
+    int posx;
+    int posy;
+    int depx;
+    int depy;
+    int tx;
+    int ty;
+    int ptsdebonheur;
+    t_sequence img;
+}
+
 
 typedef struct t_missile t_missile;
 struct t_missile
@@ -65,7 +77,6 @@ typedef enum e_forme e_forme;
 enum e_forme
 {
     NUAGE=0,ARC_EN_CIEL=1,BONBON=2
-
 };
 
 
