@@ -126,6 +126,86 @@ int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i)
     return i;
 }
 
+void affichageMech(t_poney act[100],int nbAct)
+{
+    int j,i;
+    for (j=0;j<nbAct;j++)
+    {
+        if(act[j].depx>0)
+        {
+            if(act[j].depy == 0)
+            {
+                for(i=0;i<4;i++)
+                {
+                    act[j].numImg[i]=i+8;
+                }
+            }
+            else if(act[j].depy > 0)
+            {
+                for(i=0;i<4;i++)
+                {
+                    act[j].numImg[i]=i+12;
+                }
+            }
+            else if(act[j].depy < 0)
+            {
+                for(i=0;i<4;i++)
+                {
+                    act[j].numImg[i]=i+4;
+                }
+            }
+        }
+        else if(act[j].depx < 0)
+        {
+            if(act[j].depy == 0)
+            {
+                for(i=0;i<4;i++)
+                {
+                    act[j].numImg[i]=i+24;
+                }
+            }
+            else if(act[j].depy > 0)
+            {
+                for(i=0;i<4;i++)
+                {
+                    act[j].numImg[i]=i+20;
+                }
+            }
+            else if(act[j].depy < 0)
+            {
+                for(i=0;i<4;i++)
+                {
+                    act[j].numImg[i]=i+28;
+                }
+            }
+        }
+        else if (act[j].depx == 0)
+        {
+            if(act[j].depy == 0)
+            {
+                for(i=0;i<4;i++)
+                {
+                    act[j].numImg[i]=11;
+                }
+            }
+            else if(act[j].depy > 0)
+            {
+                for(i=0;i<4;i++)
+                {
+                    act[j].numImg[i]=i+16;
+                }
+            }
+            else if(act[j].depy < 0)
+            {
+                for(i=0;i<4;i++)
+                {
+                    act[j].numImg[i]=i;
+                }
+            }
+        }
+    }
+}
+
 
 
 

@@ -35,14 +35,16 @@ int main()
 
     while (!key[KEY_ESC])
     {
-        if (i==32)
+        affichageMech(acteur,nbActeur);
+        if (i==4)
         {
             i=0;
         }
         blit(terrain1, page, 0,0,0,0, terrain1->w, terrain1->h);
         for(j=0;j<nbActeur;j++)
         {
-            draw_sprite(page,acteur[j].seq.img[i], j*64, j*64);
+            //allegro_message("yoyo");
+            draw_sprite(page,acteur[j].seq.img[acteur[j].numImg[i]], j*64, j*64);
             //allegro_message("yoyo");
         }
         blit(page,screen,0,0,0,0,800,600);

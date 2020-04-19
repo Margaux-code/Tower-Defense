@@ -36,6 +36,7 @@ typedef struct poney
     int ptsdebonheur;
     int val;
     t_sequence seq;
+    int numImg[4] ;
 }t_poney;
 
 
@@ -73,9 +74,11 @@ BITMAP * load_bitmap_check(char *nomImage);  // Charger une bitmap
 void inimagMech1(t_sequence tab[3]);
 void iniseqMech(t_sequence tab[3]);
 void iniMech(t_poney tab[3],t_sequence t[3]);
+void affichageMech(t_poney act[100],int nbAct);
 
 /// creation tableau acteur ///
 int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i);
+
 
 typedef enum e_forme e_forme;
 enum e_forme
