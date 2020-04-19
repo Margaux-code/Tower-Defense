@@ -20,14 +20,18 @@ int main()
 
     t_sequence tab[3]; // Declaration du tableau avec sequence image poney
     t_poney pon[3]; // Declaration du tableau avec les différentes sorte de poney
+    t_poney acteur[100];
+    int nbActeur;
     inimagMech1(tab);
     iniMech(pon,tab);
-
+    nbActeur = creaTabActeur(acteur,pon,nbActeur);
+    printf("%d",nbActeur);
     // Chargement des images (l'allocation a lieu en même temps)
     terrain1 = load_bitmap_check ("image/terrain/terrainlvl1.bmp");
     TESTterrain1 = load_bitmap_check ("image/terrain/ligneterrainlvl1.bmp");
 
     int i=0;
+    int j;
 
     while (!key[KEY_ESC])
     {
@@ -36,9 +40,11 @@ int main()
             i=0;
         }
         blit(terrain1, page, 0,0,0,0, terrain1->w, terrain1->h);
-        draw_sprite(page,pon[0].seq.img[i], pon[0].posx, pon[0].posy);
-        draw_sprite(page,pon[1].seq.img[i], pon[1].posx, pon[1].posy);
-        draw_sprite(page,pon[2].seq.img[i], pon[2].posx, pon[2].posy);
+        for(j=0;j<nbActeur;j++)
+        {
+            draw_sprite(page,acteur[j].seq.img[i], j*64, j*64);
+            //allegro_message("yoyo");
+        }
         blit(page,screen,0,0,0,0,800,600);
         i++;
         rest(100);

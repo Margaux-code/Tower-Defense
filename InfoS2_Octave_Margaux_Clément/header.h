@@ -75,7 +75,7 @@ void iniseqMech(t_sequence tab[3]);
 void iniMech(t_poney tab[3],t_sequence t[3]);
 
 /// creation tableau acteur ///
-void creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int niv,int i);
+int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i);
 
 typedef enum e_forme e_forme;
 enum e_forme
