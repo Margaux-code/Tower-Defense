@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <allegro.h>
+#include <time.h>
 #define nb_tour 3
 #define rayon_nuage 50
 #define tire_nuage 3
@@ -72,6 +73,9 @@ BITMAP * load_bitmap_check(char *nomImage);  // Charger une bitmap
 void inimagMech1(t_sequence tab[3]);
 void iniseqMech(t_sequence tab[3]);
 void iniMech(t_poney tab[3],t_sequence t[3]);
+
+/// creation tableau acteur ///
+void creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int niv,int i);
 
 typedef enum e_forme e_forme;
 enum e_forme

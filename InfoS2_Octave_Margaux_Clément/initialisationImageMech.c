@@ -93,7 +93,37 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[2].seq = t[2];
 }
 
-
+void creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int niv,int i)
+{
+    niv = 20;
+    i=0;
+    int compt=0;
+    int type;
+    while(compt<niv)
+    {
+        if (compt<niv-2)
+        {
+            type = rand()%(2 -(0)+1);
+            acteur[i]=typeperso[type];
+            i++;
+            compt = compt+type+1;
+        }
+        if (compt = niv-2)
+        {
+            type = rand()%(1 -(0)+1);
+            acteur[i]=typeperso[type];
+            i++;
+            compt = compt+type+1;
+        }
+        if (compt = niv-1)
+        {
+            type = 0;
+            acteur[i]=typeperso[type];
+            i++;
+            compt = compt+type+1;
+        }
+    }
+}
 
 
 
