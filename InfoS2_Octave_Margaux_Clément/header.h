@@ -20,7 +20,8 @@ typedef struct sequence // structure pour recuperer image poney
     int nimg;        // nombre d'images dans la séquence
     int tx,ty;       // largeur et hauteur des images de la séquence
     int ncol;        // nbr images cotes à cotes horizontalement dans le fichier image
-    BITMAP* img[80];    // tableau de pointeurs pour indiquer les images
+    int inix;          // coordonnée de la premiere image
+    BITMAP* img[32];    // tableau de pointeurs pour indiquer les images
 } t_sequence;
 
 typedef struct poney
@@ -32,8 +33,9 @@ typedef struct poney
     int tx;
     int ty;
     int ptsdebonheur;
-    t_sequence img;
-}
+    int val;
+    t_sequence seq;
+}t_poney;
 
 
 typedef struct t_missile t_missile;
@@ -69,16 +71,13 @@ BITMAP * load_bitmap_check(char *nomImage);  // Charger une bitmap
 /// affichage poney ///
 void inimagMech1(t_sequence tab[3]);
 void iniseqMech(t_sequence tab[3]);
-
-
-
+void iniMech(t_poney tab[3],t_sequence t[3]);
 
 typedef enum e_forme e_forme;
 enum e_forme
 {
     NUAGE=0,ARC_EN_CIEL=1,BONBON=2
 };
-
 
 
 #endif // HEADER_H_INCLUDED

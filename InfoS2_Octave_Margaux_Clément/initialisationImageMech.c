@@ -8,11 +8,14 @@ void iniseqMech(t_sequence tab[3])
     int j;
     for(j=0;j<3;j++)
     {
-        tab[j].nimg = 80;
-        tab[j].ncol = 10;
+        tab[j].nimg = 32;
+        tab[j].ncol = 4;
         tab[j].tx = 64;
         tab[j].ty = 64;
     }
+    tab[0].inix = 0;
+    tab[1].inix = 192;
+    tab[2].inix = 0;
 }
 
 void inimagMech1(t_sequence tab[3])// credit M.Fercoq
@@ -41,7 +44,7 @@ void inimagMech1(t_sequence tab[3])// credit M.Fercoq
         tab[j].img[i]=create_bitmap(tab[j].tx,tab[j].ty);
 
         // récupérer image
-        sx=ix*tab[j].tx;
+        sx=ix*tab[j].tx+tab[j].inix;
         sy=iy*tab[j].ty;
         blit(source,tab[j].img[i],sx,sy,0,0,tab[j].tx,tab[j].ty);
 
@@ -56,3 +59,43 @@ void inimagMech1(t_sequence tab[3])// credit M.Fercoq
     destroy_bitmap(source);
     }
 }
+
+void iniMech(t_poney tab[3],t_sequence t[3])
+{
+    tab[0].depx =3;
+    tab[0].depy =0;
+    tab[0].tx =64;
+    tab[0].ty =64;
+    tab[0].posx =0;
+    tab[0].posy =200;
+    tab[0].ptsdebonheur =500;
+    tab[0].val = 1;
+    tab[0].seq = t[0];
+
+    tab[1].depx =5;
+    tab[1].depy =0;
+    tab[1].tx =64;
+    tab[1].ty =64;
+    tab[1].posx =200;
+    tab[1].posy =200;
+    tab[1].ptsdebonheur =300;
+    tab[1].val = 2;
+    tab[1].seq = t[1];
+
+    tab[2].depx =10;
+    tab[2].depy =0;
+    tab[2].tx =64;
+    tab[2].ty =64;
+    tab[2].posx =100;
+    tab[2].posy =200;
+    tab[2].ptsdebonheur =100;
+    tab[2].val = 3;
+    tab[2].seq = t[2];
+}
+
+
+
+
+
+
+
