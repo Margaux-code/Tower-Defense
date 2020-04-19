@@ -1,6 +1,5 @@
 #include "header.h"
 
-
 int main()
 
 {
@@ -44,6 +43,8 @@ int main()
         for(j=0;j<nbActeur;j++)
         {
             //allegro_message("yoyo");
+            rectfill(page,j*64+2,j*64-5,j*64+62,j*64,makecol(0,0,0));
+            rectfill(page,j*64+4,j*64-4,j*64+i*15,j*64-1,makecol(0,255,0));
             draw_sprite(page,acteur[j].seq.img[acteur[j].numImg[i]], j*64, j*64);
             //allegro_message("yoyo");
         }
