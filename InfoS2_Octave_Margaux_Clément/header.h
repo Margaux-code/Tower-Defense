@@ -15,6 +15,11 @@ BITMAP *decor;
 BITMAP *b_tour[nb_tour];
 BITMAP * b_missile[nb_tour];
 
+void boucle_de_jeu();
+void regles_du_jeu();
+void menu_jeu();
+void jeu_presentation();
+
 typedef struct sequence // structure pour recuperer image poney
 {
     char* nomimage;
