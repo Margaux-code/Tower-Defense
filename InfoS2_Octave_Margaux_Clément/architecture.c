@@ -34,7 +34,7 @@ void boucle_de_jeu()
     menu_jeu();
 }
 
-void initialiser_niveau(int a)
+void initialiser_niveau(int a) // LE a représente le niveau
 {
     decor=load_bitmap("decors/decor%d.bmp",a);
     if (!decor)
@@ -46,7 +46,7 @@ void initialiser_niveau(int a)
     
 }
 
-void cinematique(int b)
+void cinematique(int b) // LE b représente le niveau
 {
      histoire=load_bitmap("cinematique%d.bmp",b);
     if (!histoire)
