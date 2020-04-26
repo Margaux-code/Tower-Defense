@@ -10,15 +10,30 @@
 #define tire_nuage 3
 #define ralentir_nuage 1
 #define vitesse_missile_nuage 10
-BITMAP *page;
-BITMAP *decor;
-BITMAP *b_tour[nb_tour];
-BITMAP * b_missile[nb_tour];
+BITMAP *page; // Double buffer
+BITMAP *decor; // Décor en fonction des niveaux
+BITMAP *petitsponey; //Page de chargement du jeu décor
+BITMAP *b_tour[nb_tour]; //Tour en fonction du style de la tour
+BITMAP * b_missile[nb_tour]; //Type de missile en fonction du style de tour
+BITMAP *regles; // Page des règles du jeu
+BITMAP *menu;// Page du menu du jeu
+BITMAP *histoire;// Page de cinematique du jeu
+BITMAP *niveau; // Interface du niveau 
 
+
+
+// SOus programme de l'architecture du jeu
 void boucle_de_jeu();
 void regles_du_jeu();
 void menu_jeu();
 void jeu_presentation();
+void choix_niveau();
+void initialiser_niveau(int a);
+void cinematique(int b);
+// Sous programme tours
+void initialise_tour(t_tour * nuage);
+
+
 
 typedef struct sequence // structure pour recuperer image poney
 {
