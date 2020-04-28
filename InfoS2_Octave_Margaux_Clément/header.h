@@ -18,7 +18,7 @@ BITMAP * b_missile[nb_tour]; //Type de missile en fonction du style de tour
 BITMAP *regles; // Page des règles du jeu
 BITMAP *menu;// Page du menu du jeu
 BITMAP *histoire;// Page de cinematique du jeu
-BITMAP *niveau; // Interface du niveau 
+BITMAP *niveau; // Interface du niveau
 
 
 
@@ -30,9 +30,6 @@ void jeu_presentation();
 void choix_niveau();
 void initialiser_niveau(int a);
 void cinematique(int b);
-// Sous programme tours
-void initialise_tour(t_tour * nuage);
-
 
 
 typedef struct sequence // structure pour recuperer image poney
@@ -85,7 +82,11 @@ struct t_tour
 
 };
 
+
 void initalisation();
+
+// Sous programme tours
+void initialise_tour(t_tour * nuage);
 
 /// affichage graphique ///
 BITMAP * load_bitmap_check(char *nomImage);  // Charger une bitmap

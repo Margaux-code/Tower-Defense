@@ -10,7 +10,7 @@
 
 t_poney Deplacement(t_poney poney, BITMAP* TEST)
 {
-    int vitesse;                            // les couleurs sont assosié à une direction
+    int vitesse;         // les couleurs sont assosié à une direction
     int Rdroite = makecol(255,0,0);
     int Vhaut = makecol(0,255,0);
     int Bbas = makecol(0,0,255);
@@ -34,8 +34,8 @@ t_poney Deplacement(t_poney poney, BITMAP* TEST)
         poney.depy = vitesse;
     }
 
-poney.posx = poney.posx + poney.depx;              //On déplace l'unitée
-poney.posy = poney.posy + poney.depy;
+    poney.posx = poney.posx + poney.depx;              //On déplace l'unitée
+    poney.posy = poney.posy + poney.depy;
 
     if ((poney.depx == 0) && (poney.depy ==0))        // il est arrivé qu'un pixel ne soit pas exactement de la bonne couleur, dans ce cas on change de pixel
     {

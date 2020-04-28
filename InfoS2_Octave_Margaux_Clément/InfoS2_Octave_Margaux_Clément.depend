@@ -13,18 +13,24 @@
 1587316951 source:c:\users\octav\onedrive\bureau\tower-defense\infos2_octave_margaux_clément\chargementbitmaps.c
 	"header.h"
 
-1587324509 c:\users\octav\onedrive\bureau\tower-defense\infos2_octave_margaux_clément\header.h
+1588096651 c:\users\octav\onedrive\bureau\tower-defense\infos2_octave_margaux_clément\header.h
 	<stdio.h>
 	<stdlib.h>
 	<allegro.h>
 	<time.h>
 
-1587326454 source:c:\users\octav\onedrive\bureau\tower-defense\infos2_octave_margaux_clément\main.c
+1588096857 source:c:\users\octav\onedrive\bureau\tower-defense\infos2_octave_margaux_clément\main.c
 	"header.h"
 
 1587241658 source:c:\users\octav\onedrive\bureau\tower-defense\infos2_octave_margaux_clément\initialisation.c
 	"header.h"
 
 1587327669 source:c:\users\octav\onedrive\bureau\tower-defense\infos2_octave_margaux_clément\initialisationimagemech.c
+	"header.h"
+
+1588096486 source:c:\users\octav\onedrive\bureau\tower-defense\infos2_octave_margaux_clément\deplacements.c
+	"header.h"
+
+1588096876 source:c:\users\octav\onedrive\bureau\tower-defense\infos2_octave_margaux_clément\architecture.c
 	"header.h"
 

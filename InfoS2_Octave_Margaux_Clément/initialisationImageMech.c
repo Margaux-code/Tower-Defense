@@ -67,7 +67,7 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[0].tx =64;
     tab[0].ty =64;
     tab[0].posx =0;
-    tab[0].posy =200;
+    tab[0].posy =400;
     tab[0].ptsdebonheur =500;
     tab[0].val = 1;
     tab[0].seq = t[0];
@@ -76,8 +76,8 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[1].depy =0;
     tab[1].tx =64;
     tab[1].ty =64;
-    tab[1].posx =200;
-    tab[1].posy =200;
+    tab[1].posx =0;
+    tab[1].posy =500;
     tab[1].ptsdebonheur =300;
     tab[1].val = 2;
     tab[1].seq = t[1];
@@ -86,8 +86,8 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[2].depy =0;
     tab[2].tx =64;
     tab[2].ty =64;
-    tab[2].posx =100;
-    tab[2].posy =200;
+    tab[2].posx =0;
+    tab[2].posy =450;
     tab[2].ptsdebonheur =100;
     tab[2].val = 3;
     tab[2].seq = t[2];

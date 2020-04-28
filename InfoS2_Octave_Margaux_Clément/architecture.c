@@ -1,13 +1,30 @@
 #include "header.h"
 
-
-
-
 void boucle_de_jeu()
 {
-    
-    
-    
+    // Déclaration des pointeurs sur BITMAP devant recevoir des images
+    BITMAP *terrain1;
+    BITMAP *TESTterrain1;
+    BITMAP *page;
+    page = create_bitmap(SCREEN_W,SCREEN_H);
+    decor=create_bitmap(SCREEN_W,SCREEN_H);
+
+     // Initialisation des poney
+
+    t_sequence tab[3]; // Declaration du tableau avec sequence image poney
+    t_poney pon[3]; // Declaration du tableau avec les différentes sorte de poney
+    t_poney acteur[100];
+    int nbActeur;
+    inimagMech1(tab);
+    iniMech(pon,tab);
+    nbActeur = creaTabActeur(acteur,pon,nbActeur);
+    printf("%d",nbActeur);
+    // Chargement des images (l'allocation a lieu en même temps)
+    terrain1 = load_bitmap_check ("image/terrain/terrainlvl1.bmp");
+    TESTterrain1 = load_bitmap_check ("image/terrain/ligneterrainlvl1.bmp");
+
+    int i=0;
+    int j;
     while(!key[KEY_ESC] )
     {
         affichageMech(acteur,nbActeur);
@@ -42,8 +59,8 @@ void initialiser_niveau(int a) // LE a représente le niveau
         allegro_message("pas pu trouver fond_ecran.bmp");
         exit(EXIT_FAILURE);
     }
-    
-    
+
+
 }
 
 void cinematique(int b) // LE b représente le niveau
