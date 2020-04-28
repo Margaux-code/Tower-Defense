@@ -5,16 +5,19 @@ void boucle_de_jeu()
     // Déclaration des pointeurs sur BITMAP devant recevoir des images
     BITMAP *terrain1;
     BITMAP *TESTterrain1;
-    BITMAP *page;
-    page = create_bitmap(SCREEN_W,SCREEN_H);
+    BITMAP *anim;
     decor=create_bitmap(SCREEN_W,SCREEN_H);
-
+    anim=create_bitmap(SCREEN_W,SCREEN_H);
      // Initialisation des poney
 
     t_sequence tab[3]; // Declaration du tableau avec sequence image poney
     t_poney pon[3]; // Declaration du tableau avec les différentes sorte de poney
     t_poney acteur[100];
-    int nbActeur;
+    t_poney yo;
+    int nbActeur; // nombre d'acteur totale depuis le debut du niveau
+    int nbActeurAff; //nombre d'acteur afficher depuis le debut du niveau
+    int compt=1;
+    int nbrParVague;
     inimagMech1(tab);
     iniMech(pon,tab);
     nbActeur = creaTabActeur(acteur,pon,nbActeur);
@@ -23,8 +26,12 @@ void boucle_de_jeu()
     terrain1 = load_bitmap_check ("image/terrain/terrainlvl1.bmp");
     TESTterrain1 = load_bitmap_check ("image/terrain/ligneterrainlvl1.bmp");
 
+    yo = pon[2];
+    yo.depx = 2;
+    yo.depy = 2;
     int i=0;
     int j;
+    nbActeurAff = 2;
     while(!key[KEY_ESC] )
     {
         affichageMech(acteur,nbActeur);
@@ -32,15 +39,51 @@ void boucle_de_jeu()
         {
             i=0;
         }
-        blit(terrain1, page, 0,0,0,0, terrain1->w, terrain1->h);
-        for(j=0;j<nbActeur;j++)
+
+        if (compt %40==0 && nbActeur!=nbActeurAff)
         {
-            //allegro_message("yoyo");
-            rectfill(page,j*64+2,j*64-5,j*64+62,j*64,makecol(0,0,0));
-            rectfill(page,j*64+4,j*64-4,j*64+i*15,j*64-1,makecol(0,255,0));
-            draw_sprite(page,acteur[j].seq.img[acteur[j].numImg[i]], j*64, j*64);
-            //allegro_message("yoyo");
+            printf("la bite");
+            if(nbActeur-nbActeurAff<5)
+            {
+                nbActeurAff = nbActeur;
+                printf("finish");
+                printf("%d ", nbActeurAff);
+            }
+            if(nbActeur-nbActeurAff>=3)
+            {
+                nbrParVague= rand()%(3 -(1)+1)+1;
+                nbActeurAff = nbActeurAff+nbrParVague;
+                printf("%d ", nbrParVague);
+            }
         }
+        blit(terrain1, page, 0,0,0,0, terrain1->w, terrain1->h);
+        for(j=0;j<nbActeurAff;j++)
+        {
+            if(acteur[j].aff == 1)
+            {
+                acteur[j] = Deplacement(acteur[j], TESTterrain1);
+                rectfill(page,acteur[j].posx+2,acteur[j].posy-5,acteur[j].posx+62,acteur[j].posy,makecol(0,0,0));
+                rectfill(page,acteur[j].posx+4,acteur[j].posy-4,acteur[j].posx+i*15,acteur[j].posy-1,makecol(255,0,255));
+                draw_sprite(page,acteur[j].seq.img[acteur[j].numImg[i]],acteur[j].posx, acteur[j].posy);
+            }
+
+            //allegro_message("yoyo");
+            acteur[j].posx = acteur[j].posx + acteur[j].depx;              //On déplace l'unitée
+            acteur[j].posy = acteur[j].posy + acteur[j].depy;
+            if (acteur[j].posx>=750)
+            {
+                acteur[j].aff=0;
+            }
+
+        }
+        compt++;
+/*
+        if ((poney.depx == 0) && (poney.depy ==0))        // il est arrivé qu'un pixel ne soit pas exactement de la bonne couleur, dans ce cas on change de pixel
+        {
+            poney.posx = poney.posx + 1;
+            poney.depx = vitesse;
+        }
+*/
         blit(page,screen,0,0,0,0,800,600);
         i++;
         rest(100);
@@ -51,6 +94,7 @@ void boucle_de_jeu()
     menu_jeu();
 }
 
+/*
 void initialiser_niveau(int a) // LE a représente le niveau
 {
     decor=load_bitmap("decors/decor%d.bmp",a);
@@ -62,7 +106,8 @@ void initialiser_niveau(int a) // LE a représente le niveau
 
 
 }
-
+*/
+/*
 void cinematique(int b) // LE b représente le niveau
 {
      histoire=load_bitmap("cinematique%d.bmp",b);
@@ -76,7 +121,7 @@ void cinematique(int b) // LE b représente le niveau
     rest(1000);
     boucle_de_jeu();
 }
-
+*/
 
 void choix_niveau()
 {
@@ -97,8 +142,9 @@ if (key[KEY_1])
     key[KEY_3]=0;
     key[KEY_4]=0;
     a=1;
-    initialiser_niveau(a);
-    cinematique(a);
+    boucle_de_jeu();
+    //initialiser_niveau(a);
+    //cinematique(a);
 }
 if (key[KEY_2])
 {
@@ -107,8 +153,8 @@ if (key[KEY_2])
     key[KEY_3]=0;
     key[KEY_4]=0;
     a=2;
-    initialiser_niveau(a);
-    cinematique(a);
+    //initialiser_niveau(a);
+    //cinematique(a);
 }
 if (key[KEY_3])
 {
@@ -117,8 +163,8 @@ if (key[KEY_3])
     key[KEY_3]=0;
     key[KEY_4]=0;
     a=3;
-    initialiser_niveau(a);
-    cinematique(a);
+    //initialiser_niveau(a);
+    //cinematique(a);
 }
 
 

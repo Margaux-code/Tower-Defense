@@ -20,7 +20,7 @@ t_poney Deplacement(t_poney poney, BITMAP* TEST)
     poney.depx = 0;                                     // ses déplacements sont remis à 0
     poney.depy = 0;
 
-    test = getpixel(TEST, poney.posx, poney.posy);      // on regarde la couleur de la zone où l'on est
+    test = getpixel(TEST, poney.posx+50, poney.posy+50);      // on regarde la couleur de la zone où l'on est
     if (Rdroite == test)                                // en fonction de la couleur, un déplacement est associé
     {
         poney.depx = vitesse;
@@ -33,16 +33,8 @@ t_poney Deplacement(t_poney poney, BITMAP* TEST)
     {
         poney.depy = vitesse;
     }
-
     poney.posx = poney.posx + poney.depx;              //On déplace l'unitée
     poney.posy = poney.posy + poney.depy;
-
-    if ((poney.depx == 0) && (poney.depy ==0))        // il est arrivé qu'un pixel ne soit pas exactement de la bonne couleur, dans ce cas on change de pixel
-    {
-        poney.posx = poney.posx + 1;
-        poney.depx = vitesse;
-    }
-
 
 return poney;
 }

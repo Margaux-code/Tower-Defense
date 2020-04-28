@@ -20,18 +20,6 @@ BITMAP *menu;// Page du menu du jeu
 BITMAP *histoire;// Page de cinematique du jeu
 BITMAP *niveau; // Interface du niveau
 
-
-
-// SOus programme de l'architecture du jeu
-void boucle_de_jeu();
-void regles_du_jeu();
-void menu_jeu();
-void jeu_presentation();
-void choix_niveau();
-void initialiser_niveau(int a);
-void cinematique(int b);
-
-
 typedef struct sequence // structure pour recuperer image poney
 {
     char* nomimage;
@@ -51,7 +39,8 @@ typedef struct poney
     int tx;
     int ty;
     int ptsdebonheur;
-    int val;
+    int val;//attaque
+    int aff;//afficher ou non
     t_sequence seq;
     int numImg[4] ;
 }t_poney;
@@ -82,6 +71,14 @@ struct t_tour
 
 };
 
+// SOus programme de l'architecture du jeu
+void boucle_de_jeu();
+void regles_du_jeu();
+void menu_jeu();
+void jeu_presentation();
+void choix_niveau();
+void initialiser_niveau(int a);
+void cinematique(int b);
 
 void initalisation();
 
@@ -96,6 +93,7 @@ void inimagMech1(t_sequence tab[3]);
 void iniseqMech(t_sequence tab[3]);
 void iniMech(t_poney tab[3],t_sequence t[3]);
 void affichageMech(t_poney act[100],int nbAct);
+t_poney Deplacement(t_poney poney,BITMAP* TEST);
 
 /// creation tableau acteur ///
 int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i);

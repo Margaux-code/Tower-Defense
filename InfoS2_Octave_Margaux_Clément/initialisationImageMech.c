@@ -8,14 +8,14 @@ void iniseqMech(t_sequence tab[3])
     int j;
     for(j=0;j<3;j++)
     {
-        tab[j].nimg = 32;
-        tab[j].ncol = 4;
-        tab[j].tx = 64;
-        tab[j].ty = 64;
+        tab[j].nimg = 32; // nombre d'image de petit poney
+        tab[j].ncol = 4; // nombre de colonne dans l'image
+        tab[j].tx = 64; // largeur de l'image
+        tab[j].ty = 64; // hauteur de l'image
     }
-    tab[0].inix = 0;
-    tab[1].inix = 192;
-    tab[2].inix = 0;
+    tab[0].inix = 0; //debut de la sequence sur l'image 1
+    tab[1].inix = 192; //debut de la sequence sur l'image 2
+    tab[2].inix = 0; //debut de la sequence sur l'image 3
 }
 
 void inimagMech1(t_sequence tab[3])// credit M.Fercoq
@@ -67,9 +67,10 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[0].tx =64;
     tab[0].ty =64;
     tab[0].posx =0;
-    tab[0].posy =400;
+    tab[0].posy =250;
     tab[0].ptsdebonheur =500;
     tab[0].val = 1;
+    tab[0].aff = 1;
     tab[0].seq = t[0];
 
     tab[1].depx =5;
@@ -77,9 +78,10 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[1].tx =64;
     tab[1].ty =64;
     tab[1].posx =0;
-    tab[1].posy =500;
+    tab[1].posy =250;
     tab[1].ptsdebonheur =300;
     tab[1].val = 2;
+    tab[1].aff = 1;
     tab[1].seq = t[1];
 
     tab[2].depx =10;
@@ -87,9 +89,10 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[2].tx =64;
     tab[2].ty =64;
     tab[2].posx =0;
-    tab[2].posy =450;
+    tab[2].posy =250;
     tab[2].ptsdebonheur =100;
     tab[2].val = 3;
+    tab[2].aff = 1;
     tab[2].seq = t[2];
 }
 
@@ -105,23 +108,24 @@ int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i)
         {
             type = rand()%(2 -(0)+1);
             acteur[i]=typeperso[type];
-            i = i+1;
+            //i = i+1;
             compt = compt+type+1;
         }
         else if (compt == (niv-2))
         {
             type = rand()%(1 -(0)+1);
             acteur[i]=typeperso[type];
-            i = i+1;
+            //i = i+1;
             compt = compt+type+1;
         }
         else if (compt == (niv-1))
         {
             type = 0;
             acteur[i]=typeperso[type];
-            i=i+1 ;
+            //i=i+1 ;
             compt = compt+type+1;
         }
+        i++;
     }
     return i;
 }
