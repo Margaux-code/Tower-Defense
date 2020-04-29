@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <allegro.h>
 #include <time.h>
-#define nb_tour 3
+#define nb_tourmax 6
 #define rayon_nuage 50
 #define tire_nuage 3
 #define ralentir_nuage 1
@@ -13,8 +13,10 @@
 BITMAP *page; // Double buffer
 BITMAP *decor; // Décor en fonction des niveaux
 BITMAP *petitsponey; //Page de chargement du jeu décor
-BITMAP *b_tour[nb_tour]; //Tour en fonction du style de la tour
-BITMAP * b_missile[nb_tour]; //Type de missile en fonction du style de tour
+BITMAP *b_nuage; //Bitmap de la tour nuage
+BITMAP *b_arc_enciel;//BItmap de la tour arc en ciel
+BITMAP *b_bonbon;// Bitmap de la tour bonbon
+BITMAP * b_missile[nb_tourmax]; //Type de missile en fonction du style de tour
 BITMAP *regles; // Page des règles du jeu
 BITMAP *menu;// Page du menu du jeu
 BITMAP *histoire;// Page de cinematique du jeu
@@ -66,9 +68,18 @@ struct t_tour
     int rayon_action;
     int type_tour;
     int frequence_tir;
-    int ralentir;
-    t_missile missile;
 
+
+
+};
+
+typedef struct t_nuages t_nuages;
+struct t_nuages
+{
+    int pos_x;
+    int pos_y;
+    int rayon_action;
+    int ralentir;
 };
 
 // SOus programme de l'architecture du jeu
