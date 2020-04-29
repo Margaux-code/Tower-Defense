@@ -8,6 +8,10 @@ int main()
 
     initalisation();
 
+    // Pour pouvoir utiliser des chiffres aleatoire
+
+    srand(time(NULL));
+
     // Déclaration des pointeurs sur BITMAP devant recevoir des images
 
     page = create_bitmap(SCREEN_W,SCREEN_H);

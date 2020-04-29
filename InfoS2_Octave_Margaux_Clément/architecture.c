@@ -25,10 +25,6 @@ void boucle_de_jeu()
     // Chargement des images (l'allocation a lieu en même temps)
     terrain1 = load_bitmap_check ("image/terrain/terrainlvl1.bmp");
     TESTterrain1 = load_bitmap_check ("image/terrain/ligneterrainlvl1.bmp");
-
-    yo = pon[2];
-    yo.depx = 2;
-    yo.depy = 2;
     int i=0;
     int j;
     nbActeurAff = 2;
@@ -88,7 +84,6 @@ void boucle_de_jeu()
         i++;
         rest(100);
         clear_bitmap(page);
-        clear_bitmap(screen);
     }
     sauvegarde_partie(acteur,nbActeur,nbActeurAff);
     menu_jeu();

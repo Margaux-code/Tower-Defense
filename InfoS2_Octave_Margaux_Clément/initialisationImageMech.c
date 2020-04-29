@@ -89,7 +89,7 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[2].tx =64;
     tab[2].ty =64;
     tab[2].posx =0;
-    tab[2].posy =250;
+    tab[2].posy = 250;
     tab[2].ptsdebonheur =100;
     tab[2].val = 3;
     tab[2].aff = 1;
@@ -100,28 +100,33 @@ int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i)
 {
     int niv = 20;
     i = 0;
+    int pos;
     int compt=0;
     int type;
     while(compt<niv)
     {
+        pos = rand()%(270 -(245)+1)+245;
         if (compt<(niv-2))
         {
-            type = rand()%(2 -(0)+1);
+            type = rand()%(2 -(0)+1)-0;
+            printf("%d ",type);
             acteur[i]=typeperso[type];
-            //i = i+1;
+            acteur[i].posy = pos;
             compt = compt+type+1;
         }
         else if (compt == (niv-2))
         {
             type = rand()%(1 -(0)+1);
             acteur[i]=typeperso[type];
-            //i = i+1;
+            acteur[i].posy = pos;
             compt = compt+type+1;
         }
         else if (compt == (niv-1))
         {
             type = 0;
+            printf("yo %d ",type);
             acteur[i]=typeperso[type];
+            acteur[i].posy = pos;
             //i=i+1 ;
             compt = compt+type+1;
         }
