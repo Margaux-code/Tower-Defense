@@ -1,6 +1,6 @@
 #include "header.h"
 
-void boucle_de_jeu()
+void boucle_de_jeu(int niv)
 {
     // Déclaration des pointeurs sur BITMAP devant recevoir des images
     BITMAP *terrain1;
@@ -25,11 +25,36 @@ void boucle_de_jeu()
     // Chargement des images (l'allocation a lieu en même temps)
     terrain1 = load_bitmap_check ("image/terrain/terrainlvl1.bmp");
     TESTterrain1 = load_bitmap_check ("image/terrain/ligneterrainlvl1.bmp");
+<<<<<<< HEAD
+=======
+    t_nuages nuage[nb_tourmax];
+    t_tour arc_en_ciel[nb_tourmax];
+    t_tour bonbons[nb_tourmax];
+
+    int i;
+    for (i=0; i<nb_tourmax; i++)
+    {
+        nuage[i].pos_x=0;
+        nuage[i].pos_y=0;
+        arc_en_ciel[i].pos_x=150;
+        arc_en_ciel [i].pos_y=0;
+        bonbons[i].pos_x=300;
+        bonbons[i].pos_y=0;
+    }
+
+    int n=nb_tourmax;// compteur des tours nuages
+    int a=nb_tourmax; //compteur arc_en_ciel
+    int b=nb_tourmax;//compteur bonbons
+    yo = pon[2];
+    yo.depx = 2;
+    yo.depy = 2;
+>>>>>>> 36b4ca75b1888d5a633bf848c4678888897f3e09
     int i=0;
     int j;
     nbActeurAff = 2;
-    while(!key[KEY_ESC] )
+    while(!key[KEY_ESC] && (mouse_b&1 &! (mouse_x>=750 && mouse_y<=20)))
     {
+
         affichageMech(acteur,nbActeur);
         if (i==4)
         {
@@ -53,6 +78,17 @@ void boucle_de_jeu()
             }
         }
         blit(terrain1, page, 0,0,0,0, terrain1->w, terrain1->h);
+
+        //Affichage des tours
+         rectfill(page,0,0,800,70,makecol(20,20,40));
+
+        for (i=0; i<nb_tourmax; i++)
+        {
+            draw_sprite(page,b_nuage,nuage[i].pos_x,nuage[i].pos_y);
+            draw_sprite(page,b_arc_enciel,arc_en_ciel[i].pos_x,arc_en_ciel[i].pos_y);
+            draw_sprite(page,b_bonbon,bonbons[i].pos_x,bonbons[i].pos_y);
+
+        }
         for(j=0;j<nbActeurAff;j++)
         {
             if(acteur[j].aff == 1)
@@ -79,8 +115,43 @@ void boucle_de_jeu()
             poney.posx = poney.posx + 1;
             poney.depx = vitesse;
         }
+
 */
-        blit(page,screen,0,0,0,0,800,600);
+        // Drag and drop des tours
+
+        if (mouse_b&1)
+        {
+            if (mouse_x<=100 && mouse_y<=50 && n>=1)
+            {
+                do
+                {
+                    nuage[n].pos_x=mouse_x;
+                    nuage[n].pos_y=mouse_y;
+                }
+                while(mouse_b&1);
+                n--;
+            } else if (150<=mouse_x && mouse_x<=250 && mouse_y<=50 && a>=1)
+            {
+                do
+                {
+                    arc_en_ciel[a].pos_x=mouse_x;
+                    arc_en_ciel[a].pos_y=mouse_y;
+                }
+                while(mouse_b&1);
+                a--;
+            }else if (300<=mouse_x && mouse_x<=450 && mouse_y<=50 && b>=1)
+            {
+                do
+                {
+                    bonbons[b].pos_x=mouse_x;
+                    bonbons[b].pos_y=mouse_y;
+                }while(mouse_b&1);
+                b--;
+            }
+        }
+
+
+        blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
         i++;
         rest(100);
         clear_bitmap(page);
@@ -119,34 +190,60 @@ void sauvegarde_partie(t_poney tab[100],int nbPoney,int nbPoneyAff)
     }
 }
 
-/*
-void initialiser_niveau(int a) // LE a représente le niveau
+void initialiser_niveau(int niv)
 {
-    decor=load_bitmap("decors/decor%d.bmp",a);
+
+
+    decor=load_bitmap("images/decors/decor.bmp",NULL);
     if (!decor)
     {
-        allegro_message("pas pu trouver fond_ecran.bmp");
+        allegro_message("pas pu trouver decor.bmp");
+        exit(EXIT_FAILURE);
+    }
+
+    b_nuage=load_bitmap("nuage1.bmp",NULL);
+    if (!b_nuage)
+    {
+        allegro_message("pas pu trouver nuage.bmp");
+        exit(EXIT_FAILURE);
+    }
+
+    b_bonbon=load_bitmap("bonbon1.bmp",NULL);
+    if (!b_bonbon)
+    {
+        allegro_message("pas pu trouver bonbon.bmp");
+        exit(EXIT_FAILURE);
+    }
+    b_arc_enciel=load_bitmap("arc_en_ciel1.bmp",NULL);
+    if (!b_arc_enciel)
+    {
+        allegro_message("pas pu trouver arc_en_ciel1.bmp");
         exit(EXIT_FAILURE);
     }
 
 
+
+
+
+
+
 }
-*/
-/*
-void cinematique(int b) // LE b représente le niveau
+void cinematique(int niv)
 {
-     histoire=load_bitmap("cinematique%d.bmp",b);
+    histoire=load_bitmap("images/cinematiques/cinematique.bmp",NULL);
     if (!histoire)
     {
-        allegro_message("pas pu trouver cinematique.bmp");
+        allegro_message("pas pu trouver cinematiques.bmp");
         exit(EXIT_FAILURE);
     }
     blit(histoire,page,0,0,0,0,SCREEN_W,SCREEN_H);
     blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
     rest(1000);
-    boucle_de_jeu();
+    clear_bitmap(page);
+    clear_bitmap(screen);
+    boucle_de_jeu(niv);
 }
-*/
+
 
 void choix_niveau()
 {
@@ -157,7 +254,7 @@ void choix_niveau()
         textprintf_ex(page,font,30,100,makecol(250,240,0),-1,"1 2 ou 3");
         blit (page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
     }
-    while(!key[KEY_1]  &&  !key[KEY_2]  && !key[KEY_3]  && !key[KEY_4]);
+    while(!key[KEY_1]  &&  !key[KEY_2]  && !key[KEY_3]  && !key[KEY_4] && !(mouse_b&1 && mouse_x>=750 && mouse_y<=20));
 
 int a;
 if (key[KEY_1])
@@ -168,8 +265,8 @@ if (key[KEY_1])
     key[KEY_4]=0;
     a=1;
     boucle_de_jeu();
-    //initialiser_niveau(a);
-    //cinematique(a);
+    initialiser_niveau(a);
+    cinematique(a);
 }
 if (key[KEY_2])
 {
@@ -178,8 +275,8 @@ if (key[KEY_2])
     key[KEY_3]=0;
     key[KEY_4]=0;
     a=2;
-    //initialiser_niveau(a);
-    //cinematique(a);
+    initialiser_niveau(a);
+    cinematique(a);
 }
 if (key[KEY_3])
 {
@@ -188,8 +285,8 @@ if (key[KEY_3])
     key[KEY_3]=0;
     key[KEY_4]=0;
     a=3;
-    //initialiser_niveau(a);
-    //cinematique(a);
+    initialiser_niveau(a);
+    cinematique(a);
 }
 
 
@@ -216,7 +313,7 @@ void menu_jeu()
         blit(menu,page,0,0,0,0,SCREEN_W,SCREEN_H);
         blit (page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
     }
-    while(!key[KEY_1]  && !key[KEY_2]  && !key[KEY_3]);
+    while(!key[KEY_1]  && !key[KEY_2]  && !key[KEY_3] && !(mouse_b&1 && mouse_x>=750 && mouse_y<=20));
 
     clear(page);
     if (key[KEY_1])
