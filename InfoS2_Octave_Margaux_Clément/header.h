@@ -88,8 +88,8 @@ void regles_du_jeu();
 void menu_jeu();
 void jeu_presentation();
 void choix_niveau();
-void initialiser_niveau(int a);
-void cinematique(int b);
+void initialiser_niveau(int niv);
+void cinematique(int niv);
 
 void initalisation();
 
