@@ -118,6 +118,7 @@ void boucle_de_jeu(int niv)
         }
         
 */
+        // Drag and drop des tours
         if (mouse_b&1)
         {
             if (mouse_x<=100 && mouse_y<=50 && n>=1)
@@ -138,6 +139,14 @@ void boucle_de_jeu(int niv)
                 }
                 while(mouse_b&1);
                 a--;
+            }else if (300<=mouse_x && mouse_x<=450 && mouse_y<=50 && b>=1)
+            {
+                do
+                {
+                    bonbons[b].pos_x=mouse_x;
+                    bonbons[b].pos_y=mouse_y;
+                }while(mouse_b&1);
+                b--;
             }
         }
         
