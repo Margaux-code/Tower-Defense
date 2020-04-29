@@ -39,7 +39,7 @@ typedef struct poney
     int tx;
     int ty;
     int ptsdebonheur;
-    int val;//attaque
+    int val; //numero de poney
     int aff;//afficher ou non
     t_sequence seq;
     int numImg[4] ;
@@ -98,6 +98,9 @@ t_poney Deplacement(t_poney poney,BITMAP* TEST);
 /// creation tableau acteur ///
 int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i);
 
+
+/// sauvegarde de partie///
+void sauvegarde_partie(t_poney tab[100],int nbPoney,int nbPoneyAffiche);
 
 typedef enum e_forme e_forme;
 enum e_forme

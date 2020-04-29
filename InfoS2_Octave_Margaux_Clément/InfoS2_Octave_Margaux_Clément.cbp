@@ -34,7 +34,13 @@
 		<Linker>
 			<Add library="alleg44.dll" />
 		</Linker>
+		<Unit filename="architecture.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="chargementBitmaps.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="deplacements.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="header.h" />

@@ -90,8 +90,38 @@ void boucle_de_jeu()
         clear_bitmap(page);
         clear_bitmap(screen);
     }
-
+    sauvegarde_partie(acteur,nbActeur,nbActeurAff);
     menu_jeu();
+}
+
+void sauvegarde_partie(t_poney tab[100],int nbPoney,int nbPoneyAff)
+{
+    int i,j;
+    int compt = 0;
+    FILE* fic=NULL;
+    fic=fopen("fichierponey.txt","w");
+    if (fic==NULL)
+    {
+        allegro_message("fichier de seuvegarde non trouver");
+    }
+    else
+    {
+        fprintf(fic,"%d \n",nbPoney);
+        fprintf(fic,"%d \n",nbPoneyAff);
+        for (i=0;i<nbPoney;i++)
+        {
+            fprintf(fic,"%d ",tab[i].posx);
+            fprintf(fic,"%d ",tab[i].posy);
+            fprintf(fic,"%d ",tab[i].depx);
+            fprintf(fic,"%d ",tab[i].depy);
+            fprintf(fic,"%d ",tab[i].tx);
+            fprintf(fic,"%d ",tab[i].ty);
+            fprintf(fic,"%d ",tab[i].ptsdebonheur);
+            fprintf(fic,"%d ",tab[i].val);
+            fprintf(fic,"%d \n",tab[i].aff);
+        }
+        fclose(fic);
+    }
 }
 
 /*
