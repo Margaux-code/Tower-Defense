@@ -8,6 +8,7 @@ void boucle_de_jeu(int niv)
     BITMAP *anim;
     decor=create_bitmap(SCREEN_W,SCREEN_H);
     anim=create_bitmap(SCREEN_W,SCREEN_H);
+    donjon = load_bitmap("image/Donjon_tour_fin.bmp",NULL);
     // Initialisation des poney
 
     t_sequence tab[3]; // Declaration du tableau avec sequence image poney
@@ -18,6 +19,7 @@ void boucle_de_jeu(int niv)
     int nbActeurAff; //nombre d'acteur afficher depuis le debut du niveau
     int compt=1;
     int nbrParVague;
+    int ptsTour = 1500*niv;
     inimagMech1(tab);
     iniMech(pon,tab);
     nbActeur = creaTabActeur(acteur,pon,nbActeur,niv);
@@ -87,12 +89,11 @@ void boucle_de_jeu(int niv)
         {
             if(acteur[j].aff == 1)
             {
-                acteur[j] = Deplacement(acteur[j], TESTterrain1);
+                acteur[j] = Deplacement(acteur[j], TESTterrain1,&ptsTour);
                 rectfill(page,acteur[j].posx+2,acteur[j].posy-5,acteur[j].posx+62,acteur[j].posy,makecol(0,0,0));
                 rectfill(page,acteur[j].posx+4,acteur[j].posy-4,acteur[j].posx+15,acteur[j].posy-1,makecol(255,0,255));
                 draw_sprite(page,acteur[j].seq.img[acteur[j].numImg[nuIm]],acteur[j].posx, acteur[j].posy);
             }
-
             //allegro_message("yoyo");
             acteur[j].posx = acteur[j].posx + acteur[j].depx;              //On déplace l'unitée
             acteur[j].posy = acteur[j].posy + acteur[j].depy;
@@ -142,7 +143,8 @@ void boucle_de_jeu(int niv)
                 b--;
             }
         }
-
+        printf("%d ",ptsTour);
+        draw_sprite(page,donjon,800-donjon->w, 290);
         blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
         nuIm++;
         rest(100);

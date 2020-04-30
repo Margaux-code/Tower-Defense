@@ -71,6 +71,7 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[0].ptsdebonheur =500;
     tab[0].val = 1;
     tab[0].aff = 1;
+    tab[0].att = 50;
     tab[0].seq = t[0];
 
     tab[1].depx =4;
@@ -82,6 +83,7 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[1].ptsdebonheur =300;
     tab[1].val = 2;
     tab[1].aff = 1;
+    tab[1].att = 30;
     tab[1].seq = t[1];
 
     tab[2].depx =6;
@@ -93,6 +95,7 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[2].ptsdebonheur =100;
     tab[2].val = 3;
     tab[2].aff = 1;
+    tab[2].att = 5;
     tab[2].seq = t[2];
 }
 
@@ -111,7 +114,6 @@ int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i,int difficulte)
     {
         niv = 100;
     }
-
     i = 0;
     int pos;
     int compt=0;
@@ -140,7 +142,6 @@ int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i,int difficulte)
             printf("yo %d ",type);
             acteur[i]=typeperso[type];
             acteur[i].posy = pos;
-            //i=i+1 ;
             compt = compt+type+1;
         }
         i++;

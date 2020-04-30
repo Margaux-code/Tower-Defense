@@ -21,6 +21,7 @@ BITMAP *regles; // Page des règles du jeu
 BITMAP *menu;// Page du menu du jeu
 BITMAP *histoire;// Page de cinematique du jeu
 BITMAP *niveau; // Interface du niveau
+BITMAP *donjon;
 
 typedef struct sequence // structure pour recuperer image poney
 {
@@ -43,6 +44,7 @@ typedef struct poney
     int ptsdebonheur;
     int val; //numero de poney
     int aff;//afficher ou non
+    int att;// attaque du poney
     t_sequence seq;
     int numImg[4] ;
 }t_poney;
@@ -104,7 +106,7 @@ void inimagMech1(t_sequence tab[3]);
 void iniseqMech(t_sequence tab[3]);
 void iniMech(t_poney tab[3],t_sequence t[3]);
 void affichageMech(t_poney act[100],int nbAct);
-t_poney Deplacement(t_poney poney,BITMAP* TEST);
+t_poney Deplacement(t_poney poney, BITMAP* TEST,int* a);
 
 /// creation tableau acteur ///
 int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i,int difficulte);

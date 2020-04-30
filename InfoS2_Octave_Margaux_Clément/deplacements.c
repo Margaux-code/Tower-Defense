@@ -8,7 +8,7 @@
 ///               tabPoney[i] = Deplacement(tabPoney[i], TESTterrain1);
 ///           }
 
-t_poney Deplacement(t_poney poney, BITMAP* TEST)
+t_poney Deplacement(t_poney poney, BITMAP* TEST,int* a)//variable a son les points de vie de la tours
 {
     int vitesse;         // les couleurs sont assosié à une direction
     int Rdroite = makecol(255,0,0);
@@ -40,6 +40,7 @@ t_poney Deplacement(t_poney poney, BITMAP* TEST)
     }
     if (Vback == test)                                // en fonction de la couleur, un déplacement est associé
     {
+        *a = *a - poney.att; // chaque fois que le poney touche le violet alors il est au niveau de la tour donc il l'a charge
         poney.depx = 0;                                     // ses déplacements sont remis à 0
         poney.depy = 0;
         poney.depx = -1*vitesse;
