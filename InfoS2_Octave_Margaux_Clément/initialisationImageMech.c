@@ -62,7 +62,7 @@ void inimagMech1(t_sequence tab[3])// credit M.Fercoq
 
 void iniMech(t_poney tab[3],t_sequence t[3])
 {
-    tab[0].depx =3;
+    tab[0].depx =2;
     tab[0].depy =0;
     tab[0].tx =64;
     tab[0].ty =64;
@@ -73,7 +73,7 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[0].aff = 1;
     tab[0].seq = t[0];
 
-    tab[1].depx =5;
+    tab[1].depx =4;
     tab[1].depy =0;
     tab[1].tx =64;
     tab[1].ty =64;
@@ -84,7 +84,7 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[1].aff = 1;
     tab[1].seq = t[1];
 
-    tab[2].depx =10;
+    tab[2].depx =6;
     tab[2].depy =0;
     tab[2].tx =64;
     tab[2].ty =64;
@@ -96,9 +96,22 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[2].seq = t[2];
 }
 
-int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i)
+int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i,int difficulte)
 {
-    int niv = 20;
+    int niv;
+    if (difficulte == 1)
+    {
+        niv = 20;
+    }
+    else if (difficulte == 2)
+    {
+        niv = 50;
+    }
+    else if (difficulte >= 3)
+    {
+        niv = 100;
+    }
+
     i = 0;
     int pos;
     int compt=0;

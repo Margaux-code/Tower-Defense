@@ -8,7 +8,7 @@ void boucle_de_jeu(int niv)
     BITMAP *anim;
     decor=create_bitmap(SCREEN_W,SCREEN_H);
     anim=create_bitmap(SCREEN_W,SCREEN_H);
-     // Initialisation des poney
+    // Initialisation des poney
 
     t_sequence tab[3]; // Declaration du tableau avec sequence image poney
     t_poney pon[3]; // Declaration du tableau avec les différentes sorte de poney
@@ -20,12 +20,12 @@ void boucle_de_jeu(int niv)
     int nbrParVague;
     inimagMech1(tab);
     iniMech(pon,tab);
-    nbActeur = creaTabActeur(acteur,pon,nbActeur);
+    nbActeur = creaTabActeur(acteur,pon,nbActeur,niv);
     printf("%d",nbActeur);
     // Chargement des images (l'allocation a lieu en même temps)
     terrain1 = load_bitmap_check ("image/terrain/terrainlvl1.bmp");
     TESTterrain1 = load_bitmap_check ("image/terrain/ligneterrainlvl1.bmp");
-<<<<<<< HEAD
+/*<<<<<<< HEAD
 =======
     t_nuages nuage[nb_tourmax];
     t_tour arc_en_ciel[nb_tourmax];
@@ -49,10 +49,11 @@ void boucle_de_jeu(int niv)
     yo.depx = 2;
     yo.depy = 2;
 >>>>>>> 36b4ca75b1888d5a633bf848c4678888897f3e09
+    */
     int i=0;
     int j;
-    nbActeurAff = 2;
-    while(!key[KEY_ESC] && (mouse_b&1 &! (mouse_x>=750 && mouse_y<=20)))
+    nbActeurAff = 2*niv;
+    while(!key[KEY_ESC] /*&& (mouse_b&1 &! (mouse_x>=750 && mouse_y<=20))*/)
     {
 
         affichageMech(acteur,nbActeur);
@@ -61,10 +62,10 @@ void boucle_de_jeu(int niv)
             i=0;
         }
 
-        if (compt %40==0 && nbActeur!=nbActeurAff)
+        if (compt %50==0 && nbActeur!=nbActeurAff)
         {
             printf("la bite");
-            if(nbActeur-nbActeurAff<5)
+            if(nbActeur-nbActeurAff<(5*niv))
             {
                 nbActeurAff = nbActeur;
                 printf("finish");
@@ -72,7 +73,7 @@ void boucle_de_jeu(int niv)
             }
             if(nbActeur-nbActeurAff>=3)
             {
-                nbrParVague= rand()%(3 -(1)+1)+1;
+                nbrParVague= (rand()%(3 -(1)+1)+1)*niv;
                 nbActeurAff = nbActeurAff+nbrParVague;
                 printf("%d ", nbrParVague);
             }
@@ -81,7 +82,7 @@ void boucle_de_jeu(int niv)
 
         //Affichage des tours
          rectfill(page,0,0,800,70,makecol(20,20,40));
-
+/*
         for (i=0; i<nb_tourmax; i++)
         {
             draw_sprite(page,b_nuage,nuage[i].pos_x,nuage[i].pos_y);
@@ -89,6 +90,7 @@ void boucle_de_jeu(int niv)
             draw_sprite(page,b_bonbon,bonbons[i].pos_x,bonbons[i].pos_y);
 
         }
+*/
         for(j=0;j<nbActeurAff;j++)
         {
             if(acteur[j].aff == 1)
@@ -118,7 +120,7 @@ void boucle_de_jeu(int niv)
 
 */
         // Drag and drop des tours
-
+/*
         if (mouse_b&1)
         {
             if (mouse_x<=100 && mouse_y<=50 && n>=1)
@@ -150,7 +152,7 @@ void boucle_de_jeu(int niv)
             }
         }
 
-
+*/
         blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
         i++;
         rest(100);
@@ -165,10 +167,10 @@ void sauvegarde_partie(t_poney tab[100],int nbPoney,int nbPoneyAff)
     int i,j;
     int compt = 0;
     FILE* fic=NULL;
-    fic=fopen("fichierponey.txt","w");
+    fic=fopen("fichier_partie.txt","w");
     if (fic==NULL)
     {
-        allegro_message("fichier de seuvegarde non trouver");
+        allegro_message("fichier de sauvegarde partie non trouver");
     }
     else
     {
@@ -192,8 +194,6 @@ void sauvegarde_partie(t_poney tab[100],int nbPoney,int nbPoneyAff)
 
 void initialiser_niveau(int niv)
 {
-
-
     decor=load_bitmap("images/decors/decor.bmp",NULL);
     if (!decor)
     {
@@ -244,9 +244,32 @@ void cinematique(int niv)
     boucle_de_jeu(niv);
 }
 
+int lire_niveau()
+{
+    int diffi;
+    FILE* fc=NULL;
+    fc=fopen("fichier_niveau.txt","r");
+    if (fc==NULL)
+    {
+        allegro_message("fichier de sauvegarde numero niveau non trouver");
+    }
+    else
+    {
+        fscanf(fc,"%d \n",&diffi);
+        if(diffi<1 || diffi>3)
+        {
+            allegro_message("erreur de valeur fichier niveau");
+        }
+        fclose(fc);
+        return diffi;
+    }
+}
+
 
 void choix_niveau()
 {
+    int niv;
+    niv = lire_niveau();
     do
     {
         textprintf_ex(page,font,0,0,makecol(250,30,0),-1,"Bienenue sur le Jeu My little Poney");
@@ -256,40 +279,59 @@ void choix_niveau()
     }
     while(!key[KEY_1]  &&  !key[KEY_2]  && !key[KEY_3]  && !key[KEY_4] && !(mouse_b&1 && mouse_x>=750 && mouse_y<=20));
 
-int a;
-if (key[KEY_1])
-{
-    key[KEY_1]=0;
-    key[KEY_2]=0;
-    key[KEY_3]=0;
-    key[KEY_4]=0;
-    a=1;
-    boucle_de_jeu();
-    initialiser_niveau(a);
-    cinematique(a);
-}
-if (key[KEY_2])
-{
-    key[KEY_1]=0;
-    key[KEY_2]=0;
-    key[KEY_3]=0;
-    key[KEY_4]=0;
-    a=2;
-    initialiser_niveau(a);
-    cinematique(a);
-}
-if (key[KEY_3])
-{
-    key[KEY_1]=0;
-    key[KEY_2]=0;
-    key[KEY_3]=0;
-    key[KEY_4]=0;
-    a=3;
-    initialiser_niveau(a);
-    cinematique(a);
-}
-
-
+    int a;
+    if (key[KEY_1])
+    {
+        if(niv>=1)
+        {
+            key[KEY_1]=0;
+            key[KEY_2]=0;
+            key[KEY_3]=0;
+            key[KEY_4]=0;
+            a=1;
+            boucle_de_jeu(a);
+            initialiser_niveau(a);
+            cinematique(a);
+        }
+    }
+    if (key[KEY_2])
+    {
+        if(niv>=2)
+        {
+            key[KEY_1]=0;
+            key[KEY_2]=0;
+            key[KEY_3]=0;
+            key[KEY_4]=0;
+            a=2;
+            boucle_de_jeu(a);
+            initialiser_niveau(a);
+            cinematique(a);
+        }
+        else
+        {
+            allegro_message("niveau non debloque");
+            choix_niveau();
+        }
+    }
+    if (key[KEY_3])
+    {
+        if(niv>=3)
+        {
+            key[KEY_1]=0;
+            key[KEY_2]=0;
+            key[KEY_3]=0;
+            key[KEY_4]=0;
+            a=3;
+            boucle_de_jeu(a);
+            initialiser_niveau(a);
+            cinematique(a);
+        }
+        else
+        {
+            allegro_message("niveau non debloque");
+            choix_niveau();
+        }
+    }
 }
 
 void regles_du_jeu()
@@ -306,7 +348,6 @@ menu_jeu();
 
 void menu_jeu()
 {
-
     do
     {
 
@@ -335,7 +376,6 @@ void menu_jeu()
 void jeu_presentation()
 {
     blit(petitsponey,page,0,0,0,0,SCREEN_W,SCREEN_H);
-
     blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
     rest(1000);
     clear(page);

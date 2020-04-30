@@ -107,11 +107,12 @@ void affichageMech(t_poney act[100],int nbAct);
 t_poney Deplacement(t_poney poney,BITMAP* TEST);
 
 /// creation tableau acteur ///
-int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i);
+int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i,int difficulte);
 
 
 /// sauvegarde de partie///
 void sauvegarde_partie(t_poney tab[100],int nbPoney,int nbPoneyAffiche);
+int lire_niveau();
 
 typedef enum e_forme e_forme;
 enum e_forme
