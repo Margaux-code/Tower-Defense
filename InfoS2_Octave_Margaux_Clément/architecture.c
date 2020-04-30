@@ -25,43 +25,35 @@ void boucle_de_jeu(int niv)
     // Chargement des images (l'allocation a lieu en même temps)
     terrain1 = load_bitmap_check ("image/terrain/terrainlvl1.bmp");
     TESTterrain1 = load_bitmap_check ("image/terrain/ligneterrainlvl1.bmp");
-/*<<<<<<< HEAD
-=======
+
     t_nuages nuage[nb_tourmax];
     t_tour arc_en_ciel[nb_tourmax];
     t_tour bonbons[nb_tourmax];
 
-    int i;
-    for (i=0; i<nb_tourmax; i++)
+    int k;
+    for (k=0; k<nb_tourmax; k++)
     {
-        nuage[i].pos_x=0;
-        nuage[i].pos_y=0;
-        arc_en_ciel[i].pos_x=150;
-        arc_en_ciel [i].pos_y=0;
-        bonbons[i].pos_x=300;
-        bonbons[i].pos_y=0;
+        nuage[k].pos_x=0;
+        nuage[k].pos_y=0;
+        arc_en_ciel[k].pos_x=150;
+        arc_en_ciel [k].pos_y=0;
+        bonbons[k].pos_x=300;
+        bonbons[k].pos_y=0;
     }
-
     int n=nb_tourmax-1;// compteur des tours nuages
     int a=nb_tourmax-1; //compteur arc_en_ciel
     int b=nb_tourmax-1;//compteur bonbons
-    yo = pon[2];
-    yo.depx = 2;
-    yo.depy = 2;
->>>>>>> 36b4ca75b1888d5a633bf848c4678888897f3e09
-    */
-    int i=0;
+    int nuIm=0; // numero d'image dans la sequence d'animation
     int j;
     nbActeurAff = 2*niv;
     while(!key[KEY_ESC] /*&& (mouse_b&1 &! (mouse_x>=750 && mouse_y<=20))*/)
     {
 
         affichageMech(acteur,nbActeur);
-        if (i==4)
+        if (nuIm==4)
         {
-            i=0;
+            nuIm=0;
         }
-
         if (compt %50==0 && nbActeur!=nbActeurAff)
         {
             printf("la bite");
@@ -82,23 +74,23 @@ void boucle_de_jeu(int niv)
 
         //Affichage des tours
          rectfill(page,0,0,800,70,makecol(20,20,40));
-/*
-        for (i=0; i<nb_tourmax; i++)
+
+        for (k=0; k<nb_tourmax; k++)
         {
-            draw_sprite(page,b_nuage,nuage[i].pos_x,nuage[i].pos_y);
-            draw_sprite(page,b_arc_enciel,arc_en_ciel[i].pos_x,arc_en_ciel[i].pos_y);
-            draw_sprite(page,b_bonbon,bonbons[i].pos_x,bonbons[i].pos_y);
+            draw_sprite(page,b_nuage,nuage[k].pos_x,nuage[k].pos_y);
+            draw_sprite(page,b_arc_enciel,arc_en_ciel[k].pos_x,arc_en_ciel[k].pos_y);
+            draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
 
         }
-*/
+
         for(j=0;j<nbActeurAff;j++)
         {
             if(acteur[j].aff == 1)
             {
                 acteur[j] = Deplacement(acteur[j], TESTterrain1);
                 rectfill(page,acteur[j].posx+2,acteur[j].posy-5,acteur[j].posx+62,acteur[j].posy,makecol(0,0,0));
-                rectfill(page,acteur[j].posx+4,acteur[j].posy-4,acteur[j].posx+i*15,acteur[j].posy-1,makecol(255,0,255));
-                draw_sprite(page,acteur[j].seq.img[acteur[j].numImg[i]],acteur[j].posx, acteur[j].posy);
+                rectfill(page,acteur[j].posx+4,acteur[j].posy-4,acteur[j].posx+15,acteur[j].posy-1,makecol(255,0,255));
+                draw_sprite(page,acteur[j].seq.img[acteur[j].numImg[nuIm]],acteur[j].posx, acteur[j].posy);
             }
 
             //allegro_message("yoyo");
@@ -111,33 +103,30 @@ void boucle_de_jeu(int niv)
 
         }
         compt++;
-/*
-        if ((poney.depx == 0) && (poney.depy ==0))        // il est arrivé qu'un pixel ne soit pas exactement de la bonne couleur, dans ce cas on change de pixel
-        {
-            poney.posx = poney.posx + 1;
-            poney.depx = vitesse;
-        }
 
-*/
         // Drag and drop des tours
-/*
+
         if (mouse_b&1)
         {
             if (mouse_x<=100 && mouse_y<=50 && n>=0)
             {
                 do
                 {
+                    draw_sprite(page,b_nuage,mouse_x,mouse_y);
                     nuage[n].pos_x=mouse_x;
                     nuage[n].pos_y=mouse_y;
+                    blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }
                 while(mouse_b&1);
                 n--;
             } else if (150<=mouse_x && mouse_x<=250 && mouse_y<=50 && a>=0)
             {
-                do
-                {
+
+                do{
+                    draw_sprite(page,b_arc_enciel,mouse_x,mouse_y);
                     arc_en_ciel[a].pos_x=mouse_x;
                     arc_en_ciel[a].pos_y=mouse_y;
+                    blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }
                 while(mouse_b&1);
                 a--;
@@ -145,16 +134,17 @@ void boucle_de_jeu(int niv)
             {
                 do
                 {
+                    draw_sprite(page,b_bonbon,mouse_x,mouse_y);
                     bonbons[b].pos_x=mouse_x;
                     bonbons[b].pos_y=mouse_y;
+                    blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }while(mouse_b&1);
                 b--;
             }
         }
 
-*/
         blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-        i++;
+        nuIm++;
         rest(100);
         clear_bitmap(page);
     }
@@ -194,39 +184,25 @@ void sauvegarde_partie(t_poney tab[100],int nbPoney,int nbPoneyAff)
 
 void initialiser_niveau(int niv)
 {
-    decor=load_bitmap("images/decors/decor.bmp",NULL);
-    if (!decor)
-    {
-        allegro_message("pas pu trouver decor.bmp");
-        exit(EXIT_FAILURE);
-    }
-
-    b_nuage=load_bitmap("nuage1.bmp",NULL);
+    b_nuage=load_bitmap("image/nuage1.bmp",NULL);
     if (!b_nuage)
     {
         allegro_message("pas pu trouver nuage.bmp");
         exit(EXIT_FAILURE);
     }
 
-    b_bonbon=load_bitmap("bonbon1.bmp",NULL);
+    b_bonbon=load_bitmap("image/bonbon1.bmp",NULL);
     if (!b_bonbon)
     {
         allegro_message("pas pu trouver bonbon.bmp");
         exit(EXIT_FAILURE);
     }
-    b_arc_enciel=load_bitmap("arc_en_ciel1.bmp",NULL);
+    b_arc_enciel=load_bitmap("image/arc_en_ciel1.bmp",NULL);
     if (!b_arc_enciel)
     {
         allegro_message("pas pu trouver arc_en_ciel1.bmp");
         exit(EXIT_FAILURE);
     }
-
-
-
-
-
-
-
 }
 void cinematique(int niv)
 {
@@ -289,8 +265,8 @@ void choix_niveau()
             key[KEY_3]=0;
             key[KEY_4]=0;
             a=1;
-            boucle_de_jeu(a);
             initialiser_niveau(a);
+            boucle_de_jeu(a);
             cinematique(a);
         }
     }
@@ -303,8 +279,8 @@ void choix_niveau()
             key[KEY_3]=0;
             key[KEY_4]=0;
             a=2;
-            boucle_de_jeu(a);
             initialiser_niveau(a);
+            boucle_de_jeu(a);
             cinematique(a);
         }
         else
@@ -322,8 +298,8 @@ void choix_niveau()
             key[KEY_3]=0;
             key[KEY_4]=0;
             a=3;
-            boucle_de_jeu(a);
             initialiser_niveau(a);
+            boucle_de_jeu(a);
             cinematique(a);
         }
         else
