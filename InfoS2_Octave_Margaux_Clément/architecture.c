@@ -42,9 +42,9 @@ void boucle_de_jeu(int niv)
         bonbons[i].pos_y=0;
     }
 
-    int n=nb_tourmax;// compteur des tours nuages
-    int a=nb_tourmax; //compteur arc_en_ciel
-    int b=nb_tourmax;//compteur bonbons
+    int n=nb_tourmax-1;// compteur des tours nuages
+    int a=nb_tourmax-1; //compteur arc_en_ciel
+    int b=nb_tourmax-1;//compteur bonbons
     yo = pon[2];
     yo.depx = 2;
     yo.depy = 2;
@@ -123,7 +123,7 @@ void boucle_de_jeu(int niv)
 /*
         if (mouse_b&1)
         {
-            if (mouse_x<=100 && mouse_y<=50 && n>=1)
+            if (mouse_x<=100 && mouse_y<=50 && n>=0)
             {
                 do
                 {
@@ -132,7 +132,7 @@ void boucle_de_jeu(int niv)
                 }
                 while(mouse_b&1);
                 n--;
-            } else if (150<=mouse_x && mouse_x<=250 && mouse_y<=50 && a>=1)
+            } else if (150<=mouse_x && mouse_x<=250 && mouse_y<=50 && a>=0)
             {
                 do
                 {
@@ -141,7 +141,7 @@ void boucle_de_jeu(int niv)
                 }
                 while(mouse_b&1);
                 a--;
-            }else if (300<=mouse_x && mouse_x<=450 && mouse_y<=50 && b>=1)
+            }else if (300<=mouse_x && mouse_x<=450 && mouse_y<=50 && b>=0)
             {
                 do
                 {
