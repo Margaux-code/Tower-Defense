@@ -78,6 +78,7 @@ struct t_tour
     int frequence_tir;
     int degat;
     int active;
+    int target;
 };
 
 typedef struct t_nuages t_nuages;
