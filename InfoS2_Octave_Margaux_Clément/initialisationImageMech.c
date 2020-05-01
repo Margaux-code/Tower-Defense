@@ -62,20 +62,20 @@ void inimagMech1(t_sequence tab[3])// credit M.Fercoq
 
 void iniMech(t_poney tab[3],t_sequence t[3])
 {
-    tab[0].depx =3;
-    tab[0].depx_init=3;
-    tab[0].depy =0;
-    tab[0].depy_init=0;
-    tab[0].tx =64;
-    tab[0].ty =64;
-    tab[0].posx =0;
-    tab[0].posy =250;
-    tab[0].ptsdebonheur =500;
-    tab[0].ptsbonPres =500;
-    tab[0].val = 1;
-    tab[0].aff = 1;
-    tab[0].att = 50;
-    tab[0].seq = t[0];
+    tab[2].depx =3;
+    tab[2].depx_init=3;
+    tab[2].depy =0;
+    tab[2].depy_init=0;
+    tab[2].tx =64;
+    tab[2].ty =64;
+    tab[2].posx =0;
+    tab[2].posy =250;
+    tab[2].ptsdebonheur =500;
+    tab[2].ptsbonPres =500;
+    tab[2].val = 1;
+    tab[2].aff = 1;
+    tab[2].att = 50;
+    tab[2].seq = t[2];
 
     tab[1].depx =5;
     tab[1].depx_init=5;
@@ -92,20 +92,20 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[1].att = 30;
     tab[1].seq = t[1];
 
-    tab[2].depx =8;
-    tab[2].depx_init=8;
-    tab[2].depy =0;
-    tab[2].depy_init=0;
-    tab[2].tx =64;
-    tab[2].ty =64;
-    tab[2].posx =0;
-    tab[2].posy = 250;
-    tab[2].ptsdebonheur =100;
-    tab[2].ptsbonPres =100;
-    tab[2].val = 3;
-    tab[2].aff = 1;
-    tab[2].att = 5;
-    tab[2].seq = t[2];
+    tab[0].depx =8;
+    tab[0].depx_init=8;
+    tab[0].depy =0;
+    tab[0].depy_init=0;
+    tab[0].tx =64;
+    tab[0].ty =64;
+    tab[0].posx =0;
+    tab[0].posy = 250;
+    tab[0].ptsdebonheur =100;
+    tab[0].ptsbonPres =100;
+    tab[0].val = 3;
+    tab[0].aff = 1;
+    tab[0].att = 10;
+    tab[0].seq = t[0];
 }
 
 int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i,int difficulte)

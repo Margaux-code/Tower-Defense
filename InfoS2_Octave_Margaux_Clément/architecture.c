@@ -22,6 +22,7 @@ void boucle_de_jeu(int niv)
     int ptsTourDEB = 2000;
     int test=0;
     int vivant=0;
+    inimagCoeur(explo);
     inimagMech1(tab);
     iniMech(pon,tab);
     nbActeur = creaTabActeur(acteur,pon,nbActeur,niv);
@@ -40,6 +41,8 @@ void boucle_de_jeu(int niv)
         arc_en_ciel [k].pos_y=0;
         bonbons[k].pos_x=300;
         bonbons[k].pos_y=0;
+        bonbons[k].test=0;
+        bonbons[k].numeImg=0;
     }
     int n=nb_tourmax-1;// compteur des tours nuages
     int a=nb_tourmax-1; //compteur arc_en_ciel
@@ -64,12 +67,12 @@ void boucle_de_jeu(int niv)
             {
                 nbrParVague= (rand()%(5 -(1)+1)+1);
                 nbActeurAff = nbActeurAff+nbrParVague;
-                //printf("%d ", nbrParVague);
             }
         }
         blit(terrain1, page, 0,0,0,0, terrain1->w, terrain1->h);
         draw_sprite(page,donjon,800-donjon->w, 290);
-        //Affichage des tours
+
+        //Affichage des données de jeu
         rectfill(page,0,0,800,70,makecol(20,20,40));
         textprintf_ex(page,font,400,30,makecol(0,255,255),-1,"niveau :");
         textprintf_ex(page,font,400,45,makecol(0,255,255),-1,"   %d",niv);
@@ -77,15 +80,19 @@ void boucle_de_jeu(int niv)
         textprintf_ex(page,font,635,45,makecol(0,255,0),-1,"%d / %d", ptsTour,ptsTourDEB);
         textprintf_ex(page,font,500,30,makecol(255,255,0),-1,"monnaie :");
         textprintf_ex(page,font,500,45,makecol(255,255,0),-1,"  %d",money);
+        //Affichage des tours
         for (k=0; k<nb_tourmax; k++)
         {
             draw_sprite(page,b_nuage,nuage[k].pos_x,nuage[k].pos_y);
             draw_sprite(page,b_arc_enciel,arc_en_ciel[k].pos_x,arc_en_ciel[k].pos_y);
-            draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
+            if(bonbons[k].test<2)
+            {
+                draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
+            }
         }
-        //money = 100;
-        vivant = 0;
         //Fin affichage des tours
+        vivant = 0;
+        //affichage des poneys et interactions avec les tours
         for(j=0;j<nbActeurAff;j++)
         {
             if(acteur[j].aff == 1)
@@ -94,7 +101,7 @@ void boucle_de_jeu(int niv)
                 acteur[j].depy=acteur[j].depy_init;
                 for (k=0; k<nb_tourmax; k++)
                 {
-                    if(acteur[j].posx+50>=nuage[k].pos_x && acteur[j].posx+10<=nuage[k].pos_x+b_nuage->w && acteur[j].posy+50>=nuage[k].pos_y && acteur[j].posy+10<=nuage[k].pos_y+b_nuage->h && money >= 20)
+                    if(acteur[j].posx+50>=nuage[k].pos_x && acteur[j].posx+10<=nuage[k].pos_x+b_nuage->w && acteur[j].posy+50>=nuage[k].pos_y && acteur[j].posy+10<=nuage[k].pos_y+b_nuage->h)
                     {
                         acteur[j].depx=acteur[j].depx/2;
                         acteur[j].depy=acteur[j].depy/2;
@@ -110,11 +117,29 @@ void boucle_de_jeu(int niv)
                 //printf("%d : %d//", j, acteur[j].ptsdebonheur);
                 for (k=0; k<nb_tourmax; k++)
                 {
-                    if(acteur[j].posx+50>=arc_en_ciel[k].pos_x && acteur[j].posx+10<=arc_en_ciel[k].pos_x+b_arc_enciel->w && acteur[j].posy+50>=arc_en_ciel[k].pos_y && acteur[j].posy+10<=arc_en_ciel[k].pos_y+b_arc_enciel->h && money>=50)
+                    if(acteur[j].posx+50>=arc_en_ciel[k].pos_x && acteur[j].posx+10<=arc_en_ciel[k].pos_x+b_arc_enciel->w && acteur[j].posy+50>=arc_en_ciel[k].pos_y && acteur[j].posy+10<=arc_en_ciel[k].pos_y+b_arc_enciel->h)
                     {
                         acteur[j].ptsbonPres = acteur[j].ptsbonPres - 100;
                         //money = money - 20;
                     }
+                    if(acteur[j].posx+40>=bonbons[k].pos_x && acteur[j].posx+5<=bonbons[k].pos_x+b_bonbon->w && acteur[j].posy+40>=bonbons[k].pos_y && acteur[j].posy+40<=bonbons[k].pos_y+b_bonbon->h)
+                    {
+                        if(bonbons[k].test==1 && bonbons[k].numeImg <8 )
+                        {
+                            draw_sprite(page,explo[bonbons[k].numeImg],acteur[j].posx-20,acteur[j].posy-20);
+                            bonbons[k].numeImg++;
+                            if(bonbons[k].numeImg==8)
+                            {
+                                bonbons[k].test = 2;
+                                acteur[j].ptsbonPres=0;
+                            }
+                        }
+                        if(bonbons[k].test==0)
+                        {
+                            bonbons[k].test = 1;
+                        }
+                    }
+
                 }
                 if(acteur[j].ptsbonPres<=0)
                 {
@@ -122,13 +147,13 @@ void boucle_de_jeu(int niv)
                 }
             }
         }
-        compt++;
+        //fin affichage poney et interaction tours
 
         // Drag and drop des tours
 
         if (mouse_b&1)
         {
-            if (mouse_x<=100 && mouse_y<=50 && n>=0)
+            if (mouse_x<=100 && mouse_y<=50 && n>=0 && money>=30) //placer nuage
             {
                 do
                 {
@@ -141,8 +166,9 @@ void boucle_de_jeu(int niv)
                 }
                 while(mouse_b&1);
                 n--;
+                money = money - 30;
             }
-            else if (150<=mouse_x && mouse_x<=250 && mouse_y<=50 && a>=0)
+            else if (150<=mouse_x && mouse_x<=250 && mouse_y<=50 && a>=0 && money>=50) //placer arc en ciel
             {
 
                 do{
@@ -155,7 +181,8 @@ void boucle_de_jeu(int niv)
                 }
                 while(mouse_b&1);
                 a--;
-            }else if (300<=mouse_x && mouse_x<=450 && mouse_y<=50 && b>=0)
+                money = money - 50;
+            }else if (300<=mouse_x && mouse_x<=450 && mouse_y<=50 && b>=0  && money>=20)//placer bonbon
             {
                 do
                 {
@@ -167,12 +194,16 @@ void boucle_de_jeu(int niv)
                     blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }while(mouse_b&1);
                 b--;
+                money = money - 20;
             }
         }
         //draw_sprite(page,donjon,800-donjon->w, 290);
+        compt++;//nbre de tours de boucle : utile pour modulo
         blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-        nuIm++;
-        rest(100);
+        nuIm++;//gère animation poney
+        rest(100);//fige la boucle pendant un certains temps
+        clear_bitmap(page);
+        //debut des dfférents cas de sortie de jeu
         if(key[KEY_ESC])
         {
             test=1;
@@ -185,9 +216,9 @@ void boucle_de_jeu(int niv)
         {
             test=3;
         }
-        clear_bitmap(page);
+        //debut des dfférents cas de sortie de jeu
 }
-
+//fin boucle while
     if(test==3)
     {
         if (niv<3)
@@ -294,7 +325,7 @@ void cinematique(int niv)
     }
     blit(histoire,page,0,0,0,0,SCREEN_W,SCREEN_H);
     blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-    rest(10000);
+    rest(1000);
     clear_bitmap(page);
     clear_bitmap(screen);
 }
@@ -337,8 +368,7 @@ void choix_niveau()
         textprintf_ex(page,font,30,200,makecol(0,200,200),-1,"Pour revenir au menu : 4");
         blit (page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
     }
-
-    while(!key[KEY_1]  &&  !key[KEY_2]  && !key[KEY_3]  && !key[KEY_4] && !(mouse_b&1 && mouse_x>=750 && mouse_y<=20));
+    while(!key[KEY_1]  &&  !key[KEY_2]  && !key[KEY_3]  && !key[KEY_4]); /*&& !(mouse_b&1 && mouse_x>=750 && mouse_y<=20));*/
     int a;
     if (key[KEY_1])
     {

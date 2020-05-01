@@ -23,6 +23,7 @@ BITMAP *menu;// Page du menu du jeu
 BITMAP *histoire;// Page de cinematique du jeu
 BITMAP *niveau; // Interface du niveau
 BITMAP *donjon;
+BITMAP *explo[8];
 
 typedef struct sequence // structure pour recuperer image poney
 {
@@ -74,6 +75,8 @@ struct t_tour
     int rayon_action;
     int type_tour;
     int frequence_tir;
+    int test;
+    int numeImg;
 };
 
 typedef struct t_nuages t_nuages;
@@ -117,6 +120,10 @@ int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i,int difficulte)
 void sauvegarde_partie(t_poney tab[100],int nbPoney,int nbPoneyAffiche);
 int lire_niveau();
 void sauvegarde_niveau(int diff);
+
+/// initialisation image explosion///
+void inimagCoeur(BITMAP* tab[8]);
+
 
 typedef enum e_forme e_forme;
 enum e_forme
