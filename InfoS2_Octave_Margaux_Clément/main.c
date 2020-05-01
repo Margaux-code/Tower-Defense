@@ -19,7 +19,8 @@ int main()
     regles=create_bitmap(SCREEN_W,SCREEN_H);
     menu=create_bitmap(SCREEN_W,SCREEN_H);
     buffer=create_bitmap(SCREEN_W,SCREEN_H);
-      b_distributeur=create_bitmap(SCREEN_W,SCREEN_H);
+    b_distributeur=create_bitmap(SCREEN_W,SCREEN_H);
+    b_missile=create_bitmap(SCREEN_W,SCREEN_H);
 
     petitsponey=load_bitmap("image/Intro.bmp",NULL);
     if (!petitsponey)
@@ -33,7 +34,7 @@ int main()
         allegro_message("pas pu trouver menu.bmp");
         exit(EXIT_FAILURE);
     }
-    //t_tour * nuage;
+    b_missile=load_bitmap("image/missiles.bmp",NULL);
     show_mouse(screen);
     jeu_presentation();
     return 0;
