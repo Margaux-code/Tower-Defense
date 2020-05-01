@@ -108,15 +108,26 @@ void boucle_de_jeu(int niv)
         {
             draw_sprite(page,b_nuage,nuage[k].pos_x,nuage[k].pos_y);
             draw_sprite(page,b_arc_enciel,arc_en_ciel[k].pos_x,arc_en_ciel[k].pos_y);
-<<<<<<< HEAD
+
             if(bonbons[k].test<2)
             {
                 draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
             }
-=======
+
             draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
+        if (distributeur[k].active==0 || distributeur[k].target==0)
             draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
->>>>>>> 7f818714b2b4ca04b93d147aaf1b73d9deba24bc
+            else
+            {if (nuIm==0 || nuIm==2)
+            {
+                draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
+                draw_sprite(page,b_missile,missiles[k].pos_x,missiles[k].pos_y);
+            }
+            if (nuIm==1 || nuIm==3)
+            {
+                draw_sprite_h_flip(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
+            }
+            }
         }
         //Fin affichage des tours
         vivant = 0;
@@ -197,11 +208,8 @@ void boucle_de_jeu(int niv)
                 n--;
                 money = money - 30;
             }
-<<<<<<< HEAD
-            else if (150<=mouse_x && mouse_x<=250 && mouse_y<=50 && a>=0 && money>=50) //placer arc en ciel
-=======
-            else if (101<=mouse_x && mouse_x<=201 && mouse_y<=50 && a>=0)
->>>>>>> 7f818714b2b4ca04b93d147aaf1b73d9deba24bc
+
+            else if (101<=mouse_x && mouse_x<=201 && mouse_y<=50 && a>=0)//Placer arc-en-ciel
             {
 
                 do{
@@ -216,7 +224,7 @@ void boucle_de_jeu(int niv)
                 arc_en_ciel[a].active=1;
                 a--;
                 money = money - 50;
-            }else if (300<=mouse_x && mouse_x<=450 && mouse_y<=50 && b>=0  && money>=20)//placer bonbon
+            }else if (201<=mouse_x && mouse_x<=300 && mouse_y<=50 && b>=0  && money>=20)//placer bonbon
             {
                 do
                 {
