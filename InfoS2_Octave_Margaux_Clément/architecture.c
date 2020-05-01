@@ -11,7 +11,6 @@ void boucle_de_jeu(int niv)
     donjon = load_bitmap("image/Donjon_tour_fin.bmp",NULL);
     // Initialisation des poney
     int money = 100;
-    printf(" ta %d \n", niv);
     t_sequence tab[3]; // Declaration du tableau avec sequence image poney
     t_poney pon[3]; // Declaration du tableau avec les différentes sorte de poney
     t_poney acteur[100];
@@ -26,14 +25,12 @@ void boucle_de_jeu(int niv)
     inimagMech1(tab);
     iniMech(pon,tab);
     nbActeur = creaTabActeur(acteur,pon,nbActeur,niv);
-    printf(" da %d \n", niv);
     // Chargement des images (l'allocation a lieu en même temps)
     terrain1 = load_bitmap_check ("image/terrain/terrainlvl1.bmp");
     TESTterrain1 = load_bitmap_check ("image/terrain/ligneterrainlvl1.bmp");
     t_nuages nuage[nb_tourmax];
     t_tour arc_en_ciel[nb_tourmax];
     t_tour bonbons[nb_tourmax];
-
     int k;
     for (k=0; k<nb_tourmax; k++)
     {
@@ -71,26 +68,23 @@ void boucle_de_jeu(int niv)
             }
         }
         blit(terrain1, page, 0,0,0,0, terrain1->w, terrain1->h);
-
+        draw_sprite(page,donjon,800-donjon->w, 290);
         //Affichage des tours
-         rectfill(page,0,0,800,70,makecol(20,20,40));
-
+        rectfill(page,0,0,800,70,makecol(20,20,40));
+        textprintf_ex(page,font,400,30,makecol(0,255,255),-1,"niveau :");
+        textprintf_ex(page,font,400,45,makecol(0,255,255),-1,"   %d",niv);
         for (k=0; k<nb_tourmax; k++)
         {
             draw_sprite(page,b_nuage,nuage[k].pos_x,nuage[k].pos_y);
             draw_sprite(page,b_arc_enciel,arc_en_ciel[k].pos_x,arc_en_ciel[k].pos_y);
             draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
-
-<<<<<<< HEAD
         }
-        textprintf_ex(page,font,620,25,makecol(0,200,0),-1,"Points de vie Tour");
-        textprintf_ex(page,font,650,40,makecol(0,255,0),-1,"%d / %d", ptsTour,ptsTourDEB);
-        textprintf_ex(page,font,500,28,makecol(255,255,0),-1,"monnaie : %d",money);
+        textprintf_ex(page,font,600,30,makecol(0,200,0),-1,"Points de vie Tour :");
+        textprintf_ex(page,font,635,45,makecol(0,255,0),-1,"%d / %d", ptsTour,ptsTourDEB);
+        textprintf_ex(page,font,500,30,makecol(255,255,0),-1,"monnaie :");
+        textprintf_ex(page,font,500,45,makecol(255,255,0),-1,"  %d",money);
         vivant = 0;
-=======
-        } //Fin affichage des tours
-
->>>>>>> 68297919e961ff8f9d8f29a05254d256dec4f846
+        //Fin affichage des tours
         for(j=0;j<nbActeurAff;j++)
         {
             if(acteur[j].aff == 1)
@@ -146,7 +140,8 @@ void boucle_de_jeu(int niv)
                 }
                 while(mouse_b&1);
                 n--;
-            } else if (150<=mouse_x && mouse_x<=250 && mouse_y<=50 && a>=0)
+            }
+            else if (150<=mouse_x && mouse_x<=250 && mouse_y<=50 && a>=0)
             {
 
                 do{
@@ -173,7 +168,7 @@ void boucle_de_jeu(int niv)
                 b--;
             }
         }
-        draw_sprite(page,donjon,800-donjon->w, 290);
+        //draw_sprite(page,donjon,800-donjon->w, 290);
         blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
         nuIm++;
         rest(100);
@@ -190,7 +185,7 @@ void boucle_de_jeu(int niv)
             test=3;
         }
         clear_bitmap(page);
-    }
+}
 
     if(test==3)
     {
@@ -330,15 +325,20 @@ void choix_niveau()
 {
     int niv = 1;
     niv = lire_niveau();
+    key[KEY_1]=0;
+    key[KEY_2]=0;
+    key[KEY_3]=0;
+    key[KEY_4]=0;
     do
     {
         textprintf_ex(page,font,0,0,makecol(250,30,0),-1,"Bienvenue sur le Jeu My little Poney");
         textprintf_ex(page,font,30,50,makecol(250,240,0),-1,"Choisissez votre niveau");
         textprintf_ex(page,font,30,100,makecol(250,240,0),-1,"1 2 ou 3");
+        textprintf_ex(page,font,30,200,makecol(0,200,200),-1,"Pour revenir au menu : 4");
         blit (page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
     }
-    while(!key[KEY_1]  &&  !key[KEY_2]  && !key[KEY_3]  && !key[KEY_4] && !(mouse_b&1 && mouse_x>=750 && mouse_y<=20));
 
+    while(!key[KEY_1]  &&  !key[KEY_2]  && !key[KEY_3]  && !key[KEY_4] && !(mouse_b&1 && mouse_x>=750 && mouse_y<=20));
     int a;
     if (key[KEY_1])
     {
@@ -389,8 +389,16 @@ void choix_niveau()
         else
         {
             allegro_message("niveau non debloque");
-            menu_jeu();
+            choix_niveau();
         }
+    }
+    if (key[KEY_4])
+    {
+        key[KEY_1]=0;
+        key[KEY_2]=0;
+        key[KEY_3]=0;
+        key[KEY_4]=0;
+        menu_jeu();
     }
 }
 
@@ -408,9 +416,10 @@ menu_jeu();
 
 void menu_jeu()
 {
+    key[KEY_1]=0;
+    key[KEY_2]=0;
     do
     {
-
         blit(menu,page,0,0,0,0,SCREEN_W,SCREEN_H);
         blit (page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
     }
@@ -423,7 +432,7 @@ void menu_jeu()
         key[KEY_2]=0;
         choix_niveau();
     }
-    if(key[KEY_2])
+    else if(key[KEY_2])
     {
         key[KEY_1]=0;
         key[KEY_2]=0;
