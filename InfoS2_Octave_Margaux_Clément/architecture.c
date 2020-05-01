@@ -146,6 +146,7 @@ void boucle_de_jeu(int niv)
                     blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }
                 while(mouse_b&1);
+                nuage[n].active=1;
                 n--;
             }
             else if (150<=mouse_x && mouse_x<=250 && mouse_y<=50 && a>=0)
@@ -160,6 +161,7 @@ void boucle_de_jeu(int niv)
                     blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }
                 while(mouse_b&1);
+                arc_en_ciel[a].active=1;
                 a--;
             }else if (300<=mouse_x && mouse_x<=450 && mouse_y<=50 && b>=0)
             {
@@ -172,6 +174,7 @@ void boucle_de_jeu(int niv)
                     bonbons[b].pos_y=mouse_y;
                     blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }while(mouse_b&1);
+                bonbons[b].active=1;
                 b--;
             }
         }
