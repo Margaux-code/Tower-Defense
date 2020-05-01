@@ -63,6 +63,7 @@ struct t_missile
     int cible_x;
     int cible_y;
     int degat;
+    
 };
 
 
@@ -74,6 +75,8 @@ struct t_tour
     int rayon_action;
     int type_tour;
     int frequence_tir;
+    int degat;
+    int active;
 };
 
 typedef struct t_nuages t_nuages;
@@ -83,6 +86,7 @@ struct t_nuages
     int pos_y;
     int rayon_action;
     int ralentir;
+    int active;
 };
 
 // SOus programme de l'architecture du jeu
