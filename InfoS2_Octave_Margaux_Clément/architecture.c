@@ -32,6 +32,7 @@ void boucle_de_jeu(int niv)
     t_tour arc_en_ciel[nb_tourmax];
     t_tour bonbons[nb_tourmax];
     t_tour distributeur[nb_tourmax];
+    int i;
     int k;
     for (k=0; k<nb_tourmax; k++)
     {
@@ -60,6 +61,11 @@ void boucle_de_jeu(int niv)
     int nuIm=0; // numero d'image dans la sequence d'animation
     int j;
     nbActeurAff = 2;
+     //Ces quatres valeurs permettent de simplifier le reperage d'un enemi dans la zone de tir d'un distributeur
+    int min_x;//Valeur permettant de savoir si un ennemi est dans la bonne zone
+    int max_x;
+    int min_y;
+    int max_y;
     while(test==0)
     {
         affichageMech(acteur,nbActeur);
