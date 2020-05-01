@@ -31,6 +31,7 @@ void boucle_de_jeu(int niv)
     t_nuages nuage[nb_tourmax];
     t_tour arc_en_ciel[nb_tourmax];
     t_tour bonbons[nb_tourmax];
+    t_tour distributeur[nb_tourmax];
     int k;
     for (k=0; k<nb_tourmax; k++)
     {
