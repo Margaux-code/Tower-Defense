@@ -32,24 +32,46 @@ void boucle_de_jeu(int niv)
     t_nuages nuage[nb_tourmax];
     t_tour arc_en_ciel[nb_tourmax];
     t_tour bonbons[nb_tourmax];
+    t_tour distributeur[nb_tourmax];
+    int i;
     int k;
     for (k=0; k<nb_tourmax; k++)
     {
+        distributeur[k].active=0;
+        nuage[k].active=0;
+        arc_en_ciel[k].active=0;
+        bonbons[k].active=0;
         nuage[k].pos_x=0;
         nuage[k].pos_y=0;
-        arc_en_ciel[k].pos_x=150;
+        arc_en_ciel[k].pos_x=100;
         arc_en_ciel [k].pos_y=0;
-        bonbons[k].pos_x=300;
+        bonbons[k].pos_x=200;
         bonbons[k].pos_y=0;
+<<<<<<< HEAD
         bonbons[k].test=0;
         bonbons[k].numeImg=0;
+=======
+        bonbons [k].rayon_action=100;
+        distributeur[k].pos_x=300;
+        distributeur[k].pos_y=0;
+        arc_en_ciel[k].rayon_action=500;
+        nuage[k].rayon_action=300;
+        distributeur[k].rayon_action=300;
+        distributeur[k].target=0;
+>>>>>>> 7f818714b2b4ca04b93d147aaf1b73d9deba24bc
     }
     int n=nb_tourmax-1;// compteur des tours nuages
     int a=nb_tourmax-1; //compteur arc_en_ciel
     int b=nb_tourmax-1;//compteur bonbons
+    int d=nb_tourmax-1; //compteur distributeur
     int nuIm=0; // numero d'image dans la sequence d'animation
     int j;
     nbActeurAff = 2;
+     //Ces quatres valeurs permettent de simplifier le reperage d'un enemi dans la zone de tir d'un distributeur
+    int min_x;//Valeur permettant de savoir si un ennemi est dans la bonne zone
+    int max_x;
+    int min_y;
+    int max_y;
     while(test==0)
     {
         affichageMech(acteur,nbActeur);
@@ -85,10 +107,15 @@ void boucle_de_jeu(int niv)
         {
             draw_sprite(page,b_nuage,nuage[k].pos_x,nuage[k].pos_y);
             draw_sprite(page,b_arc_enciel,arc_en_ciel[k].pos_x,arc_en_ciel[k].pos_y);
+<<<<<<< HEAD
             if(bonbons[k].test<2)
             {
                 draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
             }
+=======
+            draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
+            draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
+>>>>>>> 7f818714b2b4ca04b93d147aaf1b73d9deba24bc
         }
         //Fin affichage des tours
         vivant = 0;
@@ -165,10 +192,15 @@ void boucle_de_jeu(int niv)
                     blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }
                 while(mouse_b&1);
+                nuage[n].active=1;
                 n--;
                 money = money - 30;
             }
+<<<<<<< HEAD
             else if (150<=mouse_x && mouse_x<=250 && mouse_y<=50 && a>=0 && money>=50) //placer arc en ciel
+=======
+            else if (101<=mouse_x && mouse_x<=201 && mouse_y<=50 && a>=0)
+>>>>>>> 7f818714b2b4ca04b93d147aaf1b73d9deba24bc
             {
 
                 do{
@@ -180,6 +212,7 @@ void boucle_de_jeu(int niv)
                     blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }
                 while(mouse_b&1);
+                arc_en_ciel[a].active=1;
                 a--;
                 money = money - 50;
             }else if (300<=mouse_x && mouse_x<=450 && mouse_y<=50 && b>=0  && money>=20)//placer bonbon
@@ -193,10 +226,27 @@ void boucle_de_jeu(int niv)
                     bonbons[b].pos_y=mouse_y;
                     blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }while(mouse_b&1);
+                bonbons[b].active=1;
                 b--;
                 money = money - 20;
             }
-        }
+        }else if (301<=mouse_x && mouse_x<=401 && mouse_y<=50 && d>=0)
+            {
+                do
+                {
+                    clear(buffer);
+                    blit(page,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
+                    draw_sprite(buffer,b_distributeur,mouse_x,mouse_y);
+                    distributeur[d].pos_x=mouse_x;
+                    distributeur[d].pos_y=mouse_y;
+                    blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                
+                }while(mouse_b&1);
+                distributeur[d].active=1;
+                d--;
+                
+                
+            } // Fin du dépot d'une tour
         //draw_sprite(page,donjon,800-donjon->w, 290);
         compt++;//nbre de tours de boucle : utile pour modulo
         blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
@@ -311,6 +361,12 @@ void initialiser_niveau(int niv)
     if (!b_arc_enciel)
     {
         allegro_message("pas pu trouver arc_en_ciel1.bmp");
+        exit(EXIT_FAILURE);
+    }
+       b_distributeur=load_bitmap("image/distributeur.bmp",NULL);
+        if (!b_distributeur)
+    {
+        allegro_message("pas pu trouver distributeur.bmp");
         exit(EXIT_FAILURE);
     }
 }

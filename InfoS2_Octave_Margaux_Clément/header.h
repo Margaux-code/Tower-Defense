@@ -17,6 +17,7 @@ BITMAP *petitsponey; //Page de chargement du jeu décor
 BITMAP *b_nuage; //Bitmap de la tour nuage
 BITMAP *b_arc_enciel;//BItmap de la tour arc en ciel
 BITMAP *b_bonbon;// Bitmap de la tour bonbon
+BITMAP *b_distributeur;//BItmap de la tour du distributeur
 BITMAP * b_missile[nb_tourmax]; //Type de missile en fonction du style de tour
 BITMAP *regles; // Page des règles du jeu
 BITMAP *menu;// Page du menu du jeu
@@ -64,6 +65,7 @@ struct t_missile
     int cible_x;
     int cible_y;
     int degat;
+    
 };
 
 
@@ -75,8 +77,14 @@ struct t_tour
     int rayon_action;
     int type_tour;
     int frequence_tir;
+<<<<<<< HEAD
     int test;
     int numeImg;
+=======
+    int degat;
+    int active;
+    int target;
+>>>>>>> 7f818714b2b4ca04b93d147aaf1b73d9deba24bc
 };
 
 typedef struct t_nuages t_nuages;
@@ -86,6 +94,7 @@ struct t_nuages
     int pos_y;
     int rayon_action;
     int ralentir;
+    int active;
 };
 
 // SOus programme de l'architecture du jeu
