@@ -47,10 +47,8 @@ void boucle_de_jeu(int niv)
         arc_en_ciel [k].pos_y=0;
         bonbons[k].pos_x=200;
         bonbons[k].pos_y=0;
-<<<<<<< HEAD
         bonbons[k].test=0;
         bonbons[k].numeImg=0;
-=======
         bonbons [k].rayon_action=100;
         distributeur[k].pos_x=300;
         distributeur[k].pos_y=0;
@@ -58,7 +56,6 @@ void boucle_de_jeu(int niv)
         nuage[k].rayon_action=300;
         distributeur[k].rayon_action=300;
         distributeur[k].target=0;
->>>>>>> 7f818714b2b4ca04b93d147aaf1b73d9deba24bc
     }
     int n=nb_tourmax-1;// compteur des tours nuages
     int a=nb_tourmax-1; //compteur arc_en_ciel
@@ -107,15 +104,11 @@ void boucle_de_jeu(int niv)
         {
             draw_sprite(page,b_nuage,nuage[k].pos_x,nuage[k].pos_y);
             draw_sprite(page,b_arc_enciel,arc_en_ciel[k].pos_x,arc_en_ciel[k].pos_y);
-<<<<<<< HEAD
             if(bonbons[k].test<2)
             {
                 draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
             }
-=======
-            draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
             draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
->>>>>>> 7f818714b2b4ca04b93d147aaf1b73d9deba24bc
         }
         //Fin affichage des tours
         vivant = 0;
@@ -196,11 +189,7 @@ void boucle_de_jeu(int niv)
                 n--;
                 money = money - 30;
             }
-<<<<<<< HEAD
-            else if (150<=mouse_x && mouse_x<=250 && mouse_y<=50 && a>=0 && money>=50) //placer arc en ciel
-=======
-            else if (101<=mouse_x && mouse_x<=201 && mouse_y<=50 && a>=0)
->>>>>>> 7f818714b2b4ca04b93d147aaf1b73d9deba24bc
+            else if (101<=mouse_x && mouse_x<=200 && mouse_y<=50 && a>=0)
             {
 
                 do{
@@ -215,7 +204,7 @@ void boucle_de_jeu(int niv)
                 arc_en_ciel[a].active=1;
                 a--;
                 money = money - 50;
-            }else if (300<=mouse_x && mouse_x<=450 && mouse_y<=50 && b>=0  && money>=20)//placer bonbon
+            }else if (201<=mouse_x && mouse_x<=300 && mouse_y<=50 && b>=0  && money>=20)//placer bonbon
             {
                 do
                 {
@@ -230,7 +219,7 @@ void boucle_de_jeu(int niv)
                 b--;
                 money = money - 20;
             }
-        }else if (301<=mouse_x && mouse_x<=401 && mouse_y<=50 && d>=0)
+        }else if (301<=mouse_x && mouse_x<=400 && mouse_y<=50 && d>=0)
             {
                 do
                 {
@@ -240,12 +229,11 @@ void boucle_de_jeu(int niv)
                     distributeur[d].pos_x=mouse_x;
                     distributeur[d].pos_y=mouse_y;
                     blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-                
                 }while(mouse_b&1);
                 distributeur[d].active=1;
                 d--;
-                
-                
+
+
             } // Fin du dépot d'une tour
         //draw_sprite(page,donjon,800-donjon->w, 290);
         compt++;//nbre de tours de boucle : utile pour modulo

@@ -65,7 +65,7 @@ struct t_missile
     int cible_x;
     int cible_y;
     int degat;
-    
+
 };
 
 
@@ -77,14 +77,11 @@ struct t_tour
     int rayon_action;
     int type_tour;
     int frequence_tir;
-<<<<<<< HEAD
     int test;
     int numeImg;
-=======
     int degat;
     int active;
     int target;
->>>>>>> 7f818714b2b4ca04b93d147aaf1b73d9deba24bc
 };
 
 typedef struct t_nuages t_nuages;
