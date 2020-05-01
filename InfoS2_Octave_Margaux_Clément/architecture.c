@@ -35,22 +35,26 @@ void boucle_de_jeu(int niv)
     int k;
     for (k=0; k<nb_tourmax; k++)
     {
+        distributeur[k].active=0;
         nuage[k].active=0;
         arc_en_ciel[k].active=0;
         bonbons[k].active=0;
         nuage[k].pos_x=0;
         nuage[k].pos_y=0;
-        arc_en_ciel[k].pos_x=150;
+        arc_en_ciel[k].pos_x=100;
         arc_en_ciel [k].pos_y=0;
-        bonbons[k].pos_x=300;
+        bonbons[k].pos_x=200;
         bonbons[k].pos_y=0;
         bonbons [k].rayon_action=100;
+        distributeur[k].pos_x=300;
+        distributeur[k].pos_y=0;
         arc_en_ciel[k].rayon_action=500;
         nuage[k].rayon_action=300;
     }
     int n=nb_tourmax-1;// compteur des tours nuages
     int a=nb_tourmax-1; //compteur arc_en_ciel
     int b=nb_tourmax-1;//compteur bonbons
+    int d=nb_tourmax-1; //compteur distributeur
     int nuIm=0; // numero d'image dans la sequence d'animation
     int j;
     nbActeurAff = 2;
@@ -150,7 +154,7 @@ void boucle_de_jeu(int niv)
                 nuage[n].active=1;
                 n--;
             }
-            else if (150<=mouse_x && mouse_x<=250 && mouse_y<=50 && a>=0)
+            else if (101<=mouse_x && mouse_x<=201 && mouse_y<=50 && a>=0)
             {
 
                 do{
@@ -178,7 +182,23 @@ void boucle_de_jeu(int niv)
                 bonbons[b].active=1;
                 b--;
             }
-        }
+        }else if (301<=mouse_x && mouse_x<=401 && mouse_y<=50 && d>=0)
+            {
+                do
+                {
+                    clear(buffer);
+                    blit(page,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
+                    draw_sprite(buffer,b_distributeur,mouse_x,mouse_y);
+                    distributeur[d].pos_x=mouse_x;
+                    distributeur[d].pos_y=mouse_y;
+                    blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                
+                }while(mouse_b&1);
+                distributeur[d].active=1;
+                d--;
+                
+                
+            } // Fin du dépot d'une tour
         //draw_sprite(page,donjon,800-donjon->w, 290);
         blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
         nuIm++;
