@@ -18,13 +18,14 @@ BITMAP *b_nuage; //Bitmap de la tour nuage
 BITMAP *b_arc_enciel;//BItmap de la tour arc en ciel
 BITMAP *b_bonbon;// Bitmap de la tour bonbon
 BITMAP *b_distributeur;//BItmap de la tour du distributeur
-BITMAP * b_missile[nb_tourmax]; //Type de missile en fonction du style de tour
+BITMAP * b_missile; //Type de missile en fonction du style de tour
 BITMAP *regles; // Page des règles du jeu
 BITMAP *menu;// Page du menu du jeu
 BITMAP *histoire;// Page de cinematique du jeu
 BITMAP *niveau; // Interface du niveau
 BITMAP *donjon;
 BITMAP *explo[8];
+BITMAP *b_distributeur;
 
 typedef struct sequence // structure pour recuperer image poney
 {
@@ -64,7 +65,13 @@ struct t_missile
     int vitesse;
     int cible_x;
     int cible_y;
+    int dep_x;
+    int dep_y;
     int degat;
+<<<<<<< HEAD
+=======
+    int existe;
+>>>>>>> c376f1454ff652d969848425c97f8ec56267aade
 
 };
 

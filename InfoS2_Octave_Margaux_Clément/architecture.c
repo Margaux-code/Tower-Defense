@@ -56,6 +56,11 @@ void boucle_de_jeu(int niv)
         nuage[k].rayon_action=300;
         distributeur[k].rayon_action=300;
         distributeur[k].target=0;
+<<<<<<< HEAD
+=======
+        missiles[k].existe=0;
+>>>>>>> 7f818714b2b4ca04b93d147aaf1b73d9deba24bc
+>>>>>>> c376f1454ff652d969848425c97f8ec56267aade
     }
     int n=nb_tourmax-1;// compteur des tours nuages
     int a=nb_tourmax-1; //compteur arc_en_ciel
@@ -104,11 +109,44 @@ void boucle_de_jeu(int niv)
         {
             draw_sprite(page,b_nuage,nuage[k].pos_x,nuage[k].pos_y);
             draw_sprite(page,b_arc_enciel,arc_en_ciel[k].pos_x,arc_en_ciel[k].pos_y);
+<<<<<<< HEAD
+=======
+
+>>>>>>> c376f1454ff652d969848425c97f8ec56267aade
             if(bonbons[k].test<2)
             {
                 draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
             }
+<<<<<<< HEAD
             draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
+=======
+
+            draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
+        if (distributeur[k].active==0 || distributeur[k].target==0)
+            draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
+            else
+            {if (nuIm==0 || nuIm==2)
+            {
+                draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
+                draw_sprite(page,b_missile,missiles[k].pos_x,missiles[k].pos_y);
+            }
+            if (nuIm==1 || nuIm==3)
+            {
+                draw_sprite_h_flip(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
+            }
+            }
+            if (missiles[k].existe==1)
+            {
+
+               if (missiles[k].pos_x != missiles[k].cible_x)
+               {
+                   draw_sprite(page,b_missile,missiles[k].pos_x,missiles[k].pos_y);
+                   missiles[k].pos_x=missiles[k].pos_x +(missiles[k].cible_x-missiles[k].pos_x);
+                    missiles[k].pos_y=missiles[k].pos_y +(missiles[k].cible_y-missiles[k].pos_y);
+               }
+
+            }
+>>>>>>> c376f1454ff652d969848425c97f8ec56267aade
         }
         //Fin affichage des tours
         vivant = 0;
@@ -189,7 +227,12 @@ void boucle_de_jeu(int niv)
                 n--;
                 money = money - 30;
             }
+<<<<<<< HEAD
             else if (101<=mouse_x && mouse_x<=200 && mouse_y<=50 && a>=0)
+=======
+
+            else if (101<=mouse_x && mouse_x<=201 && mouse_y<=50 && a>=0)//Placer arc-en-ciel
+>>>>>>> c376f1454ff652d969848425c97f8ec56267aade
             {
 
                 do{
@@ -235,6 +278,47 @@ void boucle_de_jeu(int niv)
 
 
             } // Fin du dépot d'une tour
+        
+        //Boucle des tours qui tirent sur des ennemis
+        for (k=nb_tourmax; k>0; k--)
+        {
+
+            if (distributeur[k].active==1)
+            {
+                if (distributeur[k].target==0) //Si la tour n'a pas d'ennemis attitré
+                {
+                    min_x=distributeur[k].pos_x-distributeur[k].rayon_action;
+                    max_x=distributeur[k].pos_x+distributeur[k].rayon_action;
+                    min_y=distributeur[k].pos_y-distributeur[k].rayon_action;
+                    max_y=distributeur[k].pos_y+distributeur[k].rayon_action;
+                    for (i=0; i<nbActeurAff; i++)
+                    {
+                        if (min_x<=acteur[i].posx && acteur[i].posx<=max_x && min_y<=acteur[i].posy && acteur[i].posy<=max_y) // Si l'ennemi est dans le bon rayon
+                        {
+                            if (distributeur[k].target==0)// Si la tour n'a pas de target
+                            {
+                                distributeur[k].target=i;
+                            }
+                        }
+
+                    }// Fin du for de tous les ennemis : chaque tour a maintenant un ennemis si il y en a un dans le coin
+
+                }
+                if (distributeur[k].target!=0)// SI la tour a un ennemi attitré
+                {
+
+                        missiles[k].existe=1;
+                        missiles[k].pos_x=distributeur[k].pos_x;
+                        missiles[k].pos_y=distributeur[k].pos_y;
+                        missiles[k].cible_x=acteur[distributeur[k].target].posx;
+                        missiles[k].cible_y=acteur[distributeur[k].target].posy;
+
+
+
+                }
+
+            }//Fin des tours qui sont actives donc des tours qui sont placées
+        }//Fin de la boucle qui tire sur des ennemis
         //draw_sprite(page,donjon,800-donjon->w, 290);
         compt++;//nbre de tours de boucle : utile pour modulo
         blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
