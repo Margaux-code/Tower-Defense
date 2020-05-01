@@ -73,27 +73,28 @@ void boucle_de_jeu(int niv)
         rectfill(page,0,0,800,70,makecol(20,20,40));
         textprintf_ex(page,font,400,30,makecol(0,255,255),-1,"niveau :");
         textprintf_ex(page,font,400,45,makecol(0,255,255),-1,"   %d",niv);
+        textprintf_ex(page,font,600,30,makecol(0,200,0),-1,"Points de vie Tour :");
+        textprintf_ex(page,font,635,45,makecol(0,255,0),-1,"%d / %d", ptsTour,ptsTourDEB);
+        textprintf_ex(page,font,500,30,makecol(255,255,0),-1,"monnaie :");
+        textprintf_ex(page,font,500,45,makecol(255,255,0),-1,"  %d",money);
         for (k=0; k<nb_tourmax; k++)
         {
             draw_sprite(page,b_nuage,nuage[k].pos_x,nuage[k].pos_y);
             draw_sprite(page,b_arc_enciel,arc_en_ciel[k].pos_x,arc_en_ciel[k].pos_y);
             draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
         }
-        textprintf_ex(page,font,600,30,makecol(0,200,0),-1,"Points de vie Tour :");
-        textprintf_ex(page,font,635,45,makecol(0,255,0),-1,"%d / %d", ptsTour,ptsTourDEB);
-        textprintf_ex(page,font,500,30,makecol(255,255,0),-1,"monnaie :");
-        textprintf_ex(page,font,500,45,makecol(255,255,0),-1,"  %d",money);
+        //money = 100;
         vivant = 0;
         //Fin affichage des tours
         for(j=0;j<nbActeurAff;j++)
         {
             if(acteur[j].aff == 1)
             {
+                acteur[j].depx=acteur[j].depx_init;
+                acteur[j].depy=acteur[j].depy_init;
                 for (k=0; k<nb_tourmax; k++)
                 {
-                    acteur[j].depx=acteur[j].depx_init;
-                    acteur[j].depy=acteur[j].depy_init;
-                    if(acteur[j].posx+50>=arc_en_ciel[k].pos_x && acteur[j].posx+10<=arc_en_ciel[k].pos_x+b_arc_enciel->w && acteur[j].posy+50>=arc_en_ciel[k].pos_y && acteur[j].posy+10<=arc_en_ciel[k].pos_y+b_arc_enciel->h && money>=50)
+                    if(acteur[j].posx+50>=nuage[k].pos_x && acteur[j].posx+10<=nuage[k].pos_x+b_nuage->w && acteur[j].posy+50>=nuage[k].pos_y && acteur[j].posy+10<=nuage[k].pos_y+b_nuage->h && money >= 20)
                     {
                         acteur[j].depx=acteur[j].depx/2;
                         acteur[j].depy=acteur[j].depy/2;
@@ -109,7 +110,7 @@ void boucle_de_jeu(int niv)
                 //printf("%d : %d//", j, acteur[j].ptsdebonheur);
                 for (k=0; k<nb_tourmax; k++)
                 {
-                    if(acteur[j].posx+50>=nuage[k].pos_x && acteur[j].posx+10<=nuage[k].pos_x+b_nuage->w && acteur[j].posy+50>=nuage[k].pos_y && acteur[j].posy+10<=nuage[k].pos_y+b_nuage->h && money >= 20)
+                    if(acteur[j].posx+50>=arc_en_ciel[k].pos_x && acteur[j].posx+10<=arc_en_ciel[k].pos_x+b_arc_enciel->w && acteur[j].posy+50>=arc_en_ciel[k].pos_y && acteur[j].posy+10<=arc_en_ciel[k].pos_y+b_arc_enciel->h && money>=50)
                     {
                         acteur[j].ptsbonPres = acteur[j].ptsbonPres - 100;
                         //money = money - 20;
@@ -191,7 +192,7 @@ void boucle_de_jeu(int niv)
     {
         if (niv<3)
         {
-            allegro_message("Vous avez gagné vous passé au niveau supérieur");
+            allegro_message("Vous avez gagné vous passez au niveau supérieur");
             niv++;
             sauvegarde_niveau(niv);
             initialiser_niveau(niv);
@@ -283,9 +284,9 @@ void initialiser_niveau(int niv)
     }
 }
 
-/*void cinematique(int niv)
+void cinematique(int niv)
 {
-    histoire=load_bitmap("images/cinematiques/cinematique.bmp",NULL);
+    histoire=load_bitmap("image/cinematique.bmp",NULL);
     if (!histoire)
     {
         allegro_message("pas pu trouver cinematiques.bmp");
@@ -293,11 +294,10 @@ void initialiser_niveau(int niv)
     }
     blit(histoire,page,0,0,0,0,SCREEN_W,SCREEN_H);
     blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-    rest(1000);
+    rest(10000);
     clear_bitmap(page);
     clear_bitmap(screen);
-    boucle_de_jeu(niv);
-}*/
+}
 
 int lire_niveau()
 {
@@ -350,8 +350,8 @@ void choix_niveau()
         {
             a=1;
             initialiser_niveau(a);
+            cinematique(a);
             boucle_de_jeu(a);
-            //cinematique(a);
         }
     }
     if (key[KEY_2])
@@ -364,8 +364,8 @@ void choix_niveau()
         {
             a=2;
             initialiser_niveau(a);
+            cinematique(a);
             boucle_de_jeu(a);
-            //cinematique(a);
         }
         else
         {
@@ -383,8 +383,8 @@ void choix_niveau()
         {
             a=3;
             initialiser_niveau(a);
+            cinematique(a);
             boucle_de_jeu(a);
-            //cinematique(a);
         }
         else
         {
