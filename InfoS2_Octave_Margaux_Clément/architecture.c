@@ -34,12 +34,18 @@ void boucle_de_jeu(int niv)
     int k;
     for (k=0; k<nb_tourmax; k++)
     {
+        nuage[k].active=0;
+        arc_en_ciel[k].active=0;
+        bonbons[k].active=0;
         nuage[k].pos_x=0;
         nuage[k].pos_y=0;
         arc_en_ciel[k].pos_x=150;
         arc_en_ciel [k].pos_y=0;
         bonbons[k].pos_x=300;
         bonbons[k].pos_y=0;
+        bonbons [k].rayon_action=100;
+        arc_en_ciel[k].rayon_action=500;
+        nuage[k].rayon_action=300;
     }
     int n=nb_tourmax-1;// compteur des tours nuages
     int a=nb_tourmax-1; //compteur arc_en_ciel
