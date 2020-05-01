@@ -312,6 +312,12 @@ void initialiser_niveau(int niv)
         allegro_message("pas pu trouver arc_en_ciel1.bmp");
         exit(EXIT_FAILURE);
     }
+       b_distributeur=load_bitmap("image/distributeur.bmp",NULL);
+        if (!b_distributeur)
+    {
+        allegro_message("pas pu trouver distributeur.bmp");
+        exit(EXIT_FAILURE);
+    }
 }
 
 void cinematique(int niv)
