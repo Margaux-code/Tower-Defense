@@ -93,6 +93,7 @@ void boucle_de_jeu(int niv)
             draw_sprite(page,b_nuage,nuage[k].pos_x,nuage[k].pos_y);
             draw_sprite(page,b_arc_enciel,arc_en_ciel[k].pos_x,arc_en_ciel[k].pos_y);
             draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
+            draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
         }
         //money = 100;
         vivant = 0;
