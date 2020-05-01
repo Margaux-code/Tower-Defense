@@ -83,7 +83,7 @@ void boucle_de_jeu(int niv)
             draw_sprite(page,b_arc_enciel,arc_en_ciel[k].pos_x,arc_en_ciel[k].pos_y);
             draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
 
-        }
+        } //Fin affichage des tours
 
         for(j=0;j<nbActeurAff;j++)
         {
@@ -113,10 +113,12 @@ void boucle_de_jeu(int niv)
             {
                 do
                 {
-                    draw_sprite(page,b_nuage,mouse_x,mouse_y);
+                    clear(buffer);
+                    blit(page,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
+                    draw_sprite(buffer,b_nuage,mouse_x,mouse_y);
                     nuage[n].pos_x=mouse_x;
                     nuage[n].pos_y=mouse_y;
-                    blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                    blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }
                 while(mouse_b&1);
                 n--;
@@ -124,10 +126,12 @@ void boucle_de_jeu(int niv)
             {
 
                 do{
-                    draw_sprite(page,b_arc_enciel,mouse_x,mouse_y);
+                    clear(buffer);
+                    blit(page,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
+                    draw_sprite(buffer,b_arc_enciel,mouse_x,mouse_y);
                     arc_en_ciel[a].pos_x=mouse_x;
                     arc_en_ciel[a].pos_y=mouse_y;
-                    blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                    blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }
                 while(mouse_b&1);
                 a--;
@@ -135,10 +139,12 @@ void boucle_de_jeu(int niv)
             {
                 do
                 {
-                    draw_sprite(page,b_bonbon,mouse_x,mouse_y);
+                    clear(buffer);
+                    blit(page,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
+                    draw_sprite(buffer,b_bonbon,mouse_x,mouse_y);
                     bonbons[b].pos_x=mouse_x;
                     bonbons[b].pos_y=mouse_y;
-                    blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+                    blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }while(mouse_b&1);
                 b--;
             }
