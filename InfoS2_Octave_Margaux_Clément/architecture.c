@@ -5,29 +5,31 @@ void boucle_de_jeu(int niv)
     // Déclaration des pointeurs sur BITMAP devant recevoir des images
     BITMAP *terrain1;
     BITMAP *TESTterrain1;
-    BITMAP *anim;
+    //BITMAP *anim;
     decor=create_bitmap(SCREEN_W,SCREEN_H);
-    anim=create_bitmap(SCREEN_W,SCREEN_H);
+    //anim=create_bitmap(SCREEN_W,SCREEN_H);
     donjon = load_bitmap("image/Donjon_tour_fin.bmp",NULL);
     // Initialisation des poney
-
+    int money = 100;
+    printf(" ta %d \n", niv);
     t_sequence tab[3]; // Declaration du tableau avec sequence image poney
     t_poney pon[3]; // Declaration du tableau avec les différentes sorte de poney
     t_poney acteur[100];
-    t_poney yo;
-    int nbActeur; // nombre d'acteur totale depuis le debut du niveau
+    int nbActeur = 0; // nombre d'acteur totale depuis le debut du niveau
     int nbActeurAff; //nombre d'acteur afficher depuis le debut du niveau
     int compt=1;
     int nbrParVague;
-    int ptsTour = 1500*niv;
+    int ptsTour = 2000;
+    int ptsTourDEB = 2000;
+    int test=0;
+    int vivant=0;
     inimagMech1(tab);
     iniMech(pon,tab);
     nbActeur = creaTabActeur(acteur,pon,nbActeur,niv);
-    printf("%d",nbActeur);
+    printf(" da %d \n", niv);
     // Chargement des images (l'allocation a lieu en même temps)
     terrain1 = load_bitmap_check ("image/terrain/terrainlvl1.bmp");
     TESTterrain1 = load_bitmap_check ("image/terrain/ligneterrainlvl1.bmp");
-
     t_nuages nuage[nb_tourmax];
     t_tour arc_en_ciel[nb_tourmax];
     t_tour bonbons[nb_tourmax];
@@ -47,10 +49,9 @@ void boucle_de_jeu(int niv)
     int b=nb_tourmax-1;//compteur bonbons
     int nuIm=0; // numero d'image dans la sequence d'animation
     int j;
-    nbActeurAff = 2*niv;
-    while(!key[KEY_ESC] /*&& (mouse_b&1 &! (mouse_x>=750 && mouse_y<=20))*/)
+    nbActeurAff = 2;
+    while(test==0)
     {
-
         affichageMech(acteur,nbActeur);
         if (nuIm==4)
         {
@@ -58,18 +59,15 @@ void boucle_de_jeu(int niv)
         }
         if (compt %50==0 && nbActeur!=nbActeurAff)
         {
-            printf("la bite");
-            if(nbActeur-nbActeurAff<(5*niv))
+            if(nbActeur-nbActeurAff<(5))
             {
                 nbActeurAff = nbActeur;
-                printf("finish");
-                printf("%d ", nbActeurAff);
             }
             if(nbActeur-nbActeurAff>=3)
             {
-                nbrParVague= (rand()%(3 -(1)+1)+1)*niv;
+                nbrParVague= (rand()%(5 -(1)+1)+1);
                 nbActeurAff = nbActeurAff+nbrParVague;
-                printf("%d ", nbrParVague);
+                //printf("%d ", nbrParVague);
             }
         }
         blit(terrain1, page, 0,0,0,0, terrain1->w, terrain1->h);
@@ -84,24 +82,45 @@ void boucle_de_jeu(int niv)
             draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
 
         }
-
+        textprintf_ex(page,font,620,25,makecol(0,200,0),-1,"Points de vie Tour");
+        textprintf_ex(page,font,650,40,makecol(0,255,0),-1,"%d / %d", ptsTour,ptsTourDEB);
+        textprintf_ex(page,font,500,28,makecol(255,255,0),-1,"monnaie : %d",money);
+        vivant = 0;
         for(j=0;j<nbActeurAff;j++)
         {
             if(acteur[j].aff == 1)
             {
+                for (k=0; k<nb_tourmax; k++)
+                {
+                    acteur[j].depx=acteur[j].depx_init;
+                    acteur[j].depy=acteur[j].depy_init;
+                    if(acteur[j].posx+50>=arc_en_ciel[k].pos_x && acteur[j].posx+10<=arc_en_ciel[k].pos_x+b_arc_enciel->w && acteur[j].posy+50>=arc_en_ciel[k].pos_y && acteur[j].posy+10<=arc_en_ciel[k].pos_y+b_arc_enciel->h && money>=50)
+                    {
+                        acteur[j].depx=acteur[j].depx/2;
+                        acteur[j].depy=acteur[j].depy/2;
+                        //money = money - 50;
+                    }
+                }
                 acteur[j] = Deplacement(acteur[j], TESTterrain1,&ptsTour);
-                rectfill(page,acteur[j].posx+2,acteur[j].posy-5,acteur[j].posx+62,acteur[j].posy,makecol(0,0,0));
-                rectfill(page,acteur[j].posx+4,acteur[j].posy-4,acteur[j].posx+15,acteur[j].posy-1,makecol(255,0,255));
+                //rectfill(page,acteur[j].posx+2,acteur[j].posy-5,acteur[j].posx+62,acteur[j].posy,makecol(0,0,0));
+                //rectfill(page,acteur[j].posx+4,acteur[j].posy-4,acteur[j].posx+(acteur[j].ptsbonPres/10),acteur[j].posy-1,makecol(255,0,255));
+                textprintf_ex(page,font,acteur[j].posx,acteur[j].posy - 4,makecol(250,30,0),-1,"%d / %d",acteur[j].ptsbonPres,acteur[j].ptsdebonheur);
                 draw_sprite(page,acteur[j].seq.img[acteur[j].numImg[nuIm]],acteur[j].posx, acteur[j].posy);
+                vivant++;
+                //printf("%d : %d//", j, acteur[j].ptsdebonheur);
+                for (k=0; k<nb_tourmax; k++)
+                {
+                    if(acteur[j].posx+50>=nuage[k].pos_x && acteur[j].posx+10<=nuage[k].pos_x+b_nuage->w && acteur[j].posy+50>=nuage[k].pos_y && acteur[j].posy+10<=nuage[k].pos_y+b_nuage->h && money >= 20)
+                    {
+                        acteur[j].ptsbonPres = acteur[j].ptsbonPres - 100;
+                        //money = money - 20;
+                    }
+                }
+                if(acteur[j].ptsbonPres<=0)
+                {
+                    acteur[j].aff = 0;
+                }
             }
-            //allegro_message("yoyo");
-            acteur[j].posx = acteur[j].posx + acteur[j].depx;              //On déplace l'unitée
-            acteur[j].posy = acteur[j].posy + acteur[j].depy;
-            if (acteur[j].posx>=750)
-            {
-                acteur[j].aff=0;
-            }
-
         }
         compt++;
 
@@ -143,21 +162,72 @@ void boucle_de_jeu(int niv)
                 b--;
             }
         }
-        printf("%d ",ptsTour);
         draw_sprite(page,donjon,800-donjon->w, 290);
         blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
         nuIm++;
         rest(100);
+        if(key[KEY_ESC])
+        {
+            test=1;
+        }
+        else if(ptsTour <=0 )
+        {
+            test=2;
+        }
+        else if( vivant==0 && nbActeur==nbActeurAff )
+        {
+            test=3;
+        }
         clear_bitmap(page);
     }
+
+    if(test==3)
+    {
+        if (niv<3)
+        {
+            allegro_message("Vous avez gagné vous passé au niveau supérieur");
+            niv++;
+            sauvegarde_niveau(niv);
+            initialiser_niveau(niv);
+            boucle_de_jeu(niv);
+        }
+        else
+        {
+            allegro_message("Vous avez finis le jeu bravo !!!");
+            menu_jeu();
+        }
+    }
+    if(test==2)
+    {
+        allegro_message("GAME OVER : ta tour a ete prise");
+        menu_jeu();
+    }
+    if(test==1)
+    {
+        allegro_message("ABANDON : Retour au menu");
+        menu_jeu();
+    }
     sauvegarde_partie(acteur,nbActeur,nbActeurAff);
-    menu_jeu();
+}
+
+void sauvegarde_niveau(int diff)
+{
+    FILE* fic=NULL;
+    fic=fopen("fichier_niveau.txt","w");
+    if (fic==NULL)
+    {
+        allegro_message("fichier de sauvegarde partie non trouver");
+    }
+    else
+    {
+        fprintf(fic,"%d ",diff);
+        fclose(fic);
+    }
 }
 
 void sauvegarde_partie(t_poney tab[100],int nbPoney,int nbPoneyAff)
 {
-    int i,j;
-    int compt = 0;
+    int i;
     FILE* fic=NULL;
     fic=fopen("fichier_partie.txt","w");
     if (fic==NULL)
@@ -206,7 +276,8 @@ void initialiser_niveau(int niv)
         exit(EXIT_FAILURE);
     }
 }
-void cinematique(int niv)
+
+/*void cinematique(int niv)
 {
     histoire=load_bitmap("images/cinematiques/cinematique.bmp",NULL);
     if (!histoire)
@@ -220,7 +291,7 @@ void cinematique(int niv)
     clear_bitmap(page);
     clear_bitmap(screen);
     boucle_de_jeu(niv);
-}
+}*/
 
 int lire_niveau()
 {
@@ -239,18 +310,18 @@ int lire_niveau()
             allegro_message("erreur de valeur fichier niveau");
         }
         fclose(fc);
-        return diffi;
     }
+    return diffi;
 }
 
 
 void choix_niveau()
 {
-    int niv;
+    int niv = 1;
     niv = lire_niveau();
     do
     {
-        textprintf_ex(page,font,0,0,makecol(250,30,0),-1,"Bienenue sur le Jeu My little Poney");
+        textprintf_ex(page,font,0,0,makecol(250,30,0),-1,"Bienvenue sur le Jeu My little Poney");
         textprintf_ex(page,font,30,50,makecol(250,240,0),-1,"Choisissez votre niveau");
         textprintf_ex(page,font,30,100,makecol(250,240,0),-1,"1 2 ou 3");
         blit (page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
@@ -260,30 +331,30 @@ void choix_niveau()
     int a;
     if (key[KEY_1])
     {
+        key[KEY_1]=0;
+        key[KEY_2]=0;
+        key[KEY_3]=0;
+        key[KEY_4]=0;
         if(niv>=1)
         {
-            key[KEY_1]=0;
-            key[KEY_2]=0;
-            key[KEY_3]=0;
-            key[KEY_4]=0;
             a=1;
             initialiser_niveau(a);
             boucle_de_jeu(a);
-            cinematique(a);
+            //cinematique(a);
         }
     }
     if (key[KEY_2])
     {
+        key[KEY_1]=0;
+        key[KEY_2]=0;
+        key[KEY_3]=0;
+        key[KEY_4]=0;
         if(niv>=2)
         {
-            key[KEY_1]=0;
-            key[KEY_2]=0;
-            key[KEY_3]=0;
-            key[KEY_4]=0;
             a=2;
             initialiser_niveau(a);
             boucle_de_jeu(a);
-            cinematique(a);
+            //cinematique(a);
         }
         else
         {
@@ -293,21 +364,21 @@ void choix_niveau()
     }
     if (key[KEY_3])
     {
+        key[KEY_1]=0;
+        key[KEY_2]=0;
+        key[KEY_3]=0;
+        key[KEY_4]=0;
         if(niv>=3)
         {
-            key[KEY_1]=0;
-            key[KEY_2]=0;
-            key[KEY_3]=0;
-            key[KEY_4]=0;
             a=3;
             initialiser_niveau(a);
             boucle_de_jeu(a);
-            cinematique(a);
+            //cinematique(a);
         }
         else
         {
             allegro_message("niveau non debloque");
-            choix_niveau();
+            menu_jeu();
         }
     }
 }
@@ -347,8 +418,6 @@ void menu_jeu()
         key[KEY_2]=0;
         regles_du_jeu();
     }
-
-
 }
 
 void jeu_presentation()
@@ -358,5 +427,4 @@ void jeu_presentation()
     rest(1000);
     clear(page);
     menu_jeu();
-
 }

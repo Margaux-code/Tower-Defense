@@ -38,10 +38,13 @@ typedef struct poney
     int posx;
     int posy;
     int depx;
+    int depx_init;//des unité vont ralentir les poney
     int depy;
+    int depy_init;//des unité vont ralentir les poney
     int tx;
     int ty;
-    int ptsdebonheur;
+    int ptsdebonheur;//point de vie au debut
+    int ptsbonPres;//point de vie instant t
     int val; //numero de poney
     int aff;//afficher ou non
     int att;// attaque du poney
@@ -70,9 +73,6 @@ struct t_tour
     int rayon_action;
     int type_tour;
     int frequence_tir;
-
-
-
 };
 
 typedef struct t_nuages t_nuages;
@@ -115,6 +115,7 @@ int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i,int difficulte)
 /// sauvegarde de partie///
 void sauvegarde_partie(t_poney tab[100],int nbPoney,int nbPoneyAffiche);
 int lire_niveau();
+void sauvegarde_niveau(int diff);
 
 typedef enum e_forme e_forme;
 enum e_forme
