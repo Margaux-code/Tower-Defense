@@ -19,6 +19,7 @@ int main()
     regles=create_bitmap(SCREEN_W,SCREEN_H);
     menu=create_bitmap(SCREEN_W,SCREEN_H);
     buffer=create_bitmap(SCREEN_W,SCREEN_H);
+      b_distributeur=create_bitmap(SCREEN_W,SCREEN_H);
 
     petitsponey=load_bitmap("image/Intro.bmp",NULL);
     if (!petitsponey)
