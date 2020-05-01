@@ -11,6 +11,7 @@
 #define ralentir_nuage 1
 #define vitesse_missile_nuage 10
 BITMAP *page; // Double buffer
+BITMAP *buffer;//triple buffer
 BITMAP *decor; // Décor en fonction des niveaux
 BITMAP *petitsponey; //Page de chargement du jeu décor
 BITMAP *b_nuage; //Bitmap de la tour nuage
