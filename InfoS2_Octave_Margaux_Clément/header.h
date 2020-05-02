@@ -28,6 +28,7 @@ BITMAP *explo[8];
 BITMAP *b_distributeur;
 BITMAP *image_fin;
 BITMAP *game_over;
+BITMAP *im_choix_niv;
 
 typedef struct sequence // structure pour recuperer image poney
 {

@@ -609,81 +609,152 @@ int lire_niveau()
 
 void choix_niveau()
 {
-    int niv = 1;
-    niv = lire_niveau();
-    key[KEY_1]=0;
-    key[KEY_2]=0;
-    key[KEY_3]=0;
-    key[KEY_4]=0;
-    do
+    im_choix_niv = load_bitmap("image/im_niveau.bmp",NULL);
+    int clique = 0;
+    if(im_choix_niv == NULL )
     {
-        textprintf_ex(page,font,0,0,makecol(250,30,0),-1,"Bienvenue sur le Jeu My little Poney");
-        textprintf_ex(page,font,30,50,makecol(250,240,0),-1,"Choisissez votre niveau");
-        textprintf_ex(page,font,30,100,makecol(250,240,0),-1,"1 2 ou 3");
-        textprintf_ex(page,font,30,200,makecol(0,200,200),-1,"Pour revenir au menu : 4");
-        blit (page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+        allegro_message("probleme de chargement image niveau");
     }
-    while(!key[KEY_1]  &&  !key[KEY_2]  && !key[KEY_3]  && !key[KEY_4]); /*&& !(mouse_b&1 && mouse_x>=750 && mouse_y<=20));*/
-    int a;
-    if (key[KEY_1])
+    else
     {
+        int niv = 1;
+        niv = lire_niveau();
         key[KEY_1]=0;
         key[KEY_2]=0;
         key[KEY_3]=0;
         key[KEY_4]=0;
-        if(niv>=1)
+        do
         {
-            a=1;
-            initialiser_niveau(a);
-            cinematique(a);
-            boucle_de_jeu(a);
+            blit(im_choix_niv,page,0,0,0,0,SCREEN_W,SCREEN_H);
+            if(niv == 1)
+            {
+                if (mouse_x>=50 && mouse_x<=200 && mouse_y>=125 && mouse_y<=275 )
+                {
+                    rect(page, 50, 120,180, 252, makecol(150,0,255));
+                    if (mouse_b&1)
+                    {
+                        clique=1;
+                    }
+                }
+                line(page, 340, 120, 470, 250, makecol(255,0,0));
+                line(page, 340, 250, 470, 120, makecol(255,0,0));
+                line(page, 625, 120, 757, 250, makecol(255,0,0));
+                line(page, 625, 250, 757, 120, makecol(255,0,0));
+            }
+            else if (niv==2)
+            {
+                if (mouse_x>=50 && mouse_x<=200 && mouse_y>=125 && mouse_y<=275 )
+                {
+                    rect(page, 50, 120,180, 250, makecol(150,0,255));
+                    if (mouse_b&1)
+                    {
+                        clique=1;
+                    }
+                }
+
+                else if (mouse_x>= 340 && mouse_x<=470 && mouse_y>=120 && mouse_y<=250)
+                {
+                    rect(page, 340,120,470, 250, makecol(150,0,255));
+                    if (mouse_b&1)
+                    {
+                        clique=2;
+                    }
+                }
+                line(page, 625, 120, 757, 250, makecol(255,0,0));
+                line(page, 625, 250, 757, 120, makecol(255,0,0));
+            }
+            else if (niv>=3)
+            {
+                if (mouse_x>=50 && mouse_x<=200 && mouse_y>=125 && mouse_y<=275 )
+                {
+                    rect(page, 50, 120,180, 252, makecol(150,0,255));
+                    if (mouse_b&1)
+                    {
+                        clique=1;
+                    }
+                }
+
+                else if (mouse_x>= 340 && mouse_x<=470 && mouse_y>=120 && mouse_y<=250)
+                {
+                    rect(page, 340,120,470, 250, makecol(150,0,255));
+                    if (mouse_b&1)
+                    {
+                        clique=2;
+                    }
+                }
+                else if (mouse_x>= 625 && mouse_x<=757 && mouse_y>=120 && mouse_y<=250)
+                {
+                    rect(page, 625,118,757, 250, makecol(150,0,255));
+                    if (mouse_b&1)
+                    {
+                        clique=3;
+                    }
+                }
+            }
+            blit (page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
         }
-    }
-    if (key[KEY_2])
-    {
-        key[KEY_1]=0;
-        key[KEY_2]=0;
-        key[KEY_3]=0;
-        key[KEY_4]=0;
-        if(niv>=2)
+        while(!key[KEY_1]  &&  !key[KEY_2]  && !key[KEY_3]  && !key[KEY_4] && !clique);
+        int a;
+        if (key[KEY_1] || clique==1)
         {
-            a=2;
-            initialiser_niveau(a);
-            cinematique(a);
-            boucle_de_jeu(a);
+            key[KEY_1]=0;
+            key[KEY_2]=0;
+            key[KEY_3]=0;
+            key[KEY_4]=0;
+            if(niv>=1)
+            {
+                a=1;
+                initialiser_niveau(a);
+                cinematique(a);
+                boucle_de_jeu(a);
+            }
         }
-        else
+        if (key[KEY_2] || clique == 2)
         {
-            allegro_message("niveau non debloque");
-            choix_niveau();
+            key[KEY_1]=0;
+            key[KEY_2]=0;
+            key[KEY_3]=0;
+            key[KEY_4]=0;
+            if(niv>=2)
+            {
+                a=2;
+                initialiser_niveau(a);
+                cinematique(a);
+                boucle_de_jeu(a);
+            }
+            else
+            {
+                allegro_message("niveau non debloque");
+                choix_niveau();
+            }
         }
-    }
-    if (key[KEY_3])
-    {
-        key[KEY_1]=0;
-        key[KEY_2]=0;
-        key[KEY_3]=0;
-        key[KEY_4]=0;
-        if(niv>=3)
+        if (key[KEY_3] || clique == 3)
         {
-            a=3;
-            initialiser_niveau(a);
-            cinematique(a);
-            boucle_de_jeu(a);
+            key[KEY_1]=0;
+            key[KEY_2]=0;
+            key[KEY_3]=0;
+            key[KEY_4]=0;
+            if(niv>=3)
+            {
+                a=3;
+                initialiser_niveau(a);
+                cinematique(a);
+                boucle_de_jeu(a);
+            }
+            else
+            {
+                allegro_message("niveau non debloque");
+                choix_niveau();
+            }
         }
-        else
+        if (key[KEY_4])
         {
-            allegro_message("niveau non debloque");
-            choix_niveau();
+            key[KEY_1]=0;
+            key[KEY_2]=0;
+            key[KEY_3]=0;
+            key[KEY_4]=0;
+            menu_jeu();
         }
-    }
-    if (key[KEY_4])
-    {
-        key[KEY_1]=0;
-        key[KEY_2]=0;
-        key[KEY_3]=0;
-        key[KEY_4]=0;
-        menu_jeu();
     }
 }
 
@@ -708,7 +779,7 @@ void menu_jeu()
     do
     {
         blit(menu,page,0,0,0,0,SCREEN_W,SCREEN_H);
-        if (mouse_x>=250 && mouse_x<=520 && mouse_y>=220 && mouse_y<=255 )
+        if (mouse_x>=245 && mouse_x<=535 && mouse_y>=220 && mouse_y<=255 )
         {
             hline(page, 245, 255,535, makecol(150,0,255));
             if (mouse_b&1)
@@ -735,17 +806,19 @@ void menu_jeu()
         blit (page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
     }
     while(!key[KEY_1]  && !key[KEY_2]  && !key[KEY_3] && !(mouse_b&1 && mouse_x>=750 && mouse_y<=20) && !clique_test);
-    clear(page);
+    clear_bitmap(page);
     if (key[KEY_1] || clique_test == 1)
     {
         key[KEY_1]=0;
         key[KEY_2]=0;
+        rest(200);
         choix_niveau();
     }
     else if(key[KEY_2]|| clique_test == 2)
     {
         key[KEY_1]=0;
         key[KEY_2]=0;
+        rest(200);
         regles_du_jeu();
     }
 }
@@ -755,6 +828,6 @@ void jeu_presentation()
     blit(petitsponey,page,0,0,0,0,SCREEN_W,SCREEN_H);
     blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
     rest(1000);
-    clear(page);
+    clear_bitmap(page);
     menu_jeu();
 }
