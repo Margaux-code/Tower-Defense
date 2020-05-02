@@ -60,7 +60,7 @@ void boucle_de_jeu(int niv)
         arc_en_ciel[k].rayon_action=500;
         nuage[k].rayon_action=300;
         distributeur[k].rayon_action=300;
-        distributeur[k].target=0;
+        distributeur[k].target=-1;
         missiles[k].existe=0;
     }
     int n=nb_tourmax-1;// compteur des tours nuages
