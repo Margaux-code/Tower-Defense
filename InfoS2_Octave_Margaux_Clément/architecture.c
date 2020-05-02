@@ -119,7 +119,7 @@ void boucle_de_jeu(int niv)
             }
             draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
 
-        if (distributeur[k].active==0 || distributeur[k].target==0)
+        if (distributeur[k].active==0 || distributeur[k].target==-1)
             draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
             else
             {if (nuIm==0 || nuIm==2)
@@ -219,39 +219,7 @@ void boucle_de_jeu(int niv)
         }
         //fin affichage poney et interaction tours
         
-               //Boucle des tours qui tirent sur des ennemis
-        for (k1=0;k1<nb_tourmax;k1++)
-        {
-            if (distributeur[k1].active==1)
-            {
-                if (distributeur[k1].target==-1) //Si la tour n'a pas d'ennemis attitré
-                {
-                    min_x=distributeur[k1].pos_x-distributeur[k1].rayon_action;
-                    max_x=distributeur[k1].pos_x+distributeur[k1].rayon_action;
-                    min_y=distributeur[k1].pos_y-distributeur[k1].rayon_action;
-                    max_y=distributeur[k1].pos_y+distributeur[k1].rayon_action;
 
-                    for (i1=0; i1<nbActeurAff; i1++)
-                    {
-
-                            if (acteur[i1].aff==1) // Si l'ennemi est dans le bon rayon
-                            {
-                               // if (distributeur[k].target==0)// Si la tour n'a pas de target
-                               // {
-                                    distributeur[k1].target=i1;
-                                     printf("%d", distributeur[k].target);
-                                    missiles[k1].existe=2;
-                                    missiles[k1].pos_x=distributeur[k1].pos_x;
-                                    missiles[k1].pos_y=distributeur[k1].pos_y;
-
-                               // }
-                            }
-
-
-
-                    }// Fin du for de tous les ennemis : chaque tour a maintenant un ennemis si il y en a un dans le coin
-
-                }
 
                 if (distributeur[k1].target!=-1)// SI la tour a un ennemi attitré
                 {
