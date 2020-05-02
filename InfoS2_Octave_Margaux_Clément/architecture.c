@@ -125,13 +125,19 @@ void boucle_de_jeu(int niv)
             {if (nuIm==0 || nuIm==2)
             {
                 draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
-                draw_sprite(page,b_missile,missiles[k].pos_x,missiles[k].pos_y);
+                
             }
             if (nuIm==1 || nuIm==3)
             {
                 draw_sprite_h_flip(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
             }
             }
+                if (acteur[distributeur[k].target].ptsbonPres<=0)
+                {
+                    distributeur[k].target=-1;
+
+                    missiles[k].existe=0;
+                }
             if (missiles[k].existe!=0)
             {
 
