@@ -12,7 +12,7 @@ void boucle_de_jeu(int niv)
     image_fin = load_bitmap("image/image_fin_petits_poney.bmp",NULL);
     game_over = load_bitmap("image/poney_triste.bmp",NULL);
     // Initialisation des poney
-    int money = 100+(niv)*(20);
+    int money = 120+(niv)*(20);
     t_sequence tab[3]; // Declaration du tableau avec sequence image poney
     t_poney pon[3]; // Declaration du tableau avec les différentes sorte de poney
     t_poney acteur[100];
@@ -47,7 +47,7 @@ void boucle_de_jeu(int niv)
         nuage[k].pos_x=0;
         nuage[k].pos_y=0;
         arc_en_ciel[k].pos_x=100;
-        arc_en_ciel [k].pos_y=0;
+        arc_en_ciel [k].pos_y=10;
         bonbons[k].pos_x=200;
         bonbons[k].pos_y=0;
         bonbons[k].test=0;
@@ -68,7 +68,7 @@ void boucle_de_jeu(int niv)
     int nuIm=0; // numero d'image dans la sequence d'animation
     int j;
     nbActeurAff = 2;
-     //Ces quatres valeurs permettent de simplifier le reperage d'un enemi dans la zone de tir d'un distributeur
+    //Ces quatres valeurs permettent de simplifier le reperage d'un enemi dans la zone de tir d'un distributeur
     int min_x;//Valeur permettant de savoir si un ennemi est dans la bonne zone
     int max_x;
     int min_y;
@@ -171,10 +171,12 @@ void boucle_de_jeu(int niv)
                 //printf("%d : %d//", j, acteur[j].ptsdebonheur);
                 for (k=0; k<nb_tourmax; k++)
                 {
+        //POUVOIR ARC EN CIEL
                     if(acteur[j].posx+50>=arc_en_ciel[k].pos_x && acteur[j].posx+10<=arc_en_ciel[k].pos_x+b_arc_enciel->w && acteur[j].posy+50>=arc_en_ciel[k].pos_y && acteur[j].posy+10<=arc_en_ciel[k].pos_y+b_arc_enciel->h)
                     {
-                        acteur[j].ptsbonPres = acteur[j].ptsbonPres - 4;
+                        acteur[j].ptsbonPres = acteur[j].ptsbonPres - 3;
                     }
+        // POUVOIR BONBON
                     if(acteur[j].posx+40>=bonbons[k].pos_x && acteur[j].posx+5<=bonbons[k].pos_x+b_bonbon->w && acteur[j].posy+40>=bonbons[k].pos_y && acteur[j].posy+40<=bonbons[k].pos_y+b_bonbon->h)
                     {
                         if(bonbons[k].test==1 && bonbons[k].numeImg <8 )
@@ -194,10 +196,11 @@ void boucle_de_jeu(int niv)
                     }
 
                 }
+        // Rapport de points par ennemie
                 if(acteur[j].ptsbonPres<=0)
                 {
                     acteur[j].aff = 0;
-                    money = money + acteur[j].val*15;
+                    money = money + acteur[j].val*(15);
                 }
             }
         }
@@ -220,9 +223,19 @@ void boucle_de_jeu(int niv)
                     blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }
                 while(mouse_b&1);
-                nuage[n].active=1;
-                n--;
-                money = money - 30;
+                //blinde_pos_nuage(TESTterrain1,nuage,&n,&money);
+                if(getpixel(TESTterrain1,nuage[n].pos_x,nuage[n].pos_y)!=makecol(0,0,0)&&getpixel(TESTterrain1,nuage[n].pos_x+b_nuage->h,nuage[n].pos_y+b_nuage->h)!=makecol(0,0,0))
+                {
+                    nuage[n].active=1;
+                    n--;
+                    money = money - 30;
+                }
+                else
+                {
+                    nuage[n].active=0;
+                    nuage[n].pos_x=0;
+                    nuage[n].pos_y=0;
+                }
             }
             else if (101<=mouse_x && mouse_x<=201 && mouse_y<=50 && a>=0 && money>=50)//Placer arc-en-ciel
             {
@@ -236,9 +249,18 @@ void boucle_de_jeu(int niv)
                     blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }
                 while(mouse_b&1);
-                arc_en_ciel[a].active=1;
-                a--;
-                money = money - 50;
+                if(getpixel(TESTterrain1,arc_en_ciel[a].pos_x,arc_en_ciel[a].pos_y)!=makecol(0,0,0)&&getpixel(TESTterrain1,arc_en_ciel[a].pos_x+b_arc_enciel->h,arc_en_ciel[a].pos_y+b_arc_enciel->h)!=makecol(0,0,0))
+                {
+                    arc_en_ciel[a].active=1;
+                    a--;
+                    money = money - 50;
+                }
+                else
+                {
+                    arc_en_ciel[a].active=0;
+                    arc_en_ciel[a].pos_x=100;
+                    arc_en_ciel[a].pos_y=10;
+                }
             }else if (201<=mouse_x && mouse_x<=300 && mouse_y<=50 && b>=0  && money>=20)//placer bonbon
             {
                 do
@@ -250,9 +272,18 @@ void boucle_de_jeu(int niv)
                     bonbons[b].pos_y=mouse_y;
                     blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }while(mouse_b&1);
-                bonbons[b].active=1;
-                b--;
-                money = money - 20;
+                if(getpixel(TESTterrain1,bonbons[b].pos_x,bonbons[b].pos_y)!=makecol(0,0,0)&&getpixel(TESTterrain1,bonbons[b].pos_x+b_bonbon->h,bonbons[b].pos_y+b_bonbon->h)!=makecol(0,0,0))
+                {
+                    bonbons[b].active=1;
+                    b--;
+                    money = money - 20;
+                }
+                else
+                {
+                    bonbons[b].active=0;
+                    bonbons[b].pos_x=200;
+                    bonbons[b].pos_y=0;
+                }
             }else if (301<=mouse_x && mouse_x<=400 && mouse_y<=50 && d>=0 && money>=40)
             {
                 do
@@ -264,9 +295,18 @@ void boucle_de_jeu(int niv)
                     distributeur[d].pos_y=mouse_y;
                     blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }while(mouse_b&1);
-                distributeur[d].active=1;
-                d--;
-                money = money - 40;
+                if(getpixel(TESTterrain1,distributeur[d].pos_x,distributeur[d].pos_y)==makecol(0,0,0)&&getpixel(TESTterrain1,distributeur[d].pos_x+b_distributeur->h,distributeur[d].pos_y+b_distributeur->h)==makecol(0,0,0)&& distributeur[d].pos_y >= 70 )
+                {
+                    distributeur[d].active=1;
+                    d--;
+                    money = money - 40;
+                }
+                else
+                {
+                    distributeur[d].active=0;
+                    distributeur[d].pos_x=300;
+                    distributeur[d].pos_y=0;
+                }
             }
         }
         // Fin du dépot d'une tour
@@ -367,6 +407,24 @@ void boucle_de_jeu(int niv)
     }
     sauvegarde_partie(acteur,nbActeur,nbActeurAff);
 }
+
+/*
+void blinde_pos_nuage(BITMAP* TESTterrain1,t_nuages nuage[nb_tourmax], int* n, int* money)
+{
+    if(getpixel(TESTterrain1,nuage[*n].pos_x,nuage[*n].pos_y)!=makecol(0,0,0)&&getpixel(TESTterrain1,nuage[*n].pos_x+b_nuage->h,nuage[*n].pos_y+b_nuage->h)!=makecol(0,0,0))
+    {
+        nuage[*n].active=1;
+        *n--;
+        *money = *money - 30;
+    }
+    else
+    {
+        nuage[*n].active=0;
+        nuage[*n].pos_x=0;
+        nuage[*n].pos_y=0;
+    }
+}
+*/
 
 /*
 void drag_and_drop(BITMAP* buffer,BITMAP* page,BITMAP* screen,BITMAP* b_nuage,BITMAP* b_arc_enciel, BITMAP* b_bonbon, BITMAP* b_distributeur,

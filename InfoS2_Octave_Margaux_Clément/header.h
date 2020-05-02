@@ -140,6 +140,9 @@ void drag_and_drop(BITMAP* buffer,BITMAP* page,BITMAP* screen,BITMAP* b_nuage,BI
                 t_nuages nuage[nb_tourmax],t_tour arc_en_ciel[nb_tourmax],t_tour bonbons[nb_tourmax],t_tour distributeur[nb_tourmax],
                 int* a,int* b,int* d, int* n ,int* money);
 
+/// Blindage defense ///
+void blinde_pos_nuage(BITMAP* TESTterrain1,t_nuages nuage[nb_tourmax], int* n, int* money);
+
 typedef enum e_forme e_forme;
 enum e_forme
 {
