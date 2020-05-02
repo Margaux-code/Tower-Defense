@@ -29,6 +29,8 @@ BITMAP *b_distributeur;
 BITMAP *image_fin;
 BITMAP *game_over;
 BITMAP *im_choix_niv;
+BITMAP *b_nuage_2;
+BITMAP *b_arc_enciel_2;
 
 typedef struct sequence // structure pour recuperer image poney
 {
@@ -88,6 +90,7 @@ struct t_tour
     int degat;
     int active;
     int target;
+    int nivo;
 };
 
 typedef struct t_nuages t_nuages;
@@ -98,6 +101,7 @@ struct t_nuages
     int rayon_action;
     int ralentir;
     int active;
+    int nivo;
 };
 
 // SOus programme de l'architecture du jeu
@@ -143,6 +147,11 @@ void drag_and_drop(BITMAP* buffer,BITMAP* page,BITMAP* screen,BITMAP* b_nuage,BI
 
 /// Blindage defense ///
 void blinde_pos_nuage(BITMAP* TESTterrain1,t_nuages nuage[nb_tourmax], int* n, int* money);
+
+
+///Upgrade de nuage///
+void uprude_nuage(t_nuages nu[nb_tourmax], int* money,BITMAP* page);
+void uprude_arc_en_ciel(t_tour arc[nb_tourmax] ,int* money ,BITMAP* page);
 
 typedef enum e_forme e_forme;
 enum e_forme
