@@ -136,7 +136,14 @@ void boucle_de_jeu(int niv)
             }
             draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
 
+<<<<<<< HEAD
             if (distributeur[k].active==0 || distributeur[k].target==0)
+=======
+        if (distributeur[k].active==0 || distributeur[k].target==-1)
+            draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
+            else
+            {if (nuIm==0 || nuIm==2)
+>>>>>>> 5ceaf9c55a342c43c00c7cd0918ffdc8a60eb204
             {
                 draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
             }
@@ -255,6 +262,7 @@ void boucle_de_jeu(int niv)
             }
         }
         //fin affichage poney et interaction tours
+<<<<<<< HEAD
 
         //Boucle des tours qui tirent sur des ennemis
         for (k1=0;k1<nb_tourmax;k1++)
@@ -283,6 +291,10 @@ void boucle_de_jeu(int niv)
                             }
                     }// Fin du for de tous les ennemis : chaque tour a maintenant un ennemis si il y en a un dans le coin
                 }
+=======
+        
+
+>>>>>>> 5ceaf9c55a342c43c00c7cd0918ffdc8a60eb204
 
                 if (distributeur[k1].target!=-1)// SI la tour a un ennemi attitré
                 {
