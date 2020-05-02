@@ -6,7 +6,7 @@
 //chargement d'une image et blindage
 //prototype : BITMAP * load_bitmap_check(char *nomImage);
 
-BITMAP * load_bitmap_check(char *nomImage)
+BITMAP* load_bitmap_check(char *nomImage)
 {
     BITMAP *bmp;
     bmp=load_bitmap(nomImage,NULL);

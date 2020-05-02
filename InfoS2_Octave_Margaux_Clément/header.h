@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <allegro.h>
 #include <time.h>
-#define nb_tourmax 6
+#define nb_tourmax 20
 #define rayon_nuage 50
 #define tire_nuage 3
 #define ralentir_nuage 1
@@ -26,6 +26,8 @@ BITMAP *niveau; // Interface du niveau
 BITMAP *donjon;
 BITMAP *explo[8];
 BITMAP *b_distributeur;
+BITMAP *image_fin;
+BITMAP *game_over;
 
 typedef struct sequence // structure pour recuperer image poney
 {
@@ -68,11 +70,7 @@ struct t_missile
     int dep_x;
     int dep_y;
     int degat;
-<<<<<<< HEAD
-=======
     int existe;
->>>>>>> c376f1454ff652d969848425c97f8ec56267aade
-
 };
 
 
@@ -137,6 +135,10 @@ void sauvegarde_niveau(int diff);
 /// initialisation image explosion///
 void inimagCoeur(BITMAP* tab[8]);
 
+///DRAG AND DROP///
+void drag_and_drop(BITMAP* buffer,BITMAP* page,BITMAP* screen,BITMAP* b_nuage,BITMAP* b_arc_enciel, BITMAP* b_bonbon, BITMAP* b_distributeur,
+                t_nuages nuage[nb_tourmax],t_tour arc_en_ciel[nb_tourmax],t_tour bonbons[nb_tourmax],t_tour distributeur[nb_tourmax],
+                int* a,int* b,int* d, int* n ,int* money);
 
 typedef enum e_forme e_forme;
 enum e_forme

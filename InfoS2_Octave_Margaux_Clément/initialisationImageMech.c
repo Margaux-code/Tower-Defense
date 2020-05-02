@@ -72,7 +72,7 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[2].posy =250;
     tab[2].ptsdebonheur =500;
     tab[2].ptsbonPres =500;
-    tab[2].val = 1;
+    tab[2].val = 3;
     tab[2].aff = 1;
     tab[2].att = 50;
     tab[2].seq = t[2];
@@ -102,7 +102,7 @@ void iniMech(t_poney tab[3],t_sequence t[3])
     tab[0].posy = 250;
     tab[0].ptsdebonheur =100;
     tab[0].ptsbonPres =100;
-    tab[0].val = 3;
+    tab[0].val = 1;
     tab[0].aff = 1;
     tab[0].att = 10;
     tab[0].seq = t[0];
