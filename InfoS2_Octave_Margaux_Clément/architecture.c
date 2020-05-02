@@ -390,7 +390,7 @@ void boucle_de_jeu(int niv)
 
             if (distributeur[k].active==1)
             {
-                if (distributeur[k].target==0) //Si la tour n'a pas d'ennemis attitré
+                if (distributeur[k].target==-1) //Si la tour n'a pas d'ennemis attitré
                 {
                     min_x=distributeur[k].pos_x-distributeur[k].rayon_action;
                     max_x=distributeur[k].pos_x+distributeur[k].rayon_action;
@@ -400,7 +400,7 @@ void boucle_de_jeu(int niv)
                     {
                         if (min_x<=acteur[i].posx && acteur[i].posx<=max_x && min_y<=acteur[i].posy && acteur[i].posy<=max_y) // Si l'ennemi est dans le bon rayon
                         {
-                            if (distributeur[k].target==0)// Si la tour n'a pas de target
+                            if (distributeur[k].target==-1)// Si la tour n'a pas de target
                             {
                                 distributeur[k].target=i;
                             }
@@ -409,7 +409,7 @@ void boucle_de_jeu(int niv)
                     }// Fin du for de tous les ennemis : chaque tour a maintenant un ennemis si il y en a un dans le coin
 
                 }
-                if (distributeur[k].target!=0)// SI la tour a un ennemi attitré
+                if (distributeur[k].target!=-1)// SI la tour a un ennemi attitré
                 {
 
                         missiles[k].existe=1;
