@@ -38,6 +38,8 @@ void boucle_de_jeu(int niv)
     t_missile missiles[nb_tourmax];
     int i;
     int k;
+    int k1;
+    int i1;
     for (k=0; k<nb_tourmax; k++)
     {
         distributeur[k].active=0;
@@ -130,16 +132,21 @@ void boucle_de_jeu(int niv)
                 draw_sprite_h_flip(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
             }
             }
-            if (missiles[k].existe==1)
+            if (missiles[k].existe!=0)
             {
 
-               if (missiles[k].pos_x != missiles[k].cible_x)
-               {
-                    draw_sprite(page,b_missile,missiles[k].pos_x,missiles[k].pos_y);
-                    missiles[k].pos_x=missiles[k].pos_x +(missiles[k].cible_x-missiles[k].pos_x);
-                    missiles[k].pos_y=missiles[k].pos_y +(missiles[k].cible_y-missiles[k].pos_y);
-               }
+                if (missiles[k].pos_x != missiles[k].cible_x)
+                {
+                    missiles[k].existe--;
+                    for(i=0; i<5; i++)
+                    {
+                        draw_sprite(page,b_missile,missiles[k].pos_x,missiles[k].pos_y);
+                        missiles[k].pos_x=missiles[k].pos_x +(missiles[k].dep_x/10);
+                        missiles[k].pos_y=missiles[k].pos_y +(missiles[k].dep_y/10);
 
+                    }
+                    acteur[distributeur[k].target].ptsbonPres=acteur[distributeur[k].target].ptsbonPres-50;
+                }
             }
         }
         //Fin affichage des tours
@@ -205,6 +212,66 @@ void boucle_de_jeu(int niv)
             }
         }
         //fin affichage poney et interaction tours
+        
+               //Boucle des tours qui tirent sur des ennemis
+        for (k1=0;k1<nb_tourmax;k1++)
+        {
+            if (distributeur[k1].active==1)
+            {
+                if (distributeur[k1].target==-1) //Si la tour n'a pas d'ennemis attitré
+                {
+                    min_x=distributeur[k1].pos_x-distributeur[k1].rayon_action;
+                    max_x=distributeur[k1].pos_x+distributeur[k1].rayon_action;
+                    min_y=distributeur[k1].pos_y-distributeur[k1].rayon_action;
+                    max_y=distributeur[k1].pos_y+distributeur[k1].rayon_action;
+
+                    for (i1=0; i1<nbActeurAff; i1++)
+                    {
+
+                            if (acteur[i1].aff==1) // Si l'ennemi est dans le bon rayon
+                            {
+                               // if (distributeur[k].target==0)// Si la tour n'a pas de target
+                               // {
+                                    distributeur[k1].target=i1;
+                                     printf("%d", distributeur[k].target);
+                                    missiles[k1].existe=2;
+                                    missiles[k1].pos_x=distributeur[k1].pos_x;
+                                    missiles[k1].pos_y=distributeur[k1].pos_y;
+
+                               // }
+                            }
+
+
+
+                    }// Fin du for de tous les ennemis : chaque tour a maintenant un ennemis si il y en a un dans le coin
+
+                }
+
+                if (distributeur[k1].target!=-1)// SI la tour a un ennemi attitré
+                {
+
+
+                    missiles[k1].cible_x=acteur[distributeur[k1].target].posx;
+                    missiles[k1].cible_y=acteur[distributeur[k1].target].posy;
+                    missiles[k1].dep_x=missiles[k1].cible_x-missiles[k1].pos_x;
+                    missiles[k1].dep_y=missiles[k1].cible_y-missiles[k1].pos_y;
+                    if (acteur[distributeur[k1].target].ptsbonPres<=0)
+                        {
+                            distributeur[k1].type_tour=-1;
+                            missiles[k1].existe=0;
+
+                        }
+                    if (missiles[k1].cible_x>missiles[k1].pos_x-20&& missiles[k1].cible_x<missiles[k1].pos_x+20)
+                    {
+                        missiles[k1].existe=2;
+                        missiles[k1].pos_x=distributeur[k1].pos_x;
+                        missiles[k1].pos_y=distributeur[k1].pos_y;
+
+                    }
+                }
+
+            }//Fin des tours qui sont actives donc des tours qui sont placées
+        }//Fin de la boucle qui tire sur des ennemis
 
         // Drag and drop des tours
 
