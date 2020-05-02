@@ -12,7 +12,7 @@ void boucle_de_jeu(int niv)
     image_fin = load_bitmap("image/image_fin_petits_poney.bmp",NULL);
     game_over = load_bitmap("image/poney_triste.bmp",NULL);
     // Initialisation des poney
-    int money = 120+(niv)*(20);
+    int money = 100+(niv)*(20);
     t_sequence tab[3]; // Declaration du tableau avec sequence image poney
     t_poney pon[3]; // Declaration du tableau avec les différentes sorte de poney
     t_poney acteur[100];
@@ -701,23 +701,48 @@ menu_jeu();
 
 void menu_jeu()
 {
+    int clique_test=0;
     key[KEY_1]=0;
     key[KEY_2]=0;
+    key[KEY_3]=0;
     do
     {
         blit(menu,page,0,0,0,0,SCREEN_W,SCREEN_H);
+        if (mouse_x>=250 && mouse_x<=520 && mouse_y>=220 && mouse_y<=255 )
+        {
+            hline(page, 245, 255,535, makecol(150,0,255));
+            if (mouse_b&1)
+            {
+                clique_test=1;
+            }
+        }
+        if (mouse_x>=265 && mouse_x<=515 && mouse_y>=280 && mouse_y<=315 )
+        {
+            hline(page, 265, 310,515, makecol(150,0,255));
+            if (mouse_b&1)
+            {
+                clique_test=2;
+            }
+        }
+        if (mouse_x>=265 && mouse_x<=515 && mouse_y>=330 && mouse_y<=365 )
+        {
+            hline(page, 265, 365,515, makecol(150,0,255));
+            if (mouse_b&1)
+            {
+                clique_test=3;
+            }
+        }
         blit (page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
     }
-    while(!key[KEY_1]  && !key[KEY_2]  && !key[KEY_3] && !(mouse_b&1 && mouse_x>=750 && mouse_y<=20));
-
+    while(!key[KEY_1]  && !key[KEY_2]  && !key[KEY_3] && !(mouse_b&1 && mouse_x>=750 && mouse_y<=20) && !clique_test);
     clear(page);
-    if (key[KEY_1])
+    if (key[KEY_1] || clique_test == 1)
     {
         key[KEY_1]=0;
         key[KEY_2]=0;
         choix_niveau();
     }
-    else if(key[KEY_2])
+    else if(key[KEY_2]|| clique_test == 2)
     {
         key[KEY_1]=0;
         key[KEY_2]=0;
