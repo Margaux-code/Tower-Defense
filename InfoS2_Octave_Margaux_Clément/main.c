@@ -9,7 +9,6 @@ int main()
     initalisation();
 
     // Pour pouvoir utiliser des chiffres aleatoire
-
     srand(time(NULL));
 
     chargement_bitmap();

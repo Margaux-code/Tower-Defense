@@ -2,8 +2,6 @@
 
 void boucle_de_jeu(int niv)
 {
-
- 
     // Initialisation des poney
     int money = 100+(niv)*(15);
     t_sequence tab[3]; // Declaration du tableau avec sequence image poney
@@ -40,7 +38,7 @@ void boucle_de_jeu(int niv)
         nuage[k].pos_y=0;
         arc_en_ciel[k].pos_x=100;
         arc_en_ciel [k].pos_y=10;
-        arc_en_ciel[k].nivo==0;
+        arc_en_ciel[k].nivo=0;
         bonbons[k].pos_x=200;
         bonbons[k].pos_y=0;
         bonbons[k].test=0;
@@ -139,7 +137,7 @@ void boucle_de_jeu(int niv)
             allegro_message("Vous avez gagné vous passez au niveau supérieur");
             niv++;
             sauvegarde_niveau(niv);
-            
+
             boucle_de_jeu(niv);
         }
         else
@@ -833,7 +831,7 @@ void choix_niveau()
             if(niv>=1)
             {
                 a=1;
-                
+
                 cinematique(a);
                 boucle_de_jeu(a);
             }
@@ -847,7 +845,7 @@ void choix_niveau()
             if(niv>=2)
             {
                 a=2;
-                
+
                 cinematique(a);
                 boucle_de_jeu(a);
             }
@@ -866,7 +864,7 @@ void choix_niveau()
             if(niv>=3)
             {
                 a=3;
-               
+
                 cinematique(a);
                 boucle_de_jeu(a);
             }

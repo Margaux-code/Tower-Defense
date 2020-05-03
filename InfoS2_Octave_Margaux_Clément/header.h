@@ -11,9 +11,9 @@
 #define tire_nuage 3
 #define ralentir_nuage 1
 #define vitesse_missile_nuage 10
-    // Déclaration des pointeurs sur BITMAP devant recevoir des images
-    BITMAP *terrain1;
-    BITMAP *TESTterrain1;
+// Déclaration des pointeurs sur BITMAP devant recevoir des images
+BITMAP *terrain1;
+BITMAP *TESTterrain1;
 BITMAP *page; // Double buffer
 BITMAP *buffer;//triple buffer
 BITMAP *decor; // Décor en fonction des niveaux

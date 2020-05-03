@@ -21,21 +21,44 @@ BITMAP* load_bitmap_check(char *nomImage)
 void chargement_bitmap()
 {
     page = create_bitmap(SCREEN_W,SCREEN_H);
-    petitsponey=create_bitmap(SCREEN_W,SCREEN_H);
+    //petitsponey=create_bitmap(SCREEN_W,SCREEN_H);
     regles=create_bitmap(SCREEN_W,SCREEN_H);
-    menu=create_bitmap(SCREEN_W,SCREEN_H);
+    //menu=create_bitmap(SCREEN_W,SCREEN_H);
     buffer=create_bitmap(SCREEN_W,SCREEN_H);
-    b_distributeur=create_bitmap(SCREEN_W,SCREEN_H);
-    b_missile=create_bitmap(SCREEN_W,SCREEN_H);
-    //BITMAP *anim;
-    decor=create_bitmap(SCREEN_W,SCREEN_H);
+    //b_distributeur=create_bitmap(SCREEN_W,SCREEN_H);
+    //b_missile=create_bitmap(SCREEN_W,SCREEN_H);
+    //decor=create_bitmap(SCREEN_W,SCREEN_H);
     // Chargement des images (l'allocation a lieu en même temps)
     terrain1 = load_bitmap_check ("image/terrain/terrainlvl1.bmp");
+    if (!terrain1)
+    {
+        allegro_message("pas pu trouver terrain1");
+        exit(EXIT_FAILURE);
+    }
     TESTterrain1 = load_bitmap_check ("image/terrain/ligneterrainlvl1.bmp");
-    //anim=create_bitmap(SCREEN_W,SCREEN_H);
+    if (!TESTterrain1)
+    {
+        allegro_message("pas pu trouver donjon.bmp");
+        exit(EXIT_FAILURE);
+    }
     donjon = load_bitmap("image/Donjon_tour_fin.bmp",NULL);
+    if (!donjon)
+    {
+        allegro_message("pas pu trouver donjon.bmp");
+        exit(EXIT_FAILURE);
+    }
     image_fin = load_bitmap("image/image_fin_petits_poney.bmp",NULL);
+    if (!image_fin)
+    {
+        allegro_message("pas pu trouver l'image de fin");
+        exit(EXIT_FAILURE);
+    }
     game_over = load_bitmap("image/poney_triste.bmp",NULL);
+    if (!game_over)
+    {
+        allegro_message("pas pu trouver image game over");
+        exit(EXIT_FAILURE);
+    }
 
     petitsponey=load_bitmap("image/Intro.bmp",NULL);
     if (!petitsponey)
@@ -50,7 +73,12 @@ void chargement_bitmap()
         exit(EXIT_FAILURE);
     }
     b_missile=load_bitmap("image/missiles.bmp",NULL);
-        b_arc_enciel_2 = load_bitmap("image/arc_en_ciel2.bmp",NULL);
+    if (!b_missile)
+    {
+        allegro_message("pas pu trouver missile.bmp");
+        exit(EXIT_FAILURE);
+    }
+    b_arc_enciel_2 = load_bitmap("image/arc_en_ciel2.bmp",NULL);
     if (!b_arc_enciel_2)
     {
         allegro_message("pas pu trouver arc_enciel2.bmp");
@@ -81,8 +109,8 @@ void chargement_bitmap()
         allegro_message("pas pu trouver arc_en_ciel1.bmp");
         exit(EXIT_FAILURE);
     }
-       b_distributeur=load_bitmap("image/distributeur.bmp",NULL);
-        if (!b_distributeur)
+    b_distributeur=load_bitmap("image/distributeur.bmp",NULL);
+    if (!b_distributeur)
     {
         allegro_message("pas pu trouver distributeur.bmp");
         exit(EXIT_FAILURE);
