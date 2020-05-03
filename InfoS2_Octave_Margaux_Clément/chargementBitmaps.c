@@ -20,22 +20,48 @@ BITMAP* load_bitmap_check(char *nomImage)
 
 void chargement_bitmap()
 {
+    histoire = create_bitmap(SCREEN_W,SCREEN_H);
+    terrain1 = create_bitmap(SCREEN_W,SCREEN_H);
     page = create_bitmap(SCREEN_W,SCREEN_H);
-    //petitsponey=create_bitmap(SCREEN_W,SCREEN_H);
-    regles=create_bitmap(SCREEN_W,SCREEN_H);
-    //menu=create_bitmap(SCREEN_W,SCREEN_H);
     buffer=create_bitmap(SCREEN_W,SCREEN_H);
-    //b_distributeur=create_bitmap(SCREEN_W,SCREEN_H);
-    //b_missile=create_bitmap(SCREEN_W,SCREEN_H);
-    //decor=create_bitmap(SCREEN_W,SCREEN_H);
     // Chargement des images (l'allocation a lieu en même temps)
-    terrain1 = load_bitmap_check ("image/terrain/terrainlvl1.bmp");
-    if (!terrain1)
+    Terr3=load_bitmap("image/terrain/terrainlvl3.bmp",NULL);
+    if (!Terr3)
+    {
+        allegro_message("pas pu trouver terrain 3");
+        exit(EXIT_FAILURE);
+    }
+    Terr2=load_bitmap("image/terrain/terrainlvl2.bmp",NULL);
+    if (!Terr2)
+    {
+        allegro_message("pas pu trouver terrain 2");
+        exit(EXIT_FAILURE);
+    }
+    cinema3=load_bitmap("image/cinematique3.bmp",NULL);
+    if (!cinema3)
+    {
+        allegro_message("pas pu trouver cinematique 3");
+        exit(EXIT_FAILURE);
+    }
+    cinema2=load_bitmap("image/cinematique2.bmp",NULL);
+    if (!cinema2)
+    {
+        allegro_message("pas pu trouver cinematique 2");
+        exit(EXIT_FAILURE);
+    }
+    regles=load_bitmap("image/regles_du_jeu.bmp",NULL);
+    if (!regles)
+    {
+        allegro_message("pas pu trouver regle du jeu");
+        exit(EXIT_FAILURE);
+    }
+    Terr1 = load_bitmap("image/terrain/terrainlvl1.bmp",NULL);
+    if (!Terr1)
     {
         allegro_message("pas pu trouver terrain1");
         exit(EXIT_FAILURE);
     }
-    TESTterrain1 = load_bitmap_check ("image/terrain/ligneterrainlvl1.bmp");
+    TESTterrain1 = load_bitmap("image/terrain/ligneterrainlvl1.bmp",NULL);
     if (!TESTterrain1)
     {
         allegro_message("pas pu trouver donjon.bmp");
@@ -115,7 +141,12 @@ void chargement_bitmap()
         allegro_message("pas pu trouver distributeur.bmp");
         exit(EXIT_FAILURE);
     }
-
+    cinema1=load_bitmap("image/cinematique.bmp",NULL);
+    if (!histoire)
+    {
+        allegro_message("pas pu trouver cinematiques.bmp");
+        exit(EXIT_FAILURE);
+    }
 }
 
 void detruire_bitmap()

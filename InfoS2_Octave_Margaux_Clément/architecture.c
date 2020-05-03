@@ -16,11 +16,11 @@ void boucle_de_jeu(int niv)
     int test=0;
     int vivant=0;
     //int compteur_superposition = 0;
+    choix_image(terrain1,niv,Terr1,Terr2,Terr3);
     inimagCoeur(explo);
     inimagMech1(tab);
     iniMech(pon,tab);
     nbActeur = creaTabActeur(acteur,pon,nbActeur,niv);
-
     t_nuages nuage[nb_tourmax];
     t_tour arc_en_ciel[nb_tourmax];
     t_tour bonbons[nb_tourmax];
@@ -134,14 +134,17 @@ void boucle_de_jeu(int niv)
     {
         if (niv<3)
         {
+            clear_bitmap(terrain1);
             allegro_message("Vous avez gagné vous passez au niveau supérieur");
             niv++;
             sauvegarde_niveau(niv);
-
+            choix_cine(niv);
+            cinematique(niv);
             boucle_de_jeu(niv);
         }
         else
         {
+            clear_bitmap(terrain1);
             draw_sprite(page,image_fin,0,0);
             blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
             rest(5000);
@@ -151,6 +154,7 @@ void boucle_de_jeu(int niv)
     }
     if(test==2)
     {
+        clear_bitmap(terrain1);
         draw_sprite(page,game_over,0,0);
         blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
         rest(5000);
@@ -159,6 +163,7 @@ void boucle_de_jeu(int niv)
     }
     if(test==1)
     {
+        clear_bitmap(terrain1);
         allegro_message("ABANDON : Retour au menu");
         menu_jeu();
         //sauvegarde_partie(acteur,nbActeur,nbActeurAff);
@@ -166,6 +171,21 @@ void boucle_de_jeu(int niv)
 
 }
 
+void choix_image(BITMAP* terrain1,int niv,BITMAP* Terr1, BITMAP* Terr2, BITMAP* Terr3)
+{
+    if (niv == 1)
+    {
+        blit(Terr1,terrain1,0,0,0,0,SCREEN_W,SCREEN_H);
+    }
+    else if (niv == 2)
+    {
+        blit(Terr2,terrain1,0,0,0,0,SCREEN_W,SCREEN_H);
+    }
+    else if (niv == 3)
+    {
+        blit(Terr3,terrain1,0,0,0,0,SCREEN_W,SCREEN_H);
+    }
+}
 
 void interaction_poney(BITMAP* page, BITMAP* TESTterrain1,BITMAP* b_nuage,BITMAP* b_bonbon, BITMAP* b_arc_enciel, BITMAP* explo[8],
                        int nbActeurAff,int* ptsTour, int* vivant ,int* money,int nuIm,t_poney acteur[100],t_nuages nuage[nb_tourmax],
@@ -699,17 +719,29 @@ void sauvegarde_partie(t_poney tab[100],int nbPoney,int nbPoneyAff)
 
 void cinematique(int niv)
 {
-    histoire=load_bitmap("image/cinematique.bmp",NULL);
-    if (!histoire)
-    {
-        allegro_message("pas pu trouver cinematiques.bmp");
-        exit(EXIT_FAILURE);
-    }
+    choix_cine(niv);
     blit(histoire,page,0,0,0,0,SCREEN_W,SCREEN_H);
     blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-    rest(1000);
+    rest(5000);
+    clear_bitmap(histoire);
     clear_bitmap(page);
     clear_bitmap(screen);
+}
+
+void choix_cine(int niv)
+{
+    if(niv==1)
+    {
+        blit(cinema1,histoire,0,0,0,0,SCREEN_W,SCREEN_H);
+    }
+    else if(niv==2)
+    {
+        blit(cinema2,histoire,0,0,0,0,SCREEN_W,SCREEN_H);
+    }
+    else if(niv==3)
+    {
+        blit(cinema3,histoire,0,0,0,0,SCREEN_W,SCREEN_H);
+    }
 }
 
 int lire_niveau()
@@ -763,6 +795,14 @@ void choix_niveau()
                         clique=1;
                     }
                 }
+                else if(mouse_x>=120 && mouse_x<=730 && mouse_y >= 515 && mouse_y<=575)
+                {
+                    line(page, 120, 580, 730, 580, makecol(255,255,255));
+                    if (mouse_b&1)
+                    {
+                        clique=4;
+                    }
+                }
                 line(page, 340, 120, 470, 250, makecol(255,0,0));
                 line(page, 340, 250, 470, 120, makecol(255,0,0));
                 line(page, 625, 120, 757, 250, makecol(255,0,0));
@@ -785,6 +825,14 @@ void choix_niveau()
                     if (mouse_b&1)
                     {
                         clique=2;
+                    }
+                }
+                else if(mouse_x>=120 && mouse_x<=730 && mouse_y >= 515 && mouse_y<=575)
+                {
+                    line(page, 120, 580, 730, 580, makecol(255,255,255));
+                    if (mouse_b&1)
+                    {
+                        clique=4;
                     }
                 }
                 line(page, 625, 120, 757, 250, makecol(255,0,0));
@@ -815,6 +863,14 @@ void choix_niveau()
                     if (mouse_b&1)
                     {
                         clique=3;
+                    }
+                }
+                else if(mouse_x>=120 && mouse_x<=730 && mouse_y >= 515 && mouse_y<=575)
+                {
+                    line(page, 120, 580, 730, 580, makecol(255,255,255));
+                    if (mouse_b&1)
+                    {
+                        clique=4;
                     }
                 }
             }
@@ -874,7 +930,7 @@ void choix_niveau()
                 choix_niveau();
             }
         }
-        if (key[KEY_4])
+        if (key[KEY_4] || clique == 4)
         {
             key[KEY_1]=0;
             key[KEY_2]=0;
@@ -887,13 +943,13 @@ void choix_niveau()
 
 void regles_du_jeu()
 {
-while (!key[KEY_1])
-{
-    blit(regles,page,0,0,0,0,SCREEN_W,SCREEN_H);
-     blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
-}
-key[KEY_1]=0;
-menu_jeu();
+    while (!key[KEY_1])
+    {
+        blit(regles,page,0,0,0,0,SCREEN_W,SCREEN_H);
+        blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+    }
+    key[KEY_1]=0;
+    menu_jeu();
 }
 
 

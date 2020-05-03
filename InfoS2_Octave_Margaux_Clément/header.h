@@ -22,19 +22,24 @@ BITMAP *b_nuage; //Bitmap de la tour nuage
 BITMAP *b_arc_enciel;//BItmap de la tour arc en ciel
 BITMAP *b_bonbon;// Bitmap de la tour bonbon
 BITMAP *b_distributeur;//BItmap de la tour du distributeur
-BITMAP * b_missile; //Type de missile en fonction du style de tour
-BITMAP *regles; // Page des règles du jeu
+BITMAP *b_missile; //Type de missile en fonction du style de tour
 BITMAP *menu;// Page du menu du jeu
 BITMAP *histoire;// Page de cinematique du jeu
 BITMAP *niveau; // Interface du niveau
 BITMAP *donjon;
 BITMAP *explo[8];
-
 BITMAP *image_fin;
 BITMAP *game_over;
 BITMAP *im_choix_niv;
 BITMAP *b_nuage_2;
 BITMAP *b_arc_enciel_2;
+BITMAP *regles; // Page des règles du jeu
+BITMAP *cinema1;
+BITMAP *cinema2;
+BITMAP *cinema3;
+BITMAP *Terr1;
+BITMAP *Terr2;
+BITMAP *Terr3;
 
 typedef struct sequence // structure pour recuperer image poney
 {
@@ -123,6 +128,8 @@ void initalisation();
 void initialise_tour(t_tour * nuage);
 
 /// affichage graphique ///
+void choix_cine(int niv);
+void choix_image(BITMAP* terrain1,int niv,BITMAP* Terr1, BITMAP* Terr2, BITMAP* Terr3);
 void chargement_bitmap();
 void detruire_bitmap();
 BITMAP * load_bitmap_check(char *nomImage);  // Charger une bitmap
