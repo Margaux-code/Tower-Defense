@@ -124,6 +124,7 @@ void initialise_tour(t_tour * nuage);
 
 /// affichage graphique ///
 void chargement_bitmap();
+void detruire_bitmap();
 BITMAP * load_bitmap_check(char *nomImage);  // Charger une bitmap
 void affichage_donnees_jeu(BITMAP* page, int niv, int ptsTour,int money,int ptsTourDEB);
 void affichage_tour(BITMAP* page,BITMAP* b_nuage,BITMAP* b_nuage_2,BITMAP* b_arc_enciel,BITMAP* b_arc_enciel_2,BITMAP* b_bonbon,BITMAP* b_distributeur,BITMAP* b_missile,
