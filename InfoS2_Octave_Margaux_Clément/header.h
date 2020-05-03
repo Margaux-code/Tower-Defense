@@ -29,7 +29,7 @@ BITMAP *histoire;// Page de cinematique du jeu
 BITMAP *niveau; // Interface du niveau
 BITMAP *donjon;
 BITMAP *explo[8];
-BITMAP *b_distributeur;
+
 BITMAP *image_fin;
 BITMAP *game_over;
 BITMAP *im_choix_niv;
