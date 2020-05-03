@@ -24,6 +24,7 @@ void boucle_de_jeu(int niv)
     int ptsTourDEB = 2000;
     int test=0;
     int vivant=0;
+    int compteur_superposition = 0;
     inimagCoeur(explo);
     inimagMech1(tab);
     iniMech(pon,tab);
@@ -136,14 +137,16 @@ void boucle_de_jeu(int niv)
             }
             draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
 
-<<<<<<< HEAD
-            if (distributeur[k].active==0 || distributeur[k].target==0)
-=======
+
+            //if (distributeur[k].active==0 || distributeur[k].target==0)
+
         if (distributeur[k].active==0 || distributeur[k].target==-1)
+        {
             draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
-            else
-            {if (nuIm==0 || nuIm==2)
->>>>>>> 5ceaf9c55a342c43c00c7cd0918ffdc8a60eb204
+        }
+        else
+        {
+            if (nuIm==0 || nuIm==2)
             {
                 draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
             }
@@ -180,12 +183,12 @@ void boucle_de_jeu(int niv)
                         }
                         missiles[k].pos_x=missiles[k].pos_x +(missiles[k].dep_x/10);
                         missiles[k].pos_y=missiles[k].pos_y +(missiles[k].dep_y/10);
-
                     }
                     acteur[distributeur[k].target].ptsbonPres=acteur[distributeur[k].target].ptsbonPres-3;
                 }
             }
         }
+    }
         //Fin affichage des tours
         vivant = 0;
         //affichage des poneys et interactions avec les tours
@@ -229,7 +232,7 @@ void boucle_de_jeu(int niv)
                         }
                         else
                         {
-                            acteur[j].ptsbonPres = acteur[j].ptsbonPres - 5;
+                            acteur[j].ptsbonPres = acteur[j].ptsbonPres - 4;
                         }
 
                     }
@@ -257,12 +260,11 @@ void boucle_de_jeu(int niv)
                 if(acteur[j].ptsbonPres<=0)
                 {
                     acteur[j].aff = 0;
-                    money = money + acteur[j].val*(10);
+                    money = money + acteur[j].val*(15);
                 }
             }
         }
         //fin affichage poney et interaction tours
-<<<<<<< HEAD
 
         //Boucle des tours qui tirent sur des ennemis
         for (k1=0;k1<nb_tourmax;k1++)
@@ -291,10 +293,7 @@ void boucle_de_jeu(int niv)
                             }
                     }// Fin du for de tous les ennemis : chaque tour a maintenant un ennemis si il y en a un dans le coin
                 }
-=======
-        
 
->>>>>>> 5ceaf9c55a342c43c00c7cd0918ffdc8a60eb204
 
                 if (distributeur[k1].target!=-1)// SI la tour a un ennemi attitré
                 {
@@ -330,6 +329,7 @@ void boucle_de_jeu(int niv)
                 do
                 {
                     clear(buffer);
+                    compteur_superposition=0;
                     blit(page,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
                     if(nuage[n].nivo==0)
                     {
@@ -338,6 +338,20 @@ void boucle_de_jeu(int niv)
                     else
                     {
                         draw_sprite(buffer,b_nuage_2,mouse_x,mouse_y);
+                    }
+                    for (i=0;i<nb_tourmax;i++)
+                    {
+                        if(mouse_x>=arc_en_ciel[i].pos_x && mouse_x<=arc_en_ciel[i].pos_x+b_arc_enciel->w && mouse_y>=arc_en_ciel[i].pos_y && mouse_x<=arc_en_ciel[i].pos_y+b_arc_enciel->h)
+                        {
+                            compteur_superposition++;
+                        }
+                    }
+                    for (i=nb_tourmax-1;i>n;i--)
+                    {
+                        if(mouse_x>=nuage[i].pos_x && mouse_x<=nuage[i].pos_x+b_nuage->w && mouse_y>=nuage[i].pos_y && mouse_x<=nuage[i].pos_y+b_nuage->h)
+                        {
+                            compteur_superposition++;
+                        }
                     }
                     nuage[n].pos_x=mouse_x;
                     nuage[n].pos_y=mouse_y;
@@ -363,8 +377,9 @@ void boucle_de_jeu(int niv)
 
                 do{
                     clear(buffer);
+                    compteur_superposition=0;
                     blit(page,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
-                    if(nuage[n].nivo==0)
+                    if(arc_en_ciel[a].nivo==0)
                     {
                         draw_sprite(buffer,b_arc_enciel,mouse_x,mouse_y);
                     }
@@ -374,14 +389,28 @@ void boucle_de_jeu(int niv)
                     }
                     arc_en_ciel[a].pos_x=mouse_x;
                     arc_en_ciel[a].pos_y=mouse_y;
+                    for (i=0;i<nb_tourmax;i++)
+                    {
+                        if(mouse_x>=nuage[i].pos_x && mouse_x<=nuage[i].pos_x+b_nuage->w && mouse_y>=nuage[i].pos_y && mouse_x<=nuage[i].pos_y+b_nuage->h)
+                        {
+                            compteur_superposition++;
+                        }
+                    }
+                    for (i=nb_tourmax-1;i>a;i--)
+                    {
+                        if(mouse_x>=arc_en_ciel[i].pos_x && mouse_x<=arc_en_ciel[i].pos_x+b_arc_enciel->w && mouse_y>=arc_en_ciel[i].pos_y && mouse_x<=arc_en_ciel[i].pos_y+b_arc_enciel->h)
+                        {
+                            compteur_superposition++;
+                        }
+                    }
                     blit(buffer,screen,0,0,0,0,SCREEN_W,SCREEN_H);
                 }
                 while(mouse_b&1);
-                if(getpixel(TESTterrain1,arc_en_ciel[a].pos_x,arc_en_ciel[a].pos_y)!=makecol(0,0,0)&&getpixel(TESTterrain1,arc_en_ciel[a].pos_x+b_arc_enciel->h,arc_en_ciel[a].pos_y+b_arc_enciel->h)!=makecol(0,0,0))
+                if(getpixel(TESTterrain1,arc_en_ciel[a].pos_x,arc_en_ciel[a].pos_y)!=makecol(0,0,0)&&getpixel(TESTterrain1,arc_en_ciel[a].pos_x+b_arc_enciel->h,arc_en_ciel[a].pos_y+b_arc_enciel->h)!=makecol(0,0,0) && compteur_superposition==0)
                 {
-                    arc_en_ciel[a].active=1;
-                    a--;
-                    money = money - 50;
+                        arc_en_ciel[a].active=1;
+                        a--;
+                        money = money - 50;
                 }
                 else
                 {
@@ -540,7 +569,7 @@ void uprude_nuage(t_nuages nu[nb_tourmax] ,int* money ,BITMAP* page)
     if (mouse_x>=0 && mouse_x<=100 && mouse_y>=520&& mouse_y<=600 && nu[i].nivo == 0)
     {
         rect(page, 0, 520,100, 600, makecol(255,255,0));
-        if (mouse_b&1 && money >= 50)
+        if (mouse_b&1 && *money >= 50)
         {
             for(i=0;i<nb_tourmax;i++)
             {
@@ -557,13 +586,13 @@ void uprude_arc_en_ciel(t_tour arc[nb_tourmax] ,int* money ,BITMAP* page)
     if (mouse_x>=100 && mouse_x<=200 && mouse_y>=520&& mouse_y<=600 && arc[i].nivo == 0)
     {
         rect(page, 101, 520,200, 600, makecol(200,0,255));
-        if (mouse_b&1 && money >= 80)
+        if (mouse_b&1 && *money >= 100)
         {
             for(i=0;i<nb_tourmax;i++)
             {
                 arc[i].nivo=1;
             }
-            *money = *money-80;
+            *money = *money-100;
         }
     }
 }
