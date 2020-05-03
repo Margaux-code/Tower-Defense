@@ -37,7 +37,6 @@ void boucle_de_jeu(int niv)
     t_tour bonbons[nb_tourmax];
     t_tour distributeur[nb_tourmax];
     t_missile missiles[nb_tourmax];
-    int i;
     int k;
     for (k=0; k<nb_tourmax; k++)
     {
@@ -69,7 +68,6 @@ void boucle_de_jeu(int niv)
     int b=nb_tourmax-1;//compteur bonbons
     int d=nb_tourmax-1; //compteur distributeur
     int nuIm=0; // numero d'image dans la sequence d'animation
-    int j;
     nbActeurAff = 2;
     /*int min_x;
     int max_x;
@@ -105,263 +103,17 @@ void boucle_de_jeu(int niv)
         uprude_nuage(nuage, &money,page);
         uprude_arc_en_ciel(arc_en_ciel ,&money ,page);
         //Affichage des tour
-        for (k=0; k<nb_tourmax; k++)
-        {
-            if(nuage[k].nivo==0)
-            {
-                draw_sprite(page,b_nuage,nuage[k].pos_x,nuage[k].pos_y);
-                textprintf_ex(page,font,25,530,makecol(255,255,0),-1,"Upgrade");
-                textprintf_ex(page,font,30,545,makecol(255,255,0),-1,"Nuage");
-                textprintf_ex(page,font,15,560,makecol(255,255,0),-1,"Cout : 50");
-            }
-            else
-            {
-                draw_sprite(page,b_nuage_2,nuage[k].pos_x,nuage[k].pos_y);
-                textprintf_ex(page,font,25,530,makecol(155,155,155),-1,"Upgrade");
-                textprintf_ex(page,font,30,545,makecol(155,155,155),-1,"Nuage");
-                textprintf_ex(page,font,15,560,makecol(155,155,155),-1,"Cout : 50");
-            }
-            if(arc_en_ciel[k].nivo==0)
-            {
-                draw_sprite(page,b_arc_enciel,arc_en_ciel[k].pos_x,arc_en_ciel[k].pos_y);
-                textprintf_ex(page,font,125,530,makecol(200,0,255),-1,"Upgrade");
-                textprintf_ex(page,font,110,545,makecol(200,0,255),-1,"Arc en ciel");
-                textprintf_ex(page,font,113,560,makecol(200,0,255),-1,"Cout : 100");
-
-            }
-            else
-            {
-                draw_sprite(page,b_arc_enciel_2,arc_en_ciel[k].pos_x,arc_en_ciel[k].pos_y);
-                textprintf_ex(page,font,125,530,makecol(155,155,155),-1,"Upgrade");
-                textprintf_ex(page,font,110,545,makecol(155,155,155),-1,"Arc en ciel");
-                textprintf_ex(page,font,113,560,makecol(155,155,155),-1,"Cout : 100");
-            }
-
-            if(bonbons[k].test<2)
-            {
-                draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
-            }
-            draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
-
-
-            //if (distributeur[k].active==0 || distributeur[k].target==0)
-
-        if (distributeur[k].active==0 || distributeur[k].target==-1)
-        {
-            draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
-        }
-        else
-        {
-            if (nuIm==0 || nuIm==2)
-            {
-                draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
-            }
-            else
-            {
-                if (nuIm==0 || nuIm==2)
-                {
-                    draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
-                }
-                if (nuIm==1 || nuIm==3)
-                {
-                    draw_sprite_h_flip(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
-                }
-            }
-            if (acteur[distributeur[k].target].ptsbonPres<=0)
-            {
-                distributeur[k].target=-1;
-                missiles[k].existe=0;
-            }
-            if (missiles[k].existe!=0)
-            {
-                if (missiles[k].pos_x != missiles[k].cible_x)
-                {
-                    missiles[k].existe--;
-                    for(i=0; i<5; i++)
-                    {
-                        if(missiles[k].pos_x>=0)
-                        {
-                            draw_sprite(page,b_missile,missiles[k].pos_x,missiles[k].pos_y);
-                        }
-                        else
-                        {
-                            draw_sprite_h_flip(page,b_missile,missiles[k].pos_x,missiles[k].pos_y);
-                        }
-                        missiles[k].pos_x=missiles[k].pos_x +(missiles[k].dep_x/10);
-                        missiles[k].pos_y=missiles[k].pos_y +(missiles[k].dep_y/10);
-                    }
-                    acteur[distributeur[k].target].ptsbonPres=acteur[distributeur[k].target].ptsbonPres-3;
-                }
-            }
-        }
-    }
+        affichage_tour(page, b_nuage, b_nuage_2, b_arc_enciel, b_arc_enciel_2, b_bonbon, b_distributeur, b_missile,
+                     nuage, arc_en_ciel, bonbons, distributeur, missiles, acteur, nuIm);
         //Fin affichage des tours
-        vivant = 0;
         //affichage des poneys et interactions avec les tours
-        for(j=0;j<nbActeurAff;j++)
-        {
-            if(acteur[j].aff == 1)
-            {
-                acteur[j].depx=acteur[j].depx_init;
-                acteur[j].depy=acteur[j].depy_init;
-                for (k=0; k<nb_tourmax; k++)
-                {
-                    if(acteur[j].posx+50>=nuage[k].pos_x && acteur[j].posx+10<=nuage[k].pos_x+b_nuage->w && acteur[j].posy+50>=nuage[k].pos_y && acteur[j].posy+10<=nuage[k].pos_y+b_nuage->h)
-                    {
-                        if(acteur[j].depx > 1 || acteur[j].depy >1 && nuage[k].nivo==0)
-                        {
-                            acteur[j].depx=acteur[j].depx/2;
-                            acteur[j].depy=acteur[j].depy/2;
-                        }
-                        if(acteur[j].depx > 1 || acteur[j].depy >1 && nuage[k].nivo==1)
-                        {
-                            acteur[j].depx=1;
-                            acteur[j].depy=1;
-                        }
-                    }
-                }
-                acteur[j] = Deplacement(acteur[j], TESTterrain1,&ptsTour);
-                //rectfill(page,acteur[j].posx+2,acteur[j].posy-5,acteur[j].posx+62,acteur[j].posy,makecol(0,0,0));
-                //rectfill(page,acteur[j].posx+4,acteur[j].posy-4,acteur[j].posx+(acteur[j].ptsbonPres/10),acteur[j].posy-1,makecol(255,0,255));
-                textprintf_ex(page,font,acteur[j].posx,acteur[j].posy - 4,makecol(250,30,0),-1,"%d / %d",acteur[j].ptsbonPres,acteur[j].ptsdebonheur);
-                draw_sprite(page,acteur[j].seq.img[acteur[j].numImg[nuIm]],acteur[j].posx, acteur[j].posy);
-                vivant++;
-                //printf("%d : %d//", j, acteur[j].ptsdebonheur);
-                for (k=0; k<nb_tourmax; k++)
-                {
-        //POUVOIR ARC EN CIEL
-                    if(acteur[j].posx+50>=arc_en_ciel[k].pos_x && acteur[j].posx+10<=arc_en_ciel[k].pos_x+b_arc_enciel->w && acteur[j].posy+50>=arc_en_ciel[k].pos_y && acteur[j].posy+10<=arc_en_ciel[k].pos_y+b_arc_enciel->h)
-                    {
-                        if(arc_en_ciel[k].nivo==0)
-                        {
-                            acteur[j].ptsbonPres = acteur[j].ptsbonPres - 3;
-                        }
-                        else
-                        {
-                            acteur[j].ptsbonPres = acteur[j].ptsbonPres - 4;
-                        }
-
-                    }
-        // POUVOIR BONBON
-                    if(acteur[j].posx+40>=bonbons[k].pos_x && acteur[j].posx+5<=bonbons[k].pos_x+b_bonbon->w && acteur[j].posy+40>=bonbons[k].pos_y && acteur[j].posy+40<=bonbons[k].pos_y+b_bonbon->h)
-                    {
-                        if(bonbons[k].test==1 && bonbons[k].numeImg <8 )
-                        {
-                            draw_sprite(page,explo[bonbons[k].numeImg],acteur[j].posx-20,acteur[j].posy-20);
-                            bonbons[k].numeImg++;
-                            if(bonbons[k].numeImg==8)
-                            {
-                                bonbons[k].test = 2;
-                                acteur[j].ptsbonPres = acteur[j].ptsbonPres - 300;
-                            }
-                        }
-                        if(bonbons[k].test==0)
-                        {
-                            bonbons[k].test = 1;
-                        }
-                    }
-
-                }
-        // Rapport de points par ennemie
-                if(acteur[j].ptsbonPres<=0)
-                {
-                    acteur[j].aff = 0;
-                    money = money + acteur[j].val*9*(4-niv);
-                }
-            }
-        }
+        interaction_poney(page, TESTterrain1, b_nuage, b_bonbon, b_arc_enciel, explo, nbActeurAff, &ptsTour, &vivant, &money, nuIm,acteur,nuage,
+                          bonbons,arc_en_ciel,niv);
         //fin affichage poney et interaction tours
+
+        //Fonction qui gere le fonctionnement des friandise du distributeur
         gestion_missile (distributeur,missiles,acteur,nbActeurAff);
-/*
-        //Boucle des tours qui tirent sur des ennemis
-        for (k1=0;k1<nb_tourmax;k1++)
-        {
-            if (distributeur[k1].active==1)
-            {
-                if (distributeur[k1].target==-1) //Si la tour n'a pas d'ennemis attitré
-                {
-                    min_x=distributeur[k1].pos_x-distributeur[k1].rayon_action;
-                    max_x=distributeur[k1].pos_x+distributeur[k1].rayon_action;
-                    min_y=distributeur[k1].pos_y-distributeur[k1].rayon_action;
-                    max_y=distributeur[k1].pos_y+distributeur[k1].rayon_action;
-                    for (i1=0; i1<nbActeurAff; i1++)
-                    {
-                            if (acteur[i1].aff==1) // Si l'ennemi est dans le bon rayon
-                            {
-                               // if (distributeur[k].target==0)// Si la tour n'a pas de target
-                               // {
-                                    distributeur[k1].target=i1;
-                                    printf("%d", distributeur[k].target);
-                                    missiles[k1].existe=2;
-                                    missiles[k1].pos_x=distributeur[k1].pos_x+b_distributeur->w/2 ;
-                                    missiles[k1].pos_y=distributeur[k1].pos_y;
 
-                               // }
-                            }
-                    }// Fin du for de tous les ennemis : chaque tour a maintenant un ennemis si il y en a un dans le coin
-                }
-
-
-                if (distributeur[k1].target!=-1)// SI la tour a un ennemi attitré
-                {
-                    missiles[k1].cible_x=acteur[distributeur[k1].target].posx;
-                    missiles[k1].cible_y=acteur[distributeur[k1].target].posy;
-                    missiles[k1].dep_x=missiles[k1].cible_x-missiles[k1].pos_x;
-                    missiles[k1].dep_y=missiles[k1].cible_y-missiles[k1].pos_y;
-                    if (acteur[distributeur[k1].target].ptsbonPres<=0)
-                        {
-                            distributeur[k1].type_tour=-1;
-                            missiles[k1].existe=0;
-
-                        }
-                    if (missiles[k1].cible_x>missiles[k1].pos_x-20&& missiles[k1].cible_x<missiles[k1].pos_x+20)
-                    {
-                        missiles[k1].existe=2;
-                        missiles[k1].pos_x=distributeur[k1].pos_x;
-                        missiles[k1].pos_y=distributeur[k1].pos_y;
-
-                    }
-                }
-
-            }//Fin des tours qui sont actives donc des tours qui sont placées
-        }//Fin de la boucle qui tire sur des ennemis
-        for (k=nb_tourmax; k>0; k--)
-        {
-
-            if (distributeur[k].active==1)
-            {
-                if (distributeur[k].target==-1) //Si la tour n'a pas d'ennemis attitré
-                {
-                    min_x=distributeur[k].pos_x-distributeur[k].rayon_action;
-                    max_x=distributeur[k].pos_x+distributeur[k].rayon_action;
-                    min_y=distributeur[k].pos_y-distributeur[k].rayon_action;
-                    max_y=distributeur[k].pos_y+distributeur[k].rayon_action;
-                    for (i=0; i<nbActeurAff; i++)
-                    {
-                        if (min_x<=acteur[i].posx && acteur[i].posx<=max_x && min_y<=acteur[i].posy && acteur[i].posy<=max_y) // Si l'ennemi est dans le bon rayon
-                        {
-                            if (distributeur[k].target==-1)// Si la tour n'a pas de target
-                            {
-                                distributeur[k].target=i;
-                            }
-                        }
-
-                    }// Fin du for de tous les ennemis : chaque tour a maintenant un ennemis si il y en a un dans le coin
-
-                }
-                if (distributeur[k].target!=-1)// SI la tour a un ennemi attitré
-                {
-
-                        missiles[k].existe=1; //Tour activé
-                        missiles[k].pos_x=distributeur[k].pos_x; //
-                        missiles[k].pos_y=distributeur[k].pos_y;
-                        missiles[k].cible_x=acteur[distributeur[k].target].posx;
-                        missiles[k].cible_y=acteur[distributeur[k].target].posy;
-                }
-
-            }//Fin des tours qui sont actives donc des tours qui sont placées//
-        }//Fin de la boucle qui tire sur des ennemis
-        */
         // Drag and drop des tours
         drag_and_drop(TESTterrain1,buffer,page,screen,b_nuage,b_nuage_2,b_arc_enciel,b_arc_enciel_2,b_bonbon, b_distributeur,nuage,arc_en_ciel
                   ,bonbons,distributeur,&a,&b,&d,&n,&money);
@@ -420,8 +172,182 @@ void boucle_de_jeu(int niv)
     {
         allegro_message("ABANDON : Retour au menu");
         menu_jeu();
+        //sauvegarde_partie(acteur,nbActeur,nbActeurAff);
     }
-    sauvegarde_partie(acteur,nbActeur,nbActeurAff);
+
+}
+
+
+void interaction_poney(BITMAP* page, BITMAP* TESTterrain1,BITMAP* b_nuage,BITMAP* b_bonbon, BITMAP* b_arc_enciel, BITMAP* explo[8],
+                       int nbActeurAff,int* ptsTour, int* vivant ,int* money,int nuIm,t_poney acteur[100],t_nuages nuage[nb_tourmax],
+                       t_tour bonbons[nb_tourmax],t_tour arc_en_ciel[nb_tourmax],int niv)
+{
+    int j,k;
+    *vivant = 0;
+    for(j=0;j<nbActeurAff;j++)
+        {
+            if(acteur[j].aff == 1)
+            {
+                acteur[j].depx=acteur[j].depx_init;
+                acteur[j].depy=acteur[j].depy_init;
+                for (k=0; k<nb_tourmax; k++)
+                {
+                    if(acteur[j].posx+50>=nuage[k].pos_x && acteur[j].posx+10<=nuage[k].pos_x+b_nuage->w && acteur[j].posy+50>=nuage[k].pos_y && acteur[j].posy+10<=nuage[k].pos_y+b_nuage->h)
+                    {
+                        if(((acteur[j].depx > 1) || (acteur[j].depy >1)) && nuage[k].nivo==0)
+                        {
+                            acteur[j].depx=acteur[j].depx/2;
+                            acteur[j].depy=acteur[j].depy/2;
+                        }
+                        if((acteur[j].depx > 1 || acteur[j].depy >1) && nuage[k].nivo==1)
+                        {
+                            acteur[j].depx=1;
+                            acteur[j].depy=1;
+                        }
+                    }
+                }
+                acteur[j] = Deplacement(acteur[j], TESTterrain1,ptsTour);
+                textprintf_ex(page,font,acteur[j].posx,acteur[j].posy - 4,makecol(250,30,0),-1,"%d / %d",acteur[j].ptsbonPres,acteur[j].ptsdebonheur);
+                draw_sprite(page,acteur[j].seq.img[acteur[j].numImg[nuIm]],acteur[j].posx, acteur[j].posy);
+                (*vivant)++;
+                //printf("%d : %d//", j, acteur[j].ptsdebonheur);
+                for (k=0; k<nb_tourmax; k++)
+                {
+                //POUVOIR ARC EN CIEL
+                    if(acteur[j].posx+50>=arc_en_ciel[k].pos_x && acteur[j].posx+10<=arc_en_ciel[k].pos_x+b_arc_enciel->w && acteur[j].posy+50>=arc_en_ciel[k].pos_y && acteur[j].posy+10<=arc_en_ciel[k].pos_y+b_arc_enciel->h)
+                    {
+                        if(arc_en_ciel[k].nivo==0)
+                        {
+                            acteur[j].ptsbonPres = acteur[j].ptsbonPres - 3;
+                        }
+                        else
+                        {
+                            acteur[j].ptsbonPres = acteur[j].ptsbonPres - 4;
+                        }
+
+                    }
+                    // POUVOIR BONBON
+                    if(acteur[j].posx+40>=bonbons[k].pos_x && acteur[j].posx+5<=bonbons[k].pos_x+b_bonbon->w && acteur[j].posy+40>=bonbons[k].pos_y && acteur[j].posy+40<=bonbons[k].pos_y+b_bonbon->h)
+                    {
+                        if(bonbons[k].test==1 && bonbons[k].numeImg <8 )
+                        {
+                            draw_sprite(page,explo[bonbons[k].numeImg],acteur[j].posx-20,acteur[j].posy-20);
+                            bonbons[k].numeImg++;
+                            if(bonbons[k].numeImg==8)
+                            {
+                                bonbons[k].test = 2;
+                                acteur[j].ptsbonPres = acteur[j].ptsbonPres - 300;
+                            }
+                        }
+                        if(bonbons[k].test==0)
+                        {
+                            bonbons[k].test = 1;
+                        }
+                    }
+
+                }
+        // Rapport de points par poney heureux
+                if(acteur[j].ptsbonPres<=0)
+                {
+                    acteur[j].aff = 0;
+                    *money = *money + acteur[j].val*9*(4-niv);
+                }
+            }
+        }
+}
+
+void affichage_tour(BITMAP* page,BITMAP* b_nuage,BITMAP* b_nuage_2,BITMAP* b_arc_enciel,BITMAP* b_arc_enciel_2,BITMAP* b_bonbon,BITMAP* b_distributeur,BITMAP* b_missile,
+                    t_nuages nuage[nb_tourmax],t_tour arc_en_ciel[nb_tourmax],t_tour bonbons[nb_tourmax],t_tour distributeur[nb_tourmax],t_missile missiles[nb_tourmax],
+                    t_poney acteur[100],int nuIm)
+{
+    int k,i;
+    for (k=0; k<nb_tourmax; k++)
+        {
+            if(nuage[k].nivo==0)
+            {
+                draw_sprite(page,b_nuage,nuage[k].pos_x,nuage[k].pos_y);
+                textprintf_ex(page,font,25,530,makecol(255,255,0),-1,"Upgrade");
+                textprintf_ex(page,font,30,545,makecol(255,255,0),-1,"Nuage");
+                textprintf_ex(page,font,15,560,makecol(255,255,0),-1,"Cout : 50");
+            }
+            else
+            {
+                draw_sprite(page,b_nuage_2,nuage[k].pos_x,nuage[k].pos_y);
+                textprintf_ex(page,font,25,530,makecol(155,155,155),-1,"Upgrade");
+                textprintf_ex(page,font,30,545,makecol(155,155,155),-1,"Nuage");
+                textprintf_ex(page,font,15,560,makecol(155,155,155),-1,"Cout : 50");
+            }
+            if(arc_en_ciel[k].nivo==0)
+            {
+                draw_sprite(page,b_arc_enciel,arc_en_ciel[k].pos_x,arc_en_ciel[k].pos_y);
+                textprintf_ex(page,font,125,530,makecol(200,0,255),-1,"Upgrade");
+                textprintf_ex(page,font,110,545,makecol(200,0,255),-1,"Arc en ciel");
+                textprintf_ex(page,font,113,560,makecol(200,0,255),-1,"Cout : 100");
+
+            }
+            else
+            {
+                draw_sprite(page,b_arc_enciel_2,arc_en_ciel[k].pos_x,arc_en_ciel[k].pos_y);
+                textprintf_ex(page,font,125,530,makecol(155,155,155),-1,"Upgrade");
+                textprintf_ex(page,font,110,545,makecol(155,155,155),-1,"Arc en ciel");
+                textprintf_ex(page,font,113,560,makecol(155,155,155),-1,"Cout : 100");
+            }
+
+            if(bonbons[k].test<2)
+            {
+                draw_sprite(page,b_bonbon,bonbons[k].pos_x,bonbons[k].pos_y);
+            }
+            draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
+
+            if (distributeur[k].active==0 || distributeur[k].target==-1)
+            {
+                draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
+            }
+            else
+            {
+                if (nuIm==0 || nuIm==2)
+                {
+                    draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
+                }
+                else
+                {
+                    if (nuIm==0 || nuIm==2)
+                    {
+                        draw_sprite(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
+                    }
+                    if (nuIm==1 || nuIm==3)
+                    {
+                        draw_sprite_h_flip(page,b_distributeur,distributeur[k].pos_x,distributeur[k].pos_y);
+                    }
+                }
+                if (acteur[distributeur[k].target].ptsbonPres<=0)
+                {
+                    distributeur[k].target=-1;
+                    missiles[k].existe=0;
+                }
+                if (missiles[k].existe!=0)
+                {
+                    if (missiles[k].pos_x != missiles[k].cible_x)
+                    {
+                        missiles[k].existe--;
+                        for(i=0; i<5; i++)
+                        {
+                            if(missiles[k].pos_x>=0)
+                            {
+                                draw_sprite(page,b_missile,missiles[k].pos_x,missiles[k].pos_y);
+                            }
+                            else
+                            {
+                                draw_sprite_h_flip(page,b_missile,missiles[k].pos_x,missiles[k].pos_y);
+                            }
+                            missiles[k].pos_x=missiles[k].pos_x +(missiles[k].dep_x/10);
+                            missiles[k].pos_y=missiles[k].pos_y +(missiles[k].dep_y/10);
+                        }
+                        acteur[distributeur[k].target].ptsbonPres=acteur[distributeur[k].target].ptsbonPres-3;
+                    }
+                }
+            }
+        }
 }
 
 void uprude_nuage(t_nuages nu[nb_tourmax] ,int* money ,BITMAP* page)
@@ -600,14 +526,14 @@ void drag_and_drop(BITMAP* TESTterrain1,BITMAP* buffer,BITMAP* page,BITMAP* scre
                     }
                     for (i=0;i<nb_tourmax;i++)
                     {
-                        if(mouse_x>=arc_en_ciel[i].pos_x && mouse_x<=arc_en_ciel[i].pos_x+b_arc_enciel->w && mouse_y>=arc_en_ciel[i].pos_y && mouse_x<=arc_en_ciel[i].pos_y+b_arc_enciel->h)
+                        if(mouse_x>=arc_en_ciel[i].pos_x - b_arc_enciel->w  && mouse_x<=arc_en_ciel[i].pos_x + b_arc_enciel->w && mouse_y>=arc_en_ciel[i].pos_y - b_arc_enciel->h && mouse_y<=arc_en_ciel[i].pos_y + b_arc_enciel->h)
                         {
                             compteur_superposition++;
                         }
                     }
                     for (i=nb_tourmax-1;i>*n;i--)
                     {
-                        if(mouse_x>=nuage[i].pos_x && mouse_x<=nuage[i].pos_x+b_nuage->w && mouse_y>=nuage[i].pos_y && mouse_x<=nuage[i].pos_y+b_nuage->h)
+                        if(mouse_x>=nuage[i].pos_x - b_nuage->w && mouse_x<=nuage[i].pos_x + b_nuage->w && mouse_y>=nuage[i].pos_y - b_nuage->h && mouse_y<=nuage[i].pos_y + b_nuage->h)
                         {
                             compteur_superposition++;
                         }
@@ -618,7 +544,7 @@ void drag_and_drop(BITMAP* TESTterrain1,BITMAP* buffer,BITMAP* page,BITMAP* scre
                 }
                 while(mouse_b&1);
                 //blinde_pos_nuage(TESTterrain1,nuage,&n,&money);
-                if(getpixel(TESTterrain1,nuage[*n].pos_x,nuage[*n].pos_y)!=makecol(0,0,0)&&getpixel(TESTterrain1,nuage[*n].pos_x+b_nuage->h,nuage[*n].pos_y+b_nuage->h)!=makecol(0,0,0))
+                if(getpixel(TESTterrain1,nuage[*n].pos_x,nuage[*n].pos_y)!=makecol(0,0,0)&&getpixel(TESTterrain1,nuage[*n].pos_x+b_nuage->h,nuage[*n].pos_y+b_nuage->h)!=makecol(0,0,0)&& compteur_superposition==0)
                 {
                     nuage[*n].active=1;
                     (*n)--;
@@ -651,14 +577,14 @@ void drag_and_drop(BITMAP* TESTterrain1,BITMAP* buffer,BITMAP* page,BITMAP* scre
                     arc_en_ciel[*a].pos_y=mouse_y;
                     for (i=0;i<nb_tourmax;i++)
                     {
-                        if(mouse_x>=nuage[i].pos_x && mouse_x<=nuage[i].pos_x+b_nuage->w && mouse_y>=nuage[i].pos_y && mouse_x<=nuage[i].pos_y+b_nuage->h)
+                        if(mouse_x>=nuage[i].pos_x - b_nuage->w && mouse_x<=nuage[i].pos_x + b_nuage->w && mouse_y>=nuage[i].pos_y - b_nuage->h && mouse_y<=nuage[i].pos_y + b_nuage->h)
                         {
                             compteur_superposition++;
                         }
                     }
                     for (i=nb_tourmax-1;i>*a;i--)
                     {
-                        if(mouse_x>=arc_en_ciel[i].pos_x && mouse_x<=arc_en_ciel[i].pos_x+b_arc_enciel->w && mouse_y>=arc_en_ciel[i].pos_y && mouse_x<=arc_en_ciel[i].pos_y+b_arc_enciel->h)
+                        if(mouse_x>=arc_en_ciel[i].pos_x - b_arc_enciel->w  && mouse_x<=arc_en_ciel[i].pos_x + b_arc_enciel->w && mouse_y>=arc_en_ciel[i].pos_y - b_arc_enciel->h && mouse_y<=arc_en_ciel[i].pos_y + b_arc_enciel->h)
                         {
                             compteur_superposition++;
                         }

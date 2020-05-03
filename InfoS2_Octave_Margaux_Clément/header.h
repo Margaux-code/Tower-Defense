@@ -121,6 +121,9 @@ void initialise_tour(t_tour * nuage);
 /// affichage graphique ///
 BITMAP * load_bitmap_check(char *nomImage);  // Charger une bitmap
 void affichage_donnees_jeu(BITMAP* page, int niv, int ptsTour,int money,int ptsTourDEB);
+void affichage_tour(BITMAP* page,BITMAP* b_nuage,BITMAP* b_nuage_2,BITMAP* b_arc_enciel,BITMAP* b_arc_enciel_2,BITMAP* b_bonbon,BITMAP* b_distributeur,BITMAP* b_missile,
+                    t_nuages nuage[nb_tourmax],t_tour arc_en_ciel[nb_tourmax],t_tour bonbons[nb_tourmax],t_tour distributeur[nb_tourmax],t_missile missiles[nb_tourmax],
+                    t_poney acteur[100],int nuIm);
 
 /// affichage poney ///
 void inimagMech1(t_sequence tab[3]);
@@ -128,6 +131,10 @@ void iniseqMech(t_sequence tab[3]);
 void iniMech(t_poney tab[3],t_sequence t[3]);
 void affichageMech(t_poney act[100],int nbAct);
 t_poney Deplacement(t_poney poney, BITMAP* TEST,int* a);
+void interaction_poney(BITMAP* page, BITMAP* TESTterrain1,BITMAP* b_nuage,BITMAP* b_bonbon, BITMAP* b_arc_enciel, BITMAP* explo[8],
+                       int nbActeurAff,int* ptsTour, int* vivant ,int* money,int nuIm,t_poney acteur[100],t_nuages nuage[nb_tourmax],
+                       t_tour bonbons[nb_tourmax],t_tour arc_en_ciel[nb_tourmax],int niv);
+
 
 /// gestion defenses///
 void gestion_missile (t_tour distributeur[nb_tourmax],t_missile missiles [nb_tourmax],t_poney acteur[100],int nbActeurAff);
