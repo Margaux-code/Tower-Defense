@@ -2,9 +2,7 @@
 
 void boucle_de_jeu(int niv)
 {
-    // Déclaration des pointeurs sur BITMAP devant recevoir des images
-    BITMAP *terrain1;
-    BITMAP *TESTterrain1;
+
     //BITMAP *anim;
     decor=create_bitmap(SCREEN_W,SCREEN_H);
     //anim=create_bitmap(SCREEN_W,SCREEN_H);
