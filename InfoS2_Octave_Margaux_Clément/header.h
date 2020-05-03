@@ -1,6 +1,7 @@
 #ifndef HEADER_H_INCLUDED
 #define HEADER_H_INCLUDED
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <allegro.h>
@@ -10,6 +11,9 @@
 #define tire_nuage 3
 #define ralentir_nuage 1
 #define vitesse_missile_nuage 10
+    // Déclaration des pointeurs sur BITMAP devant recevoir des images
+    BITMAP *terrain1;
+    BITMAP *TESTterrain1;
 BITMAP *page; // Double buffer
 BITMAP *buffer;//triple buffer
 BITMAP *decor; // Décor en fonction des niveaux
@@ -119,6 +123,7 @@ void initalisation();
 void initialise_tour(t_tour * nuage);
 
 /// affichage graphique ///
+void chargement_bitmap();
 BITMAP * load_bitmap_check(char *nomImage);  // Charger une bitmap
 void affichage_donnees_jeu(BITMAP* page, int niv, int ptsTour,int money,int ptsTourDEB);
 void affichage_tour(BITMAP* page,BITMAP* b_nuage,BITMAP* b_nuage_2,BITMAP* b_arc_enciel,BITMAP* b_arc_enciel_2,BITMAP* b_bonbon,BITMAP* b_distributeur,BITMAP* b_missile,
