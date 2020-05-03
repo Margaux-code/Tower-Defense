@@ -14,6 +14,7 @@ int main()
     chargement_bitmap();
     show_mouse(screen);
     jeu_presentation();
+    detruire_bitmap();
     return 0;
 
 }

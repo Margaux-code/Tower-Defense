@@ -117,3 +117,29 @@ void chargement_bitmap()
     }
 
 }
+
+void detruire_bitmap()
+{
+    destroy_bitmap(terrain1);
+    destroy_bitmap(TESTterrain1);
+    destroy_bitmap(page);
+    destroy_bitmap(buffer);
+    destroy_bitmap(decor);
+    destroy_bitmap(petitsponey);
+    destroy_bitmap(b_nuage);
+    destroy_bitmap(b_arc_enciel);
+    destroy_bitmap(b_bonbon);
+    destroy_bitmap(b_distributeur);
+    destroy_bitmap(b_missile);
+    destroy_bitmap(regles);
+    destroy_bitmap(menu);
+    destroy_bitmap(histoire);
+    destroy_bitmap(niveau);
+    destroy_bitmap(donjon);
+    destroy_bitmap(image_fin);
+    destroy_bitmap(game_over);
+    destroy_bitmap(im_choix_niv);
+    destroy_bitmap(b_nuage_2);
+    destroy_bitmap(b_arc_enciel_2);
+}
+
