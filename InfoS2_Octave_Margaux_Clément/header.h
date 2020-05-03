@@ -120,6 +120,7 @@ void initialise_tour(t_tour * nuage);
 
 /// affichage graphique ///
 BITMAP * load_bitmap_check(char *nomImage);  // Charger une bitmap
+void affichage_donnees_jeu(BITMAP* page, int niv, int ptsTour,int money,int ptsTourDEB);
 
 /// affichage poney ///
 void inimagMech1(t_sequence tab[3]);
@@ -127,6 +128,9 @@ void iniseqMech(t_sequence tab[3]);
 void iniMech(t_poney tab[3],t_sequence t[3]);
 void affichageMech(t_poney act[100],int nbAct);
 t_poney Deplacement(t_poney poney, BITMAP* TEST,int* a);
+
+/// gestion defenses///
+void gestion_missile (t_tour distributeur[nb_tourmax],t_missile missiles [nb_tourmax],t_poney acteur[100],int nbActeurAff);
 
 /// creation tableau acteur ///
 int creaTabActeur(t_poney acteur[100],t_poney typeperso[3],int i,int difficulte);
@@ -141,9 +145,9 @@ void sauvegarde_niveau(int diff);
 void inimagCoeur(BITMAP* tab[8]);
 
 ///DRAG AND DROP///
-void drag_and_drop(BITMAP* buffer,BITMAP* page,BITMAP* screen,BITMAP* b_nuage,BITMAP* b_arc_enciel, BITMAP* b_bonbon, BITMAP* b_distributeur,
-                t_nuages nuage[nb_tourmax],t_tour arc_en_ciel[nb_tourmax],t_tour bonbons[nb_tourmax],t_tour distributeur[nb_tourmax],
-                int* a,int* b,int* d, int* n ,int* money);
+void drag_and_drop(BITMAP* TESTterrain1,BITMAP* buffer,BITMAP* page,BITMAP* screen,BITMAP* b_nuage, BITMAP* b_nuage_2, BITMAP* b_arc_enciel,BITMAP* b_arc_enciel_2, BITMAP* b_bonbon, BITMAP* b_distributeur,
+                   t_nuages nuage[nb_tourmax],t_tour arc_en_ciel[nb_tourmax],t_tour bonbons[nb_tourmax],t_tour distributeur[nb_tourmax],
+                   int* a,int* b,int* d, int* n ,int* money);
 
 /// Blindage defense ///
 void blinde_pos_nuage(BITMAP* TESTterrain1,t_nuages nuage[nb_tourmax], int* n, int* money);
