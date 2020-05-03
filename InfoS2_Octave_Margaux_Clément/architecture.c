@@ -3,12 +3,7 @@
 void boucle_de_jeu(int niv)
 {
 
-    //BITMAP *anim;
-    decor=create_bitmap(SCREEN_W,SCREEN_H);
-    //anim=create_bitmap(SCREEN_W,SCREEN_H);
-    donjon = load_bitmap("image/Donjon_tour_fin.bmp",NULL);
-    image_fin = load_bitmap("image/image_fin_petits_poney.bmp",NULL);
-    game_over = load_bitmap("image/poney_triste.bmp",NULL);
+ 
     // Initialisation des poney
     int money = 100+(niv)*(15);
     t_sequence tab[3]; // Declaration du tableau avec sequence image poney
@@ -27,9 +22,7 @@ void boucle_de_jeu(int niv)
     inimagMech1(tab);
     iniMech(pon,tab);
     nbActeur = creaTabActeur(acteur,pon,nbActeur,niv);
-    // Chargement des images (l'allocation a lieu en même temps)
-    terrain1 = load_bitmap_check ("image/terrain/terrainlvl1.bmp");
-    TESTterrain1 = load_bitmap_check ("image/terrain/ligneterrainlvl1.bmp");
+
     t_nuages nuage[nb_tourmax];
     t_tour arc_en_ciel[nb_tourmax];
     t_tour bonbons[nb_tourmax];
@@ -146,7 +139,7 @@ void boucle_de_jeu(int niv)
             allegro_message("Vous avez gagné vous passez au niveau supérieur");
             niv++;
             sauvegarde_niveau(niv);
-            initialiser_niveau(niv);
+            
             boucle_de_jeu(niv);
         }
         else
@@ -704,46 +697,7 @@ void sauvegarde_partie(t_poney tab[100],int nbPoney,int nbPoneyAff)
     }
 }
 
-void initialiser_niveau(int niv)
-{
-    b_arc_enciel_2 = load_bitmap("image/arc_en_ciel2.bmp",NULL);
-    if (!b_arc_enciel_2)
-    {
-        allegro_message("pas pu trouver arc_enciel2.bmp");
-        exit(EXIT_FAILURE);
-    }
-    b_nuage_2=load_bitmap("image/nuage2.bmp",NULL);
-    if (!b_nuage_2)
-    {
-        allegro_message("pas pu trouver nuage2.bmp");
-        exit(EXIT_FAILURE);
-    }
-    b_nuage=load_bitmap("image/nuage1.bmp",NULL);
-    if (!b_nuage)
-    {
-        allegro_message("pas pu trouver nuage.bmp");
-        exit(EXIT_FAILURE);
-    }
 
-    b_bonbon=load_bitmap("image/bonbon1.bmp",NULL);
-    if (!b_bonbon)
-    {
-        allegro_message("pas pu trouver bonbon.bmp");
-        exit(EXIT_FAILURE);
-    }
-    b_arc_enciel=load_bitmap("image/arc_en_ciel1.bmp",NULL);
-    if (!b_arc_enciel)
-    {
-        allegro_message("pas pu trouver arc_en_ciel1.bmp");
-        exit(EXIT_FAILURE);
-    }
-       b_distributeur=load_bitmap("image/distributeur.bmp",NULL);
-        if (!b_distributeur)
-    {
-        allegro_message("pas pu trouver distributeur.bmp");
-        exit(EXIT_FAILURE);
-    }
-}
 
 void cinematique(int niv)
 {
@@ -879,7 +833,7 @@ void choix_niveau()
             if(niv>=1)
             {
                 a=1;
-                initialiser_niveau(a);
+                
                 cinematique(a);
                 boucle_de_jeu(a);
             }
@@ -893,7 +847,7 @@ void choix_niveau()
             if(niv>=2)
             {
                 a=2;
-                initialiser_niveau(a);
+                
                 cinematique(a);
                 boucle_de_jeu(a);
             }
@@ -912,7 +866,7 @@ void choix_niveau()
             if(niv>=3)
             {
                 a=3;
-                initialiser_niveau(a);
+               
                 cinematique(a);
                 boucle_de_jeu(a);
             }
